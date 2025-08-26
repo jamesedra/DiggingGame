@@ -29,3 +29,6 @@ function Vector3(_x = 0, _y = 0, _z = 0) constructor {
         return (len == 0) ? new Vector3(0,0,0) : new Vector3(x/len, y/len, z/len);
     };
 }
+
+
+

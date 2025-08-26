@@ -75,7 +75,20 @@ move_and_collide(xVelocity, yVelocity, oBlock)
 
 //MINE------------------------------------
 // Find the one block under the mouse (topmost in depth)
-var h = instance_position(mouse_x, mouse_y, oBlock); // use your block parent / object
+var playerPos = new Vector2(x, y)
+var mousePos = new Vector2(mouse_x, mouse_y)
+
+var ray = mousePos.sub(playerPos)
+
+var list = ds_list_create();
+var n = collision_line_list(x, y, mouse_x ,mouse_y, oBlock ,true,true,list,true)
+var h = (n > 0) ? list[|0] : noone; // first intersection
+ds_list_destroy(list);
+
+//check the first intersection of an oBlock from player to mouse
+//h = firstIntersection
+
+//var h = instance_position(mouse_x, mouse_y, oBlock); // 
 
 // Cache player position once per frame
 var p = instance_nearest(mouse_x, mouse_y, oPlayer);
