@@ -27,6 +27,7 @@
   "name":"DiggingGame",
   "resources":[
     {"id":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},},
+    {"id":{"name":"oCAGen_Alpha","path":"objects/oCAGen_Alpha/oCAGen_Alpha.yy",},},
     {"id":{"name":"oCameraController","path":"objects/oCameraController/oCameraController.yy",},},
     {"id":{"name":"oDirt","path":"objects/oDirt/oDirt.yy",},},
     {"id":{"name":"oPlayer","path":"objects/oPlayer/oPlayer.yy",},},

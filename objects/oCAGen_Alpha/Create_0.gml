@@ -119,10 +119,10 @@ for (var gy=0; gy<worldH; gy++) for (var gx=0; gx<worldW; gx++) if (ds_grid_get(
 show_debug_message("GENERATOR DONE | non-air=" + string(nonair) + " | surface_heights[0]=" + string(surface_heights[0]));
 
 tile_to_object = array_create(16, noone);
-tile_to_object[TILE_DIRT]  = oBlock_Dirt;
-tile_to_object[TILE_GRASS] = oBlock_Dirt;
-tile_to_object[TILE_STONE] = oBlock_Dirt; // optional
-tile_to_object[TILE_WATER] = oBlock_Dirt; // optional
+tile_to_object[TILE_DIRT]  = oDirt;
+tile_to_object[TILE_GRASS] = oDirt;
+tile_to_object[TILE_STONE] = oDirt; // optional
+tile_to_object[TILE_WATER] = oDirt; // optional
 
 // track instances so digging can remove them
 tile_instances = ds_grid_create(worldW, worldH);
