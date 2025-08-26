@@ -8,7 +8,6 @@ if keyboard_check(ord("A"))
 	if (abs(xVelocity - xAccel) < xVelocityMax)
 	{
 		xVelocity = xVelocity - xAccel
-		
 	}
 }
 
@@ -156,7 +155,12 @@ else
     mine_target = noone;
     mine_elapsed_us = 0;
 	
-	sprite_index = sPlayer_Walk_Right2
+	sprite_index = sPlayer_Walk_Right
+}
+
+if (xVelocity == 0.0)
+{
+	sprite_index = sPlayer_Idle
 }
 
 // break when charged long enough
@@ -164,7 +168,12 @@ if (mine_target != noone && mine_elapsed_us >= mine_target.mine_time_us)
 {
 	
 	show_debug_message(mine_target.mine_time_us)
-    with (mine_target) instance_destroy();
+    with (mine_target)
+	{
+	    spawn_block_gibs(6); // 4×4 = 16 pieces (try 6–8 for chunkier explosions)
+	    instance_destroy();
+	}
+
     mine_target = noone;
     last_hover = noone; // optional: clears highlight instantly
 }

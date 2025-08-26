@@ -138,7 +138,7 @@ for (var gy = 0; gy < rows; gy++) {
         if (t == TILE_AIR) continue;
         var obj_to_create = tile_to_object[t];
         if (obj_to_create == noone) continue;
-        var inst = instance_create_layer(gx*tileSize + tileSize/2, gy*tileSize + tileSize/2, "Instances", obj_to_create);
+        var inst = instance_create_layer(gx*tileSize + tileSize/2, gy*tileSize + tileSize/2, "World", obj_to_create);
         inst.gx = gx; inst.gy = gy; inst.tile_type = t;
         ds_grid_set(tile_instances, gx, gy, inst);
     }

@@ -1,0 +1,54 @@
+/// @func spawn_block_gibs(pieces)
+/// @desc Slices this instance's sprite into pieces×pieces and spawns oGib for each slice.
+function spawn_block_gibs(pieces)
+{
+    var spr = sprite_index;
+    var sub = image_index;
+    var ow  = sprite_get_xoffset(spr);
+    var oh  = sprite_get_yoffset(spr);
+    var tw  = sprite_get_width(spr);
+    var th  = sprite_get_height(spr);
+
+    var cols = max(1, pieces);
+    var rows = max(1, pieces);
+
+    // base cell size (integers)
+    var cw  = tw div cols;
+    var ch  = th div rows;
+
+    var lay = layer_get_id("FX_Gibs");
+	if (lay == -1) {
+	    // fallback: make one in front of the block layer
+	    lay = layer_create(layer_get_depth(layer) - 1000);
+	    layer_set_name(lay, "FX_Gibs");
+	}
+
+    for (var gy = 0; gy < rows; gy++)
+    for (var gx = 0; gx < cols; gx++)
+    {
+        // last row/col take the remainder so we cover 100% of the sprite
+        var sx = gx * cw;
+        var sy = gy * ch;
+        var sw = (gx == cols - 1) ? (tw - cw * (cols - 1)) : cw;
+        var sh = (gy == rows - 1) ? (th - ch * (rows - 1)) : ch;
+
+        var d = instance_create_layer(x, y, lay, oGib);
+        d.spr     = spr;
+        d.subimg  = sub;
+        d.src_x   = sx;
+        d.src_y   = sy;
+        d.src_w   = sw;
+        d.src_h   = sh;
+        d.orig_xo = ow;
+        d.orig_yo = oh;
+
+        // Kick pieces outward from where they are in the block
+        var cx = (sx + sw * 0.5) - ow;
+        var cy = (sy + sh * 0.5) - oh;
+        var dir = point_direction(0, 0, cx, cy) + random_range(-18, 18);
+        var spd = random_range(1.2, 5.0);
+
+        d.hsp = lengthdir_x(spd, dir) + random_range(-0.6, 0.6);
+        d.vsp = lengthdir_y(spd, dir) + random_range(-0.6, 0.6);
+    }
+}
