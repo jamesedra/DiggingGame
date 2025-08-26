@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sDirt",
-    "path":"sprites/sDirt/sDirt.yy",
+    "name":"sDirt2",
+    "path":"sprites/sDirt2/sDirt2.yy",
   },
   "spriteMaskId":null,
   "visible":true,

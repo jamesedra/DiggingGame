@@ -12,9 +12,11 @@ function format_time_ms(ms) {
 }
 
 function start_countdown(s) {
-    cd_total_ms      = max(0, round(s * 1000));
-    cd_remaining_ms  = cd_total_ms;
-    last_sec         = -1;   // keep your pulse logic
-    pulse_t          = 0;
-    running          = true;
+    cd_total_ms     = max(0, round(s * 1000));
+    cd_remaining_ms = cd_total_ms;
+    last_sec        = -1;
+    pulse_t         = 0;
+    running         = true;
+    state           = "play";
+    global.freeze_inputs = false;
 }

@@ -1,5 +1,3 @@
-if (!running) exit;
-
 var dt_ms = delta_time / 1000;          // microseconds -> ms
 var dt    = delta_time / 1000000;       // seconds
 
@@ -7,7 +5,11 @@ if (count_up) {
     timer_ms += dt_ms;
 } else if (count_down) {
     cd_remaining_ms = max(0, cd_remaining_ms - dt_ms);
-    if (cd_remaining_ms <= 0) running = false;
+    if (cd_remaining_ms <= 0) {
+        cd_remaining_ms = 0;
+        running = false;
+        pulse_t = 1.0;  // <-- trigger pop for "GET OUT!"
+    }
 }
 
 // detect whole-second tick for the pop

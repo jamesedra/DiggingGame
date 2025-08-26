@@ -14,6 +14,6 @@ gravity   = 0.25;
 drag      = 0.985;
 bounce    = 0.35;
 
-life      = irandom_range(12, 25);
+life      = irandom_range(20, 42);
 fade_tail = 10;     // last N steps fade out
 image_alpha = 1;

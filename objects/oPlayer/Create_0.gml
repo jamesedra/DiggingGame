@@ -19,3 +19,6 @@ highlight_radius = 25; // tweak
 // mining (hold) config
 mine_target      = noone;
 mine_elapsed_us  = 0;
+
+start_x = x;
+start_y = y;

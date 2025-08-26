@@ -20,6 +20,13 @@ pulse_t      = 0.0;    // 0..1
 pulse_decay  = 6.0;    // how fast the pop fades (per second)
 last_sec     = -1;     // to detect new seconds
 
+// pop/breathe settings for the GET OUT text
+out_base        = 0.60;   // base scale
+out_pop_amp     = 0.40;   // extra scale from the one-shot pop (0.4 = +40%)
+out_breathe_amp = 0.05;   // gentle ongoing pulse amount (+/- 5%)
+out_speed_hz    = 1.8;    // pulses per second
+out_phase       = 0.0;    // phase accumulator (radians)
+
 // (Optional) use your big arcade font resource if you have one:
 has_font     = true;  
 

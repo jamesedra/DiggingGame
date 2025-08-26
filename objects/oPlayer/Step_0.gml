@@ -172,7 +172,7 @@ if (mine_target != noone && mine_elapsed_us >= mine_target.mine_time_us)
 	show_debug_message(mine_target.mine_time_us)
     with (mine_target)
 	{
-	    spawn_block_gibs(6); // 4×4 = 16 pieces (try 6–8 for chunkier explosions)
+	    spawn_block_gibs(8); // 4×4 = 16 pieces (try 6–8 for chunkier explosions)
 	    instance_destroy();
 	}
 
