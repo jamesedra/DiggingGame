@@ -155,12 +155,14 @@ else
     mine_target = noone;
     mine_elapsed_us = 0;
 	
-	sprite_index = sPlayer_Walk_Right
-}
-
-if (xVelocity == 0.0)
-{
-	sprite_index = sPlayer_Idle
+	if (xVelocity == 0.0)
+	{
+		sprite_index = sPlayer_Idle
+	}
+	else
+	{
+		sprite_index = sPlayer_Walk_Right
+	}
 }
 
 // break when charged long enough
