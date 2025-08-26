@@ -35,6 +35,8 @@
     {"id":{"name":"World","path":"rooms/World/World.yy",},},
     {"id":{"name":"DataStructs","path":"scripts/DataStructs/DataStructs.yy",},},
     {"id":{"name":"sDirt","path":"sprites/sDirt/sDirt.yy",},},
+    {"id":{"name":"sPlayer_Mine","path":"sprites/sPlayer_Mine/sPlayer_Mine.yy",},},
+    {"id":{"name":"sPlayer_Walk_Right","path":"sprites/sPlayer_Walk_Right/sPlayer_Walk_Right.yy",},},
     {"id":{"name":"sPlayer","path":"sprites/sPlayer/sPlayer.yy",},},
     {"id":{"name":"sRock","path":"sprites/sRock/sRock.yy",},},
   ],

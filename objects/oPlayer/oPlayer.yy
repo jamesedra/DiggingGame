@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sPlayer",
-    "path":"sprites/sPlayer/sPlayer.yy",
+    "name":"sPlayer_Walk_Right",
+    "path":"sprites/sPlayer_Walk_Right/sPlayer_Walk_Right.yy",
   },
   "spriteMaskId":null,
   "visible":true,

@@ -136,6 +136,8 @@ var can_mine  = (h != noone) && allow;  // re-use your hover + distance check
 
 if (left_held && can_mine)
 {
+	sprite_index = sPlayer_Mine
+
     if (mine_target != h)
 	{
         // started holding on a new block
@@ -153,6 +155,8 @@ else
     // released, moved off, or out of range -> reset
     mine_target = noone;
     mine_elapsed_us = 0;
+	
+	sprite_index = sPlayer_Walk_Right2
 }
 
 // break when charged long enough
@@ -163,5 +167,15 @@ if (mine_target != noone && mine_elapsed_us >= mine_target.mine_time_us)
     with (mine_target) instance_destroy();
     mine_target = noone;
     last_hover = noone; // optional: clears highlight instantly
+}
+
+//mirror sprite?
+if (ray.x < 0)
+{
+	image_xscale = -1
+}
+else
+{
+	image_xscale = 1
 }
 
