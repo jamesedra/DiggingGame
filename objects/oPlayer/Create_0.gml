@@ -18,5 +18,5 @@ last_hover = noone;
 highlight_radius = 25; // tweak
 // mining (hold) config
 mine_target      = noone;
-mine_time_us     = 200000; // 0.40 seconds to break (microseconds)
+mine_time_us     = 400000; // 0.40 seconds to break (microseconds)
 mine_elapsed_us  = 0;

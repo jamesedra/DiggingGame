@@ -43,7 +43,7 @@ if (!moved)
 //---------------------------
 
 //JUMP------------------------
-if place_meeting(x, y+1, oBlock_Dirt)
+if place_meeting(x, y+1, oBlock)
 {
 	yVelocity = 0.0
 	canDoubleJump = true
@@ -71,11 +71,11 @@ if  (canDoubleJump && releasedJump && keyboard_check_pressed(vk_space))
 //-------------------------------------
 
 //MOVE PLAYER
-move_and_collide(xVelocity, yVelocity, oBlock_Dirt)
+move_and_collide(xVelocity, yVelocity, oBlock)
 
 //MINE------------------------------------
 // Find the one block under the mouse (topmost in depth)
-var h = instance_position(mouse_x, mouse_y, oBlock_Dirt); // use your block parent / object
+var h = instance_position(mouse_x, mouse_y, oBlock); // use your block parent / object
 
 // Cache player position once per frame
 var p = instance_nearest(mouse_x, mouse_y, oPlayer);
@@ -118,27 +118,33 @@ last_hover = h;
 
 
 // --- HOLD TO DESTROY ---
-
 var left_held = mouse_check_button(mb_left);
 var can_mine  = (h != noone) && allow;  // re-use your hover + distance check
 
-if (left_held && can_mine) {
-    if (mine_target != h) {
+if (left_held && can_mine)
+{
+    if (mine_target != h)
+	{
         // started holding on a new block
         mine_target = h;
         mine_elapsed_us = 0;
-    } else {
+    }
+	else
+	{
         // keep charging while still on the same valid block
         mine_elapsed_us += delta_time; // delta_time is microseconds
     }
-} else {
+}
+else
+{
     // released, moved off, or out of range -> reset
     mine_target = noone;
     mine_elapsed_us = 0;
 }
 
 // break when charged long enough
-if (mine_target != noone && mine_elapsed_us >= mine_time_us) {
+if (mine_target != noone && mine_elapsed_us >= mine_time_us) 
+{
     with (mine_target) instance_destroy();
     mine_target = noone;
     last_hover = noone; // optional: clears highlight instantly
