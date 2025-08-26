@@ -30,6 +30,7 @@
     {"id":{"name":"oCameraController","path":"objects/oCameraController/oCameraController.yy",},},
     {"id":{"name":"oPlayer","path":"objects/oPlayer/oPlayer.yy",},},
     {"id":{"name":"World","path":"rooms/World/World.yy",},},
+    {"id":{"name":"DataStructs","path":"scripts/DataStructs/DataStructs.yy",},},
     {"id":{"name":"sDirt","path":"sprites/sDirt/sDirt.yy",},},
     {"id":{"name":"sPlayer","path":"sprites/sPlayer/sPlayer.yy",},},
   ],
