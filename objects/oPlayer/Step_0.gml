@@ -143,8 +143,10 @@ else
 }
 
 // break when charged long enough
-if (mine_target != noone && mine_elapsed_us >= mine_time_us) 
+if (mine_target != noone && mine_elapsed_us >= mine_target.mine_time_us) 
 {
+	
+	show_debug_message(mine_target.mine_time_us)
     with (mine_target) instance_destroy();
     mine_target = noone;
     last_hover = noone; // optional: clears highlight instantly

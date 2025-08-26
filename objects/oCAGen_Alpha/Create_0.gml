@@ -121,7 +121,7 @@ show_debug_message("GENERATOR DONE | non-air=" + string(nonair) + " | surface_he
 tile_to_object = array_create(16, noone);
 tile_to_object[TILE_DIRT]  = oDirt;
 tile_to_object[TILE_GRASS] = oDirt;
-tile_to_object[TILE_STONE] = oDirt; // optional
+tile_to_object[TILE_STONE] = oRock; // optional
 tile_to_object[TILE_WATER] = oDirt; // optional
 
 // track instances so digging can remove them

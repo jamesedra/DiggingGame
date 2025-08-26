@@ -1,5 +1,5 @@
 if (mine_target != noone && mouse_check_button(mb_left)) {
-    var t = clamp(mine_elapsed_us / mine_time_us, 0, 1);
+    var t = clamp(mine_elapsed_us / mine_target.mine_time_us, 0, 1);
     var w = 48, hbar = 6;
     var sx = device_mouse_x_to_gui(0);
     var sy = device_mouse_y_to_gui(0) - 20;
