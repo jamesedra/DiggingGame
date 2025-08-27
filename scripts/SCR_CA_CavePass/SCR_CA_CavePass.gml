@@ -46,7 +46,7 @@ function world_ca_carve_chunk(_ccol, _crow, _g) {
     // --- 2) Smoothing (classic 4–5 Moore rule; NO self in the count)
     for (var it = 0; it < W.ca_iters; it++) {
 	    var birth = 4;  // cave -> wall if > 4 wall neighbors (easier to fill caves)
-	    var death = 4;  // wall stays wall if >= 4 wall neighbors (walls survive more)
+	    var death = 3;  // wall stays wall if >= 4 wall neighbors (walls survive more)
 
 	    for (var iy = 1; iy < lh - 1; iy++) {
 	        for (var ix = 1; ix < lw - 1; ix++) {
