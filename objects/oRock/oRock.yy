@@ -4,12 +4,19 @@
   "eventList":[],
   "managed":true,
   "name":"oRock",
-  "overriddenProperties":[],
+  "overriddenProperties":[
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"rotateRandom","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"True",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"value","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"10",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"mine_time_us","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"200000",},
+  ],
   "parent":{
     "name":"Objects",
     "path":"folders/Objects.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"oBlock",
+    "path":"objects/oBlock/oBlock.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

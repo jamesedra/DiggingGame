@@ -31,6 +31,7 @@
   "resources":[
     {"id":{"name":"Arcade72","path":"fonts/Arcade72/Arcade72.yy",},},
     {"id":{"name":"oBiscuitGib","path":"objects/oBiscuitGib/oBiscuitGib.yy",},},
+    {"id":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},},
     {"id":{"name":"oCAGen_Alpha","path":"objects/oCAGen_Alpha/oCAGen_Alpha.yy",},},
     {"id":{"name":"oCameraController","path":"objects/oCameraController/oCameraController.yy",},},
     {"id":{"name":"oChest_Wood","path":"objects/oChest_Wood/oChest_Wood.yy",},},
