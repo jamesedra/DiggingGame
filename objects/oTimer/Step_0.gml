@@ -10,7 +10,7 @@ if (count_up) {
         running = false;
         pulse_t = 1.0;  // <-- trigger pop for "GET OUT!"
 		//start lava rising
-		lavaInstance.rising = true
+		// lavaInstance.rising = true
     }
 }
 
