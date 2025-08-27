@@ -53,7 +53,7 @@ function world_init(_cols, _rows, _tile_size, _seed, _chunk_w, _chunk_h) {
 	W.zone_chunk_labels		= ds_map_create();   // "cx,cy" -> ds_grid of labels (0 = not in zone)
 	W.zone_min_cells		= 40;                // threshold to consider “active” (tune)
 	W.zone_cells_per_spawn	= 150;
-	W.zone_spawns_per_chunk_cap = 3;
+	W.zone_spawns_per_chunk_cap = 5;
 	// Track spawns per zone
 	W.zone_spawn_goal  = ds_map_create(); // id -> target number of spawns for this zone
 	W.zone_spawn_count = ds_map_create(); // id -> how many we’ve already placed

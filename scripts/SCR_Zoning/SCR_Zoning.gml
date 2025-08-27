@@ -196,8 +196,6 @@ function world_zone_merge_with_neighbors(_ccol, _crow) {
         }
     }
 }
-
-
 function world_zones_spawn_for_chunk(_ccol, _crow) {
     var W   = global.World;
     var key = world_chunk_key(_ccol, _crow);
@@ -206,51 +204,83 @@ function world_zones_spawn_for_chunk(_ccol, _crow) {
     var labels = ds_map_find_value(W.zone_chunk_labels, key);
     var gw = W.chunk_w, gh = W.chunk_h;
 
-    // gather unique root ids present in this chunk
+    // Unique zone roots present in THIS chunk
     var seen = ds_map_create();
     for (var ly = 0; ly < gh; ly++) {
         for (var lx = 0; lx < gw; lx++) {
-            var zid = ds_grid_get(labels, lx, ly);
-            if (zid <= 0) continue;
-            var rid = __zone_find(zid);
+            var lid = ds_grid_get(labels, lx, ly);
+            if (lid <= 0) continue;
+            var rid = __zone_find(lid);
             if (!ds_map_exists(seen, rid)) ds_map_add(seen, rid, 1);
         }
     }
 
-    // try spawn once per zone if big enough and not yet spawned
+    // For each zone in this chunk, spawn up to its remaining goal
     var k = ds_map_find_first(seen);
     while (!is_undefined(k)) {
         var rid   = real(k);
         var zsize = ds_map_find_value(W.zone_size, rid);
-        if (zsize >= W.zone_min_cells && !ds_map_exists(W.zone_spawned, rid)) {
 
-            // pick a random AIR cell inside THIS chunk that belongs to this zone
-            var tries = 200;
-            while (tries-- > 0) {
-                var rx = irandom(gw-1);
-                var ry = irandom(gh-1);
-                if (ds_grid_get(labels, rx, ry) <= 0) continue;
-                if (__zone_find(ds_grid_get(labels, rx, ry)) != rid) continue;
+        if (zsize >= W.zone_min_cells) {
+            // compute goal once per zone
+            var goal;
+            if (ds_map_exists(W.zone_spawn_goal, rid)) {
+                goal = ds_map_find_value(W.zone_spawn_goal, rid);
+            } else {
+                goal = max(1, ceil(zsize / W.zone_cells_per_spawn));
+                ds_map_add(W.zone_spawn_goal, rid, goal);
+            }
 
-                // found a cell
-                var wcol = _ccol * W.chunk_w + rx;
-                var wrow = _crow * W.chunk_h + ry;
+            var placed = 0;
+            var have   = ds_map_exists(W.zone_spawn_count, rid) ? ds_map_find_value(W.zone_spawn_count, rid) : 0;
+            var remain = goal - have;
 
-                // convert to pixels
-                var px = wcol * W.tileSize + (W.tileSize * 0.5);
-                var py = wrow * W.tileSize + (W.tileSize * 0.5);
+            if (remain > 0) {
+                // Don’t flood a single frame: cap per chunk pass
+                var to_place = min(remain, W.zone_spawns_per_chunk_cap);
+                var tries    = to_place * 80; // sampling attempts budget for this chunk
 
-                // choose what to spawn: example split
-                var obj_to_make = choose(oChest_Wood, oDirt); // child types of oBlock
-                var inst = instance_create_layer(px, py, W.vis_layer, obj_to_make);
-                inst.gcol = wcol; inst.grow = wrow; // tag if needed
+                while (to_place > 0 && tries-- > 0) {
+                    var rx = irandom(gw - 1);
+                    var ry = irandom(gh - 1);
 
-                ds_map_add(W.zone_spawned, rid, 1);
-                break;
+                    var lid2 = ds_grid_get(labels, rx, ry);
+                    if (lid2 <= 0) continue;
+                    if (__zone_find(lid2) != rid) continue;
+
+                    // world coords of this AIR cell
+                    var wcol = _ccol * W.chunk_w + rx;
+                    var wrow = _crow * W.chunk_h + ry;
+
+                    // convert to pixels
+                    var px = wcol * W.tileSize + (W.tileSize * 0.5);
+                    var py = wrow * W.tileSize + (W.tileSize * 0.5);
+
+                    // pick what to spawn — replace with your real objects
+                    var obj_to_make = choose(oChest_Wood, oDirt);
+                    if (!is_undefined(obj_to_make) && obj_to_make != noone) {
+                        var inst = instance_create_layer(px, py, W.vis_layer, obj_to_make);
+                        if (!is_undefined(inst)) {
+                            placed  += 1;
+                            to_place -= 1;
+                        }
+                    }
+                }
+
+                if (placed > 0) {
+                    have += placed;
+                    if (ds_map_exists(W.zone_spawn_count, rid)) {
+                        ds_map_replace(W.zone_spawn_count, rid, have);
+                    } else {
+                        ds_map_add(W.zone_spawn_count, rid, have);
+                    }
+                }
             }
         }
+
         k = ds_map_find_next(seen, k);
     }
 
     ds_map_destroy(seen);
 }
+
