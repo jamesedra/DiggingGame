@@ -1,0 +1,35 @@
+var world_cols = 2048;
+var world_rows = 4096;
+var tile_sz    = 16;
+var seed_val   = 424242;
+var chw        = 32;
+var chh        = 16;
+
+world_init(world_cols, world_rows, tile_sz, seed_val, chw, chh);
+
+// map tiles -> objects you already have
+function world_vis_config_objects() {
+    var W = global.World;
+    W.tile_to_obj = array_create(16, noone);
+    W.tile_to_obj[W.TILE_GRASS] = oDirt;  // reuse sprite/collision
+    W.tile_to_obj[W.TILE_DIRT]  = oDirt;
+    W.tile_to_obj[W.TILE_STONE] = oRock;
+    // AIR/WATER stay noone (no instance)
+}
+
+// visuals state
+function world_vis_init(_layer_name) {
+    var W = global.World;
+    W.vis_layer = _layer_name;      // e.g. "World"
+    W.vis_chunk = ds_map_create();  // "cx,cy" -> ds_grid of instance ids
+}
+
+world_vis_init("World");
+world_vis_config_objects();
+
+// init streaming and request just the visible room area once
+world_stream_init(2); // generate up to 2 chunks per Step
+
+var cols_vis = (room_width  div tile_sz);
+var rows_vis = (room_height div tile_sz);
+world_request_chunks_rect(0, 0, cols_vis - 1, rows_vis - 1);

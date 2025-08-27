@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"SCR_WorldGen_Init_DeInit",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"SCR_WorldGen_Init_DeInit",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
