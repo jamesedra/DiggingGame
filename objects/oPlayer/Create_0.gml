@@ -25,3 +25,4 @@ start_y = y;
 
 //points
 points = 0
+global.input_locked = false;
