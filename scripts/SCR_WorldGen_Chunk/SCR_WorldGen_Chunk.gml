@@ -24,7 +24,7 @@ function world_generate_chunk(_ccol, _crow) {
             else                       ds_grid_set(g, lx, ly, W.TILE_STONE);
         }
     }
-	world_ca_carve_chunk(_ccol, _crow, g);
+	// world_ca_carve_chunk(_ccol, _crow, g);
 	
     return g;
 }

@@ -1,5 +1,5 @@
 var world_cols = 2048;
-var world_rows = 4096;
+var world_rows = 2048;
 var tile_sz    = 16;
 var seed_val   = 424242;
 var chw        = 32;
