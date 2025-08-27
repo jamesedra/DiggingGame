@@ -38,12 +38,25 @@ function world_init(_cols, _rows, _tile_size, _seed, _chunk_w, _chunk_h) {
     W.ground_base     = array_create(W.cols, 0);
 	
 	// CA (caves) params
-	W.ca_fill_chance   = 0.15; // 0..1 : initial chance to be CAVE in the deep area
-	W.ca_iters         = 5;    // smoothing passes (3..6 typical)
+	W.ca_fill_chance   = 0.005; // 0..1 : initial chance to be CAVE in the deep area
+	W.ca_iters         = 2;    // smoothing passes (3..6 typical)
 	W.ca_start_offset  = 6;    // tiles below surface before caves may appear
-	
 	// Neighborhood influence expands ~= iters tiles. Make sure pad covers it.
 	W.chunk_pad = max(W.chunk_pad, W.ca_iters + 1);
+	
+	// Zones params
+	W.zone_next_id			= 1;                 // incremental id
+	W.zone_parent			= ds_map_create();   // id -> parent (union-find)
+	W.zone_size				= ds_map_create();   // id -> cell count
+	W.zone_bbox				= ds_map_create();   // id -> [minC, maxC, minR, maxR] array
+	W.zone_spawned			= ds_map_create();   // id -> 1 when we’ve spawned content
+	W.zone_chunk_labels		= ds_map_create();   // "cx,cy" -> ds_grid of labels (0 = not in zone)
+	W.zone_min_cells		= 40;                // threshold to consider “active” (tune)
+	W.zone_cells_per_spawn	= 150;
+	W.zone_spawns_per_chunk_cap = 5;
+	// Track spawns per zone
+	W.zone_spawn_goal  = ds_map_create(); // id -> target number of spawns for this zone
+	W.zone_spawn_count = ds_map_create(); // id -> how many we’ve already placed
 
     // chunk storage map — use variable_struct_exists to avoid reading a missing field
 	if (variable_struct_exists(W, "chunk_map") && ds_exists(W.chunk_map, ds_type_map)) {

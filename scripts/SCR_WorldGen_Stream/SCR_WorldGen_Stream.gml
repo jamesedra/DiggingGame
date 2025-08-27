@@ -35,17 +35,31 @@ function world_request_chunks_rect(_col0, _row0, _col1, _row1) {
 function world_step_process_generation() {
     var W = global.World;
     var n = W.max_chunks_per_step;
+
     while (n > 0 && !ds_queue_empty(W.gen_queue)) {
-        var key = ds_queue_dequeue(W.gen_queue);
-        // parse "cx,cy"
+        var key   = ds_queue_dequeue(W.gen_queue);
         var parts = string_split(key, ",");
-        var cx = real(parts[0]);
-        var cy = real(parts[1]);
+        var cx    = real(parts[0]);
+        var cy    = real(parts[1]);
 
-        // generate now
-        world_get_or_create_chunk(cx, cy);
+        // 1) Generate (or fetch) the DATA chunk grid
+        var chunk_grid = world_get_or_create_chunk(cx, cy);
 
-        // mark not pending
+        // Safety guard (helps catch accidental nils)
+        if (is_undefined(chunk_grid) || !ds_exists(chunk_grid, ds_type_grid)) {
+            show_debug_message("ERROR: world_get_or_create_chunk returned undefined for " + key);
+            // Ensure we don’t stay stuck on this key
+            if (ds_map_exists(W.gen_pending, key)) ds_map_delete(W.gen_pending, key);
+            n -= 1;
+            continue;
+        }
+
+        // 2) Label/merge zones, then do one-time spawns (all based on AIR cells)
+        world_zone_label_chunk(cx, cy, chunk_grid);
+        world_zone_merge_with_neighbors(cx, cy);
+        world_zones_spawn_for_chunk(cx, cy);
+
+        // 3) Mark as completed
         if (ds_map_exists(W.gen_pending, key)) ds_map_delete(W.gen_pending, key);
         n -= 1;
     }
