@@ -36,6 +36,14 @@ function world_init(_cols, _rows, _tile_size, _seed, _chunk_w, _chunk_h) {
     // arrays
     W.surface_heights = array_create(W.cols, 0);
     W.ground_base     = array_create(W.cols, 0);
+	
+	// CA (caves) params
+	W.ca_fill_chance   = 0.15; // 0..1 : initial chance to be CAVE in the deep area
+	W.ca_iters         = 5;    // smoothing passes (3..6 typical)
+	W.ca_start_offset  = 6;    // tiles below surface before caves may appear
+	
+	// Neighborhood influence expands ~= iters tiles. Make sure pad covers it.
+	W.chunk_pad = max(W.chunk_pad, W.ca_iters + 1);
 
     // chunk storage map — use variable_struct_exists to avoid reading a missing field
 	if (variable_struct_exists(W, "chunk_map") && ds_exists(W.chunk_map, ds_type_map)) {
@@ -95,7 +103,7 @@ function world_shutdown() {
         W.chunk_map = undefined;
     }
 
-    // destroy instance map if you use it (we're not storing DS inside it yet)
+    // destroy instance map if you use it (not storing DS inside it yet)
     if (variable_struct_exists(W, "inst_map") && ds_exists(W.inst_map, ds_type_map)) {
         ds_map_destroy(W.inst_map);
         W.inst_map = undefined;

@@ -7,7 +7,7 @@ var chh        = 16;
 
 world_init(world_cols, world_rows, tile_sz, seed_val, chw, chh);
 
-// map tiles -> objects you already have
+// map tiles
 function world_vis_config_objects() {
     var W = global.World;
     W.tile_to_obj = array_create(16, noone);

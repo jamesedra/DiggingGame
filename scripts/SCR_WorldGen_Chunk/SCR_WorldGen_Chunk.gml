@@ -24,6 +24,8 @@ function world_generate_chunk(_ccol, _crow) {
             else                       ds_grid_set(g, lx, ly, W.TILE_STONE);
         }
     }
+	world_ca_carve_chunk(_ccol, _crow, g);
+	
     return g;
 }
 
@@ -195,6 +197,46 @@ function world_vis_clear_outside_radius(_cam, _radius_chunks) {
         if (dist > _radius_chunks) {
             world_vis_clear_chunk(cc, cr);
             // restart iteration because we mutated the map
+            k = ds_map_find_first(m);
+        } else {
+            k = ds_map_find_next(m, k);
+        }
+    }
+}
+
+function world_clear_chunk(_ccol, _crow) {
+    var W = global.World;
+    var key = world_chunk_key(_ccol, _crow);
+    if (ds_map_exists(W.vis_chunk, key)) world_vis_clear_chunk(_ccol, _crow);
+    if (ds_map_exists(W.chunk_map, key)) {
+        var g = ds_map_find_value(W.chunk_map, key);
+        if (ds_exists(g, ds_type_grid)) ds_grid_destroy(g);
+        ds_map_delete(W.chunk_map, key);
+    }
+    if (variable_struct_exists(W,"gen_pending") && ds_map_exists(W.gen_pending,key)) {
+        ds_map_delete(W.gen_pending, key);
+    }
+}
+
+function world_data_clear_outside_radius(_cam, _radius_chunks) {
+    var W  = global.World;
+    var vx = camera_get_view_x(_cam), vy = camera_get_view_y(_cam);
+    var vw = camera_get_view_width(_cam), vh = camera_get_view_height(_cam);
+
+    var mid_col = floor((vx + vw*0.5) / W.tileSize);
+    var mid_row = floor((vy + vh*0.5) / W.tileSize);
+    var cc_mid  = world_worldcol_to_chunkcol(mid_col);
+    var cr_mid  = world_worldrow_to_chunkrow(mid_row);
+
+    var m = W.chunk_map;
+    var k = ds_map_find_first(m);
+    while (!is_undefined(k)) {
+        var parts = string_split(k, ",");
+        var cc = real(parts[0]), cr = real(parts[1]);
+        var dist = max(abs(cc - cc_mid), abs(cr - cr_mid));
+        if (dist > _radius_chunks) {
+            world_clear_chunk(cc, cr); // clears visuals + data
+            // restart because map mutated
             k = ds_map_find_first(m);
         } else {
             k = ds_map_find_next(m, k);
