@@ -11,7 +11,7 @@ world_init(world_cols, world_rows, tile_sz, seed_val, chw, chh);
 function world_vis_config_objects() {
     var W = global.World;
     W.tile_to_obj = array_create(16, noone);
-    W.tile_to_obj[W.TILE_GRASS] = oDirt;  // reuse sprite/collision
+    W.tile_to_obj[W.TILE_GRASS] = oGrass;
     W.tile_to_obj[W.TILE_DIRT]  = oDirt;
     W.tile_to_obj[W.TILE_STONE] = oRock;
     // AIR/WATER stay noone (no instance)
