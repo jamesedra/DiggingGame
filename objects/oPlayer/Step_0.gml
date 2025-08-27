@@ -1,4 +1,7 @@
 //xVelocity = 0
+if (global.input_locked) exit; 
+if (keyboard_check_pressed(ord("R"))) open_pause_menu();
+
 yVelocity += yAccel
 //LEFT AND RIGHT MOVEMENT-------
 moved = false;

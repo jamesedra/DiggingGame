@@ -11,6 +11,8 @@ if (rising)
 
 // 2) Kill on touch (if any player's feet are under the surface)
 with (oPlayer) {
-    if (bbox_bottom > other.surface_y) {
+    if (bbox_bottom > other.surface_y) 
+	{
+		open_try_again();
     }
 }
