@@ -57,6 +57,7 @@
     {"id":{"name":"SCR_WorldGen_Debug","path":"scripts/SCR_WorldGen_Debug/SCR_WorldGen_Debug.yy",},},
     {"id":{"name":"SCR_WorldGen_Init_DeInit","path":"scripts/SCR_WorldGen_Init_DeInit/SCR_WorldGen_Init_DeInit.yy",},},
     {"id":{"name":"SCR_WorldGen_Stream","path":"scripts/SCR_WorldGen_Stream/SCR_WorldGen_Stream.yy",},},
+    {"id":{"name":"SCR_Zoning","path":"scripts/SCR_Zoning/SCR_Zoning.yy",},},
     {"id":{"name":"Timer","path":"scripts/Timer/Timer.yy",},},
     {"id":{"name":"TryAgain","path":"scripts/TryAgain/TryAgain.yy",},},
     {"id":{"name":"AugustUltraAmbience","path":"sounds/AugustUltraAmbience/AugustUltraAmbience.yy",},},
