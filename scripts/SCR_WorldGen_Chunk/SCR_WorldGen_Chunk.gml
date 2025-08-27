@@ -83,7 +83,8 @@ function world_is_solid(_col, _row) {
     return true;
 }
 
-function world_request_chunks_for_camera(_cam, _margin_tiles) {
+function world_request_chunks_for_camera(_cam, _margin_tiles)
+{
     var W  = global.World;
     var vx = camera_get_view_x(_cam);
     var vy = camera_get_view_y(_cam);

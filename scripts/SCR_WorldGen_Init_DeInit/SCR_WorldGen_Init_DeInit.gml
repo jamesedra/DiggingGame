@@ -44,6 +44,22 @@ function world_init(_cols, _rows, _tile_size, _seed, _chunk_w, _chunk_h) {
 	
 	// Neighborhood influence expands ~= iters tiles. Make sure pad covers it.
 	W.chunk_pad = max(W.chunk_pad, W.ca_iters + 1);
+	
+	// zones
+	W.zone_w         = 64;     // tiles per zone (width)
+	W.zone_h         = 64;     // tiles per zone (height)
+	W.zone_threshold = 0.60;   // >=60% open => active
+
+	// Optional tags for later use
+	W.ZONE_NONE    = 0;
+	W.ZONE_LOOT    = 1;
+	W.ZONE_MONSTER = 2;
+
+	if (variable_struct_exists(W, "zone_map") && ds_exists(W.zone_map, ds_type_map)) {
+	    ds_map_clear(W.zone_map);
+	} else {
+	    W.zone_map = ds_map_create();  // key "zc,zr" -> zone struct
+	}
 
     // chunk storage map — use variable_struct_exists to avoid reading a missing field
 	if (variable_struct_exists(W, "chunk_map") && ds_exists(W.chunk_map, ds_type_map)) {

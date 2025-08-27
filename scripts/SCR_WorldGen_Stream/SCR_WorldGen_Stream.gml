@@ -35,17 +35,18 @@ function world_request_chunks_rect(_col0, _row0, _col1, _row1) {
 function world_step_process_generation() {
     var W = global.World;
     var n = W.max_chunks_per_step;
+
     while (n > 0 && !ds_queue_empty(W.gen_queue)) {
-        var key = ds_queue_dequeue(W.gen_queue);
-        // parse "cx,cy"
+        var key   = ds_queue_dequeue(W.gen_queue);
         var parts = string_split(key, ",");
         var cx = real(parts[0]);
         var cy = real(parts[1]);
 
-        // generate now
-        world_get_or_create_chunk(cx, cy);
+        // Generate (or fetch) the data chunk grid
+        var ch = world_get_or_create_chunk(cx, cy);
 
-        // mark not pending
+        // (zone calls removed for now)
+
         if (ds_map_exists(W.gen_pending, key)) ds_map_delete(W.gen_pending, key);
         n -= 1;
     }
