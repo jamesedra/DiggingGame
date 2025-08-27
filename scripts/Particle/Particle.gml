@@ -52,3 +52,22 @@ function spawn_block_gibs(pieces)
         d.vsp = lengthdir_y(spd, dir) + random_range(-0.6, 0.6);
     }
 }
+
+/// @function spawn_biscuit_burst(x, y, spr_biscuit, count, layer_id_or_name)
+function spawn_biscuit_burst(_x, _y, _count) {
+    var lay = layer_get_id("FX_Gibs");
+
+    repeat (_count) {
+        var bx = _x + random_range(-3, 3);
+        var by = _y + random_range(-3, 3);
+        var inst = instance_create_layer(bx, by, lay, oBiscuitGib);
+
+        // Optionally override motion for more radial “pop”
+        var spd = random_range(2.6, 4.6);
+        var dir = irandom(359);
+        inst.vx  = lengthdir_x(spd, dir);
+        inst.vy  = lengthdir_y(spd, dir) - random_range(0.8, 1.8);
+        inst.life_s = random_range(0.55, 0.9);
+        inst.spin_deg = irandom_range(-14, 14);
+    }
+}

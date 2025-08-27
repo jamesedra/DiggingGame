@@ -170,6 +170,20 @@ if (mine_target != noone && mine_elapsed_us >= mine_target.mine_time_us)
 {
 	
 	show_debug_message(mine_target.mine_time_us)
+	
+	//reward player if applicable
+	if (object_is_ancestor(mine_target.object_index, oChest))
+	{
+		var val = mine_target.chestValue;
+        points += val;
+
+        // create on any instance layer; it draws in Draw GUI so layer doesn't matter
+        var pop = instance_create_layer(mine_target.x, mine_target.y, "Splash", oPointsPop);
+        pop.amount = val;
+
+        // audio_play_sound(snd_coin, 1, false);
+	}
+	
     with (mine_target)
 	{
 	    spawn_block_gibs(8); // 4×4 = 16 pieces (try 6–8 for chunkier explosions)

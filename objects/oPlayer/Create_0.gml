@@ -22,3 +22,6 @@ mine_elapsed_us  = 0;
 
 start_x = x;
 start_y = y;
+
+//points
+points = 0
