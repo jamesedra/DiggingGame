@@ -196,6 +196,7 @@ function world_zone_merge_with_neighbors(_ccol, _crow) {
         }
     }
 }
+
 function world_zones_spawn_for_chunk(_ccol, _crow) {
     var W   = global.World;
     var key = world_chunk_key(_ccol, _crow);
@@ -204,7 +205,7 @@ function world_zones_spawn_for_chunk(_ccol, _crow) {
     var labels = ds_map_find_value(W.zone_chunk_labels, key);
     var gw = W.chunk_w, gh = W.chunk_h;
 
-    // Unique zone roots present in THIS chunk
+    // Collect unique zone roots present in THIS chunk
     var seen = ds_map_create();
     for (var ly = 0; ly < gh; ly++) {
         for (var lx = 0; lx < gw; lx++) {
@@ -215,57 +216,91 @@ function world_zones_spawn_for_chunk(_ccol, _crow) {
         }
     }
 
-    // For each zone in this chunk, spawn up to its remaining goal
+    // For each zone present in this chunk
     var k = ds_map_find_first(seen);
     while (!is_undefined(k)) {
         var rid   = real(k);
         var zsize = ds_map_find_value(W.zone_size, rid);
 
         if (zsize >= W.zone_min_cells) {
-            // compute goal once per zone
+            // compute the zone's total goal once
             var goal;
             if (ds_map_exists(W.zone_spawn_goal, rid)) {
                 goal = ds_map_find_value(W.zone_spawn_goal, rid);
             } else {
-                goal = max(1, ceil(zsize / W.zone_cells_per_spawn));
+                goal = max(1, ceil(zsize / W.zone_cells_per_spawn)); // e.g., 1 per 150 cells
                 ds_map_add(W.zone_spawn_goal, rid, goal);
             }
 
-            var placed = 0;
             var have   = ds_map_exists(W.zone_spawn_count, rid) ? ds_map_find_value(W.zone_spawn_count, rid) : 0;
-            var remain = goal - have;
-
+            var remain = max(0, goal - have);
             if (remain > 0) {
-                // Don’t flood a single frame: cap per chunk pass
                 var to_place = min(remain, W.zone_spawns_per_chunk_cap);
-                var tries    = to_place * 80; // sampling attempts budget for this chunk
 
-                while (to_place > 0 && tries-- > 0) {
-                    var rx = irandom(gw - 1);
-                    var ry = irandom(gh - 1);
+                // Build a list of all AIR cells in THIS CHUNK that belong to this zone
+                var cells = ds_list_create();
+                for (var y1 = 0; y1 < gh; y1++) {
+                    for (var x1 = 0; x1 < gw; x1++) {
+                        var lid2 = ds_grid_get(labels, x1, y1);
+                        if (lid2 <= 0) continue;
+                        if (__zone_find(lid2) != rid) continue;
+                        ds_list_add(cells, y1 * gw + x1);
+                    }
+                }
 
-                    var lid2 = ds_grid_get(labels, rx, ry);
-                    if (lid2 <= 0) continue;
-                    if (__zone_find(lid2) != rid) continue;
+                var available  = ds_list_size(cells);
+                var will_place = min(to_place, available);
 
-                    // world coords of this AIR cell
-                    var wcol = _ccol * W.chunk_w + rx;
-                    var wrow = _crow * W.chunk_h + ry;
+                var placed = 0;
+                repeat (will_place) {
+                    if (ds_list_size(cells) <= 0) break;
+                    var idx    = irandom(ds_list_size(cells) - 1);
+                    var packed = ds_list_find_value(cells, idx);
+                    ds_list_delete(cells, idx);
 
-                    // convert to pixels
+                    var lx = packed mod gw;
+                    var ly = packed div gw;
+
+                    var wcol = _ccol * W.chunk_w + lx;
+                    var wrow = _crow * W.chunk_h + ly;
+
+                    // --- NEW: must have SOLID tile directly below (fast data check)
+                    var t_below = world_get_tile(wcol, wrow + 1);
+                    if (is_undefined(t_below) || t_below == W.TILE_AIR || t_below == W.TILE_WATER) {
+                        continue; // not ground
+                    }
+
                     var px = wcol * W.tileSize + (W.tileSize * 0.5);
                     var py = wrow * W.tileSize + (W.tileSize * 0.5);
 
-                    // pick what to spawn — replace with your real objects
+                    // --- OPTIONAL: also require a real block instance under it
+                    if (W.zone_require_instance_ground) {
+                        var below_inst = noone;
+
+                        // prefer a parent object if you have one
+                        if (object_exists(oBlock)) {
+                            below_inst = instance_position(px, py + W.tileSize, oBlock);
+                        }
+                        // fallback: check specific solids
+                        if (below_inst == noone && object_exists(oDirt)) {
+                            below_inst = instance_position(px, py + W.tileSize, oDirt);
+                        }
+                        if (below_inst == noone && object_exists(oRock)) {
+                            below_inst = instance_position(px, py + W.tileSize, oRock);
+                        }
+
+                        if (below_inst == noone) continue; // no visual solid yet
+                    }
+
+                    // Replace with your real spawnables
                     var obj_to_make = choose(oChest_Wood, oDirt);
                     if (!is_undefined(obj_to_make) && obj_to_make != noone) {
                         var inst = instance_create_layer(px, py, W.vis_layer, obj_to_make);
-                        if (!is_undefined(inst)) {
-                            placed  += 1;
-                            to_place -= 1;
-                        }
+                        if (!is_undefined(inst)) placed += 1;
                     }
                 }
+
+                ds_list_destroy(cells);
 
                 if (placed > 0) {
                     have += placed;
@@ -283,4 +318,5 @@ function world_zones_spawn_for_chunk(_ccol, _crow) {
 
     ds_map_destroy(seen);
 }
+
 

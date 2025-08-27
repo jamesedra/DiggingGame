@@ -24,12 +24,12 @@ function world_init(_cols, _rows, _tile_size, _seed, _chunk_w, _chunk_h) {
     W.TILE_WATER = 4;
 
     // terrain params
-    W.surface_base_row  = 16;
-    W.surface_amplitude = 28;
+    W.surface_base_row  = 4;
+    W.surface_amplitude = 16;
     W.surface_freq      = 0.008;
     W.surface_octaves   = 4;
 
-    W.gdepth_mean = 24;
+    W.gdepth_mean = 16;
     W.gdepth_var  = 8;
     W.gdepth_freq = 0.01;
 
@@ -51,12 +51,13 @@ function world_init(_cols, _rows, _tile_size, _seed, _chunk_w, _chunk_h) {
 	W.zone_bbox				= ds_map_create();   // id -> [minC, maxC, minR, maxR] array
 	W.zone_spawned			= ds_map_create();   // id -> 1 when we’ve spawned content
 	W.zone_chunk_labels		= ds_map_create();   // "cx,cy" -> ds_grid of labels (0 = not in zone)
-	W.zone_min_cells		= 40;                // threshold to consider “active” (tune)
-	W.zone_cells_per_spawn	= 150;
-	W.zone_spawns_per_chunk_cap = 5;
+	W.zone_min_cells		= 10;                // threshold to consider “active” (tune)
+	W.zone_cells_per_spawn	= 10;
+	W.zone_spawns_per_chunk_cap = 10;
 	// Track spawns per zone
 	W.zone_spawn_goal  = ds_map_create(); // id -> target number of spawns for this zone
 	W.zone_spawn_count = ds_map_create(); // id -> how many we’ve already placed
+	W.zone_require_instance_ground = false;
 
     // chunk storage map — use variable_struct_exists to avoid reading a missing field
 	if (variable_struct_exists(W, "chunk_map") && ds_exists(W.chunk_map, ds_type_map)) {
