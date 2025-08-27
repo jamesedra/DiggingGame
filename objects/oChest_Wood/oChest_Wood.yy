@@ -6,7 +6,7 @@
   "name":"oChest_Wood",
   "overriddenProperties":[
     {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"mine_time_us","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"400000",},
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oChest","path":"objects/oChest/oChest.yy",},"propertyId":{"name":"chestValue","path":"objects/oChest/oChest.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"1000",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"value","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"1000",},
   ],
   "parent":{
     "name":"Objects",

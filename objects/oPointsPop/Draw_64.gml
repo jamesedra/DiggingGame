@@ -19,6 +19,11 @@ var a      = 1 - u;                    // fade out
 
 var txt = "+" + string(amount);
 
+if (amount < 250)
+{
+	scl *= 0.25
+}
+
 // shadow
 draw_set_alpha(a * 0.6);
 draw_set_color(col_shadow);

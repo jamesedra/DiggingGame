@@ -186,9 +186,10 @@ if (mine_target != noone && mine_elapsed_us >= mine_target.mine_time_us)
 	show_debug_message(mine_target.mine_time_us)
 	
 	//reward player if applicable
-	if (object_is_ancestor(mine_target.object_index, oChest))
+	//if (object_is_ancestor(mine_target.object_index, oChest))
+	if (mine_target.value > 0)
 	{
-		var val = mine_target.chestValue;
+		var val = mine_target.value;
         points += val;
 
         // create on any instance layer; it draws in Draw GUI so layer doesn't matter

@@ -47,3 +47,5 @@ draw_text_transformed(cx, yy, s, ui_scale, ui_scale, 0);
 // restore (optional)
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
+
+draw_text_transformed(0,0,y, 0.25,0.25,0)

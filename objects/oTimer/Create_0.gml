@@ -30,4 +30,4 @@ out_phase       = 0.0;    // phase accumulator (radians)
 // (Optional) use your big arcade font resource if you have one:
 has_font     = true;  
 
-start_countdown(30); // ← e.g., 30s
+start_countdown(3); // ← e.g., 30s
