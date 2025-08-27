@@ -5,3 +5,5 @@ highlight_alpha = 0.8;
 
 var mine_time_us = 40000 // 0.40s default
 var chestValue =0
+
+image_angle  = 90 * irandom(3);

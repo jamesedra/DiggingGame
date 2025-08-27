@@ -38,7 +38,7 @@ function world_init(_cols, _rows, _tile_size, _seed, _chunk_w, _chunk_h) {
     W.ground_base     = array_create(W.cols, 0);
 	
 	// CA (caves) params
-	W.ca_fill_chance   = 0.0008; // 0..1 : initial chance to be CAVE in the deep area
+	W.ca_fill_chance   = 0.01; // 0..1 : initial chance to be CAVE in the deep area
 	W.ca_iters         = 6;    // smoothing passes (3..6 typical)
 	W.ca_start_offset  = 5;    // tiles below surface before caves may appear
 	// Neighborhood influence expands ~= iters tiles. Make sure pad covers it.

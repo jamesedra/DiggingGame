@@ -1,14 +1,24 @@
 //xVelocity = 0
 if (global.input_locked) exit; 
+//check die
+
+if (hp <= 0)
+{
+	open_try_again()
+}
+
 if (keyboard_check_pressed(ord("R"))) open_pause_menu();
 
 yVelocity += yAccel
+if (invuln > 0) invuln--;
+image_alpha = (invuln > 0 && (invuln & 2)) ? 0.5 : 1;
+
 //LEFT AND RIGHT MOVEMENT-------
 moved = false;
 if keyboard_check(ord("A"))
 {
 	moved = true;
-	if (abs(xVelocity - xAccel) < xVelocityMax)
+	if (abs(xVelocity - xAccel) < xVelocityMax || xVelocity > 0)
 	{
 		xVelocity = xVelocity - xAccel
 	}
@@ -17,12 +27,13 @@ if keyboard_check(ord("A"))
 if keyboard_check(ord("D"))
 {
 	moved = true;
-	if (abs(xVelocity + xAccel) < xVelocityMax)
+	if (abs(xVelocity + xAccel) < xVelocityMax || xVelocity < 0)
 	{
 		xVelocity = xVelocity + xAccel
 	}
 }
 
+//deaccel
 if (!moved)
 {
 	if (xVelocity > 0.0)
