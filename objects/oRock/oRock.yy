@@ -4,19 +4,12 @@
   "eventList":[],
   "managed":true,
   "name":"oRock",
-  "overriddenProperties":[
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"mine_time_us","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"200000",},
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"value","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"10",},
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"rotateRandom","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"True",},
-  ],
+  "overriddenProperties":[],
   "parent":{
     "name":"Objects",
     "path":"folders/Objects.yy",
   },
-  "parentObjectId":{
-    "name":"oBlock",
-    "path":"objects/oBlock/oBlock.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
