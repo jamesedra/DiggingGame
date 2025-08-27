@@ -7,9 +7,7 @@
   ],
   "managed":true,
   "name":"oChest",
-  "overriddenProperties":[
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"value","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"0",},
-  ],
+  "overriddenProperties":[],
   "parent":{
     "name":"Objects",
     "path":"folders/Objects.yy",

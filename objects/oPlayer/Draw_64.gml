@@ -49,3 +49,39 @@ draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 
 draw_text_transformed(0,0,y, 0.25,0.25,0)
+
+// --- HEART BAR: top-right, fill L→R (depletes from left) ---
+hp = clamp(hp, 0, 3);
+
+var gui_w    = display_get_gui_width();
+var gui_h    = display_get_gui_height();
+var hb_scale = min(gui_w/1920, gui_h/1080) * hud_scale_factor;
+
+var heart_w = sprite_get_width(spr_heart_full)  * hb_scale;
+var heart_h = sprite_get_height(spr_heart_full) * hb_scale;
+var gap     = hud_spacing_px * hb_scale;
+
+var count = 3;
+var stride = heart_w + gap;
+
+// Right anchor (bar hugs the right edge)
+var x_rightmost = round(gui_w - hud_margin_right - heart_w);
+var y_top       = round(hud_margin_top);
+
+// Compute the **leftmost** heart x (so we can draw L→R but still right-anchored)
+var x_leftmost  = x_rightmost - (count - 1) * stride;
+
+// 1) draw empties left → right
+var cur_x = x_leftmost;
+for (var i = 0; i < count; ++i) {
+    draw_sprite_ext(spr_heart_empty, 0, cur_x, y_top, hb_scale, hb_scale, 0, c_white, 1);
+    cur_x = round(cur_x + stride);
+}
+
+// 2) overlay full hearts for current hp (left → right)
+cur_x = x_leftmost;
+for (var i = 0; i < hp; ++i) {
+    draw_sprite_ext(spr_heart_full, 0, cur_x, y_top, hb_scale, hb_scale, 0, c_white, 1);
+    cur_x = round(cur_x + stride);
+}
+
