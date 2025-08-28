@@ -95,6 +95,8 @@ if (vsp != 0) {
 // Ground check AFTER movement (for next frame)
 var on_ground = place_meeting(x, y + 1, oBlock);
 
+if (bbox_left < 0)            { x -= bbox_left;           xVelocity = 0; } // pull inside
+if (bbox_right > room_width)  { x -= (bbox_right - room_width); xVelocity = 0; }
 
 //MINE------------------------------------
 // Find the one block under the mouse (topmost in depth)

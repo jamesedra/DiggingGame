@@ -17,4 +17,8 @@ var s = 0.10;
 cx = lerp(cx, tx, s);
 cy = lerp(cy, ty, s);
 
+// --- Clamp X to [0, N - w] ---
+var N = room_width;
+cx = clamp(cx, 0, max(0, N - w));
+
 camera_set_view_pos(cam, cx, cy);

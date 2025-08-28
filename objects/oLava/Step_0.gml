@@ -11,7 +11,7 @@ if (rising)
 
 // 2) Kill on touch (if any player's feet are under the surface)
 with (oPlayer) {
-    if (bbox_bottom > other.surface_y && other.hitPlayer == false) 
+    if (bbox_bottom > other.surface_y - 12.5 && other.hitPlayer == false) 
 	{
 		audio_play_sound(Hit_1, 0, false)
 		other.hitPlayer = true

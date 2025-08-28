@@ -1,7 +1,7 @@
 function GemGlistenUniformSetter(_r, _g, _b){
 	shader_set(SH_GemGlisten);
 
-	var t = current_time * 0.01;
+	var t = current_time * 1;
 
 	var u_time       = shader_get_uniform(SH_GemGlisten, "u_time");
 	var u_speed      = shader_get_uniform(SH_GemGlisten, "u_speed");
@@ -13,7 +13,7 @@ function GemGlistenUniformSetter(_r, _g, _b){
 
 	// Tune these to taste:
 	shader_set_uniform_f(u_time, t);
-	shader_set_uniform_f(u_speed, 0.001);        // slower/faster sweep
+	shader_set_uniform_f(u_speed, 0.0001);        // slower/faster sweep
 	shader_set_uniform_f(u_width, 0.002);       // band softness/width
 	shader_set_uniform_f(u_intensity, 0.8);    // how white it gets
 	shader_set_uniform_f(u_dir, 0.75, -0.66);  // diagonal ↘ direction (normalized)
