@@ -82,7 +82,6 @@ draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 draw_text_transformed(b_x + b_w * 0.5, b_y + b_h * 0.5 + label_off_y, btn_text, button_text_s, button_text_s, 0);
 
-// restore align...
 
 // restore
 draw_set_halign(fa_left);

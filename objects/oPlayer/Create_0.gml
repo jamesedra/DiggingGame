@@ -13,9 +13,16 @@ xVelocityMax = 2.0
 yVelocityMax = 4.0
 xAccel = 0.2
 yAccel = 0.1
+jumpAccel = 0.15
 xDeAccel = 0.2
-canDoubleJump = true
-releasedJump = true
+
+// --- Jump (hold to jump higher) ---
+jump_initial_speed = 2.0;   // initial upward kick (was 2)
+jump_hold_time_max = 8;    // frames you can hold for extra height
+jump_cut_speed     = 1.0;   // cap upward speed when released early (short hop)
+isJumping = false;
+jump_hold_timer = 0;
+
 
 //controller
 last_hover = noone;

@@ -45,12 +45,3 @@ if (mouse_check_button_pressed(mb_left)) {
         exit;
     }
 }
-
-// hotkeys
-if (keyboard_check_pressed(vk_escape) || keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space)) {
-    if (is_method(on_resume)) on_resume();
-    instance_destroy();
-}
-if (keyboard_check_pressed(ord("R"))) {
-    if (is_method(on_restart)) on_restart(); else room_restart();
-}
