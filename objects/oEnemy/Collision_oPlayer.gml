@@ -13,3 +13,5 @@ other.xVelocity = clamp(away * kb_mult, -5, 5);
 
 // tiny separation to reduce sticking
 other.x += away; // nudge player 1px away
+
+audio_play_sound(Hit_1, 0, false)

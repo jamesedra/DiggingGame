@@ -1,15 +1,23 @@
-// oTryAgainModal.Create
-global.input_locked = true; // freeze controls
+// freeze controls
+global.input_locked = true;
 
-title    = "YOU DIED!";
-btn_text = "Try Again";
+// assets
+spr_panel  = sMenu_Death;
+spr_button = sButton_Death;
 
-panel_w = 420;
-panel_h = 200;
-btn_w   = 240;
-btn_h   = 56;
+// base scalars (tweak these)
+panel_scale_base       = 5.0;  // panel sprite size
+button_scale_base      = 5.0;  // button sprite size
+title_text_scale_base  = 0.7;  // "YOU DIED!" / "Try again?"
+button_text_scale_base = 0.4;  // button label
 
-anim = 0; // 0..1 pop-in animation
+spacing_px = 24;               // gap between panel bottom and button (in px at scale 1)
+anim = 0;                      // 0..1 pop-in
+title    = "Try again?";
+btn_text = "Go!";
 
-title_scale = 0.7;  // <- tweak this
-btn_scale   = 0.4;  // <- and this
+// Y offsets in "design pixels" (1920×1080 baseline)
+
+title_offset_y_base       = -35;  // moves the title text
+button_offset_y_base      = 27;  // moves the whole button up/down
+button_text_offset_y_base = 0;  // moves the label on the button

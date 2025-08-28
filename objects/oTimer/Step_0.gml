@@ -1,5 +1,5 @@
-var dt_ms = delta_time / 1000;          // microseconds -> ms
-var dt    = delta_time / 1000000;       // seconds
+dt_ms = delta_time / 1000;          // microseconds -> ms
+dt    = delta_time / 1000000;       // seconds
 
 
 if (count_up && !global.input_locked) {
@@ -12,6 +12,9 @@ if (count_up && !global.input_locked) {
         pulse_t = 1.0;  // <-- trigger pop for "GET OUT!"
 		//start lava rising
 		lavaInstance.rising = true
+		audio_stop_sound(AugustUltraAmbience)
+		if (!audio_is_playing(Jazzy))
+		audio_play_sound(Jazzy, 0, true)
     }
 }
 
