@@ -332,7 +332,7 @@ function world_zones_spawn_for_chunk(_ccol, _crow) {
                     } else {
                         // floor spawn (original behavior)
                         // inst_y stays as center of this tile
-                        obj_to_make = choose(oChest_Wood, oDirt);
+                        obj_to_make = choose(oChest_Wood, oDirt, oDrill_Red);
                     }
 
                     if (!is_undefined(obj_to_make) && obj_to_make != noone) {
