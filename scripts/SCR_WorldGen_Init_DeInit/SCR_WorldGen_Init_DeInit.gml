@@ -17,11 +17,14 @@ function world_init(_cols, _rows, _tile_size, _seed, _chunk_w, _chunk_h) {
     W.chunk_pad = 2;
 
     // tile ids
-    W.TILE_AIR   = 0;
-    W.TILE_GRASS = 1;
-    W.TILE_DIRT  = 2;
-    W.TILE_STONE = 3;
-    W.TILE_WATER = 4;
+    W.TILE_AIR		 = 0;
+    W.TILE_GRASS	 = 1;
+    W.TILE_DIRT		 = 2;
+    W.TILE_STONE	 = 3;
+    W.TILE_WATER	 = 4;
+	W.TILE_GEMRED	 = 5;
+	W.TILE_GEMBLUE	 = 6;
+	W.TILE_GEMYELLOW = 7;
 
     // terrain params
     W.surface_base_row  = 4;

@@ -11,7 +11,7 @@ function __count8(_G, _ix, _iy) {
     return n;
 }
 
-/// Applies CA to carve caves ONLY in STONE cells of the given chunk grid.
+/// Applies CA to carve caves ONLY in STONE/GEM cells of the given chunk grid.
 function world_ca_carve_chunk(_ccol, _crow, _g) {
     var W   = global.World;
     var pad = max(W.chunk_pad, W.ca_iters + 1);
@@ -71,16 +71,20 @@ function world_ca_carve_chunk(_ccol, _crow, _g) {
 	    var T = A; A = B; B = T;
 	}
 	
-    // --- 3) Apply to chunk interior: carve STONE -> AIR where A==0
-    for (var cy = 0; cy < W.chunk_h; cy++) {
-        for (var cx = 0; cx < W.chunk_w; cx++) {
-            if (ds_grid_get(A, pad + cx, pad + cy) == 0) {
-                if (ds_grid_get(_g, cx, cy) == W.TILE_STONE) {
-                    ds_grid_set(_g, cx, cy, W.TILE_AIR);
-                }
-            }
-        }
-    }
+    // --- 3) Apply to chunk interior: carve STONE -> AIR
+	for (var cy = 0; cy < W.chunk_h; cy++) {
+	    for (var cx = 0; cx < W.chunk_w; cx++) {
+	        if (ds_grid_get(A, pad + cx, pad + cy) != 0) continue; // not a cave
+
+	        var tile = ds_grid_get(_g, cx, cy);
+	        if (tile == W.TILE_STONE
+	         || tile == W.TILE_GEMRED
+	         || tile == W.TILE_GEMBLUE
+	         || tile == W.TILE_GEMYELLOW) {
+	            ds_grid_set(_g, cx, cy, W.TILE_AIR);
+	        }
+	    }
+	}
 
     ds_grid_destroy(A);
     ds_grid_destroy(B);

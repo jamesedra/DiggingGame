@@ -21,7 +21,13 @@ function world_generate_chunk(_ccol, _crow) {
             if (row < sH)              ds_grid_set(g, lx, ly, W.TILE_AIR);
             else if (row == sH)        ds_grid_set(g, lx, ly, W.TILE_GRASS);
             else if (row > sH && row < gB) ds_grid_set(g, lx, ly, W.TILE_DIRT);
-            else                       ds_grid_set(g, lx, ly, W.TILE_STONE);
+			// choose either stone or gem
+            else {
+				var r = random(100);
+				var stone_chance = 10; // tweak base on ratio
+				if (r > stone_chance) ds_grid_set(g, lx, ly, W.TILE_STONE);
+				else ds_grid_set(g, lx, ly, select_gem(col, row));
+			}                       
         }
     }
 	world_ca_carve_chunk(_ccol, _crow, g);

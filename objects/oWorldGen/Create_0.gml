@@ -14,6 +14,9 @@ function world_vis_config_objects() {
     W.tile_to_obj[W.TILE_GRASS] = oGrass;
     W.tile_to_obj[W.TILE_DIRT]  = oDirt;
     W.tile_to_obj[W.TILE_STONE] = oRock;
+	W.tile_to_obj[W.TILE_GEMRED] = oGem_Red;
+	W.tile_to_obj[W.TILE_GEMBLUE] = oGem_Blue;
+	W.tile_to_obj[W.TILE_GEMYELLOW] = oGem_Yellow;
     // AIR/WATER stay noone (no instance)
 }
 
