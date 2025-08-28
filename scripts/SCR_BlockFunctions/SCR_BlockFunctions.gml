@@ -1,4 +1,4 @@
-function world_on_tile_instance_destroyed(_col, _row) {
+function world_on_tile_instance_mark_air(_col, _row) {
     if (!variable_global_exists("World") || is_undefined(global.World)) return;
     var W = global.World;
 

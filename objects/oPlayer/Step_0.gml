@@ -208,6 +208,12 @@ if (mine_target != noone && mine_elapsed_us >= mine_target.mine_time_us)
     with (mine_target)
 	{
 	    spawn_block_gibs(8); // 4×4 = 16 pieces (try 6–8 for chunkier explosions)
+		if (variable_global_exists("World") && !is_undefined(global.World)) {
+		    // Prefer stored grid coords set at spawn; fall back to deriving from position
+		    var c = variable_instance_exists(id, "gcol") ? gcol : world_px_to_col(x);
+		    var r = variable_instance_exists(id, "grow") ? grow : world_py_to_row(y);
+		    world_on_tile_instance_mark_air(c, r);
+		}
 	    instance_destroy();
 	}
 
