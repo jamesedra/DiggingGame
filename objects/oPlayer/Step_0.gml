@@ -12,84 +12,89 @@ if (keyboard_check_pressed(ord("R")))
 	open_pause_menu();
 }
 
-
-
-yVelocity += yAccel
 if (invuln > 0) invuln--;
 image_alpha = (invuln > 0 && (invuln & 2)) ? 0.5 : 1;
 
-//LEFT AND RIGHT MOVEMENT-------
-moved = false;
-if keyboard_check(ord("A"))
-{
-	moved = true;
-	if (abs(xVelocity - xAccel) < xVelocityMax || xVelocity > 0)
-	{
-		xVelocity = xVelocity - xAccel
-	}
+// gravity
+yVelocity += yAccel;
+
+// --- Jump start based on last frame ground state ---
+var was_on_ground = place_meeting(x, y + 1, oBlock);
+if (was_on_ground) {
+    isJumping = false;
+    jump_hold_timer = 0;
+    if (keyboard_check_pressed(vk_space)) {
+        isJumping = true;
+        jump_hold_timer = 0;
+        yVelocity = -jump_initial_speed;
+    }
 }
 
-if keyboard_check(ord("D"))
-{
-	moved = true;
-	if (abs(xVelocity + xAccel) < xVelocityMax || xVelocity < 0)
-	{
-		xVelocity = xVelocity + xAccel
-	}
+// --- Variable jump height ---
+if (isJumping) {
+    if (keyboard_check(vk_space) && jump_hold_timer < jump_hold_time_max) {
+        yVelocity -= jumpAccel;
+        jump_hold_timer++;
+    }
+    if (keyboard_check_released(vk_space)) {
+        if (yVelocity < -jump_cut_speed) yVelocity = -jump_cut_speed;
+        isJumping = false;
+    }
+    if (yVelocity >= 0) isJumping = false; // started falling
 }
 
-//deaccel
-if (!moved)
-{
-	if (xVelocity > 0.0)
-	{
-		xVelocity -= xDeAccel
-		if (xVelocity < 0.0)
-		{
-			xVelocity = 0.0
-		}
-	}
-	else if (xVelocity < 0.0)
-	{
-		xVelocity += xDeAccel
-		if (xVelocity > 0.0)
-		{
-			xVelocity = 0.0
-		}
-	}
-}
-//---------------------------
+// --- HORIZONTAL INPUT (A/D) ---
+var left  = keyboard_check(ord("A"));
+var right = keyboard_check(ord("D"));
 
-//JUMP------------------------
-if place_meeting(x, y+1, oBlock)
-{
-	yVelocity = 0.0
-	canDoubleJump = true
-	
-	//jump
-	if keyboard_check(vk_space)
-	{
-		releasedJump = false
-		yVelocity = -2;
-	}
-}
-//----------------------------------
-
-//DOUBLE JUMP-----------------------
-if keyboard_check_released(vk_space)
-{
-	releasedJump = true
+if (left && !right) {
+    xVelocity -= xAccel;
+} else if (right && !left) {
+    xVelocity += xAccel;
+} else {
+    // no input (or both pressed) -> deaccel toward 0
+    if (abs(xVelocity) <= xDeAccel) {
+        xVelocity = 0;
+    } else {
+        xVelocity -= xDeAccel * sign(xVelocity);
+    }
 }
 
-if  (canDoubleJump && releasedJump && keyboard_check_pressed(vk_space))
-	{
-		canDoubleJump = false
-		yVelocity = -2;
-	}
-//-------------------------------------
+// clamp to max speed
+xVelocity = clamp(xVelocity, -xVelocityMax, xVelocityMax);
 
-//MOVE PLAYER
-move_and_collide(xVelocity, yVelocity, oBlock)
+
+// --- Axis-separated move (single movement per step) ---
+var hsp = xVelocity;
+var vsp = yVelocity;
+
+// Horizontal
+if (hsp != 0) {
+    x += hsp;
+    if (place_meeting(x, y, oBlock)) {
+        x -= hsp;
+        var sx = sign(hsp);
+        // step to contact on X only
+        while (sx != 0 && !place_meeting(x + sx, y, oBlock)) x += sx;
+        xVelocity = 0;
+    }
+}
+
+// Vertical
+if (vsp != 0) {
+    y += vsp;
+    if (place_meeting(x, y, oBlock)) {
+        y -= vsp;
+        var sy = sign(vsp);
+        // step to contact on Y only
+        while (sy != 0 && !place_meeting(x, y + sy, oBlock)) y += sy;
+        yVelocity = 0;
+    }
+}
+
+// Ground check AFTER movement (for next frame)
+var on_ground = place_meeting(x, y + 1, oBlock);
+
 
 //MINE------------------------------------
 // Find the one block under the mouse (topmost in depth)

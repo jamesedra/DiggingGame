@@ -12,7 +12,6 @@ var ui_scale = min(gw/1920, gh/1080);
 // one pop-in factor shared by everything
 var s_pop = 0.85 + (1 - power(1 - anim, 3)) * 0.15;
 
-// ... your existing ui_scale, s_pop, and per-element scales ...
 
 var panel_s  = panel_scale_base  * ui_scale * s_pop;
 var button_s = button_scale_base * ui_scale * s_pop;
