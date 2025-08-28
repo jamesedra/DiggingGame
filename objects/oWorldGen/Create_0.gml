@@ -1,7 +1,10 @@
+// randomizer call
+randomize();
+
 var world_cols = 2048;
-var world_rows = 2048;
+var world_rows = 4096;
 var tile_sz    = 16;
-var seed_val   = 424242;
+var seed_val   = random(10000000);
 var chw        = 32;
 var chh        = 16;
 

@@ -71,7 +71,7 @@ function world_ca_carve_chunk(_ccol, _crow, _g) {
 	    var T = A; A = B; B = T;
 	}
 	
-    // --- 3) Apply to chunk interior: carve STONE -> AIR
+    // --- 3) Apply to chunk interior: carve STONE/GEM -> AIR
 	for (var cy = 0; cy < W.chunk_h; cy++) {
 	    for (var cx = 0; cx < W.chunk_w; cx++) {
 	        if (ds_grid_get(A, pad + cx, pad + cy) != 0) continue; // not a cave

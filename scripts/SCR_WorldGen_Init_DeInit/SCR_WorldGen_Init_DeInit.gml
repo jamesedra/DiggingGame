@@ -4,7 +4,7 @@ function world_init(_cols, _rows, _tile_size, _seed, _chunk_w, _chunk_h) {
         global.World = {};
     }
     var W = global.World;
-
+	
     // basic config
     W.cols      = _cols;
     W.rows      = _rows;
