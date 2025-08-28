@@ -33,7 +33,7 @@ if (!running) {
     draw_text_transformed_color(x_left + shadow_ofs, y_top + shadow_ofs, msg, s, s, 0,
         col_shadow, col_shadow, col_shadow, col_shadow, 1);
 
-    // 8-dir outline (integer offsets, no jitter)
+    // 8-dir outline
     draw_set_alpha(1);
     draw_set_color(col_outline);
     var o = outline_px;
@@ -49,7 +49,6 @@ if (!running) {
     // main red text
     draw_set_color(red);
     draw_text_transformed_color(x_left, y_top, msg, s, s, 0, red, red, red, red, 1);
-
     exit;
 }
 
