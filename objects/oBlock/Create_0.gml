@@ -8,3 +8,9 @@ var chestValue =0
 
 if (rotateRandom) image_angle  = 90 * irandom(3);
 
+if (irandom_range(0,1) == 1)
+{
+	if (mirrorRandom) image_xscale = -1
+}
+
+

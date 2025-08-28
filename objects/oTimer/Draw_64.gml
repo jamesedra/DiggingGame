@@ -1,6 +1,4 @@
-// draw "GET OUT" when countdown finishes
-var dt_ms = delta_time / 1000;          // µs -> ms
-var dt    = delta_time / 1000000;       // µs -> s
+
 // draw "GET OUT" when countdown finishes
 if (!running) {
     var msg = "LAVA IS RISING!";
@@ -13,7 +11,6 @@ if (!running) {
 
     // --- UPDATE PULSE VALUES WHILE NOT RUNNING ---
     // Do NOT also decay pulse_t elsewhere this frame
-    var dt = delta_time / 1000000; 
     out_phase += (2 * pi) * out_speed_hz * dt;
     if (out_phase > 2 * pi) out_phase -= 2 * pi;
     var breathe = 0.5 + 0.5 * sin(out_phase);

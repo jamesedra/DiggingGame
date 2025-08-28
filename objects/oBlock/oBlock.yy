@@ -32,6 +32,8 @@
     {"$GMObjectProperty":"v1","%Name":"mine_time_us","filters":[],"listItems":[],"multiselect":false,"name":"mine_time_us","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"40000","varType":0,},
     {"$GMObjectProperty":"v1","%Name":"value","filters":[],"listItems":[],"multiselect":false,"name":"value","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":0,},
     {"$GMObjectProperty":"v1","%Name":"rotateRandom","filters":[],"listItems":[],"multiselect":false,"name":"rotateRandom","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"False","varType":3,},
+    {"$GMObjectProperty":"v1","%Name":"mirrorRandom","filters":[],"listItems":[],"multiselect":false,"name":"mirrorRandom","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"False","varType":3,},
+    {"$GMObjectProperty":"v1","%Name":"breakSound","filters":[],"listItems":[],"multiselect":false,"name":"breakSound","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resource":{"name":"Block_Break_3","path":"sounds/Block_Break_3/Block_Break_3.yy",},"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"Block_Break_3","varType":5,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

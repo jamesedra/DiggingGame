@@ -1,8 +1,12 @@
+if (global.input_locked == true) exit;
+
+frameCount++
+
 // apply gravity
 vsp = clamp(vsp + grav, -99, vsp_max);
 
 // desired horizontal movement
-var hsp = walk_spd * dir;
+hsp = walk_spd * dir;
 
 // --- horizontal collision + wall flip ---
 if (place_meeting(x + hsp, y, oBlock)) {
@@ -24,15 +28,7 @@ if (place_meeting(x, y + vsp, oBlock)) {
     vsp = 0;
 }
 
+
 // move
 x += hsp;
 y += vsp;
-
-//// --- optional: edge detection so it turns at ledges ---
-//if (place_meeting(x, y + 1, oBlock)) {           // only when on ground
-//    var ahead = x + dir * 8;                         // look a bit ahead
-//    if (!place_meeting(ahead, y + 1, oBlock)) {
-//        dir *= -1;
-//        image_xscale = dir;
-//    }
-//}
