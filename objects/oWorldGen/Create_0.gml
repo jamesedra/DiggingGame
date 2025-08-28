@@ -1,7 +1,10 @@
+// randomizer call
+randomize();
+
 var world_cols = 2048;
-var world_rows = 2048;
+var world_rows = 4096;
 var tile_sz    = 16;
-var seed_val   = 424242;
+var seed_val   = random(10000000);
 var chw        = 32;
 var chh        = 16;
 
@@ -14,6 +17,9 @@ function world_vis_config_objects() {
     W.tile_to_obj[W.TILE_GRASS] = oGrass;
     W.tile_to_obj[W.TILE_DIRT]  = oDirt;
     W.tile_to_obj[W.TILE_STONE] = oRock;
+	W.tile_to_obj[W.TILE_GEMRED] = oGem_Red;
+	W.tile_to_obj[W.TILE_GEMBLUE] = oGem_Blue;
+	W.tile_to_obj[W.TILE_GEMYELLOW] = oGem_Yellow;
     // AIR/WATER stay noone (no instance)
 }
 
