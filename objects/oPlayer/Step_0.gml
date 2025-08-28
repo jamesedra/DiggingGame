@@ -7,7 +7,12 @@ if (hp <= 0)
 	open_try_again()
 }
 
-if (keyboard_check_pressed(ord("R"))) open_pause_menu();
+if (keyboard_check_pressed(ord("R")))
+{
+	open_pause_menu();
+}
+
+
 
 yVelocity += yAccel
 if (invuln > 0) invuln--;
@@ -182,8 +187,7 @@ else
 // break when charged long enough
 if (mine_target != noone && mine_elapsed_us >= mine_target.mine_time_us) 
 {
-	
-	show_debug_message(mine_target.mine_time_us)
+	audio_play_sound(mine_target.breakSound, 0, false, 1.0)
 	
 	//reward player if applicable
 	//if (object_is_ancestor(mine_target.object_index, oChest))
@@ -195,8 +199,6 @@ if (mine_target != noone && mine_elapsed_us >= mine_target.mine_time_us)
         // create on any instance layer; it draws in Draw GUI so layer doesn't matter
         var pop = instance_create_layer(mine_target.x, mine_target.y, "Splash", oPointsPop);
         pop.amount = val;
-
-        // audio_play_sound(snd_coin, 1, false);
 	}
 	
     with (mine_target)

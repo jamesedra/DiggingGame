@@ -17,3 +17,4 @@ scroll_x    = 16;         // px/sec for horizontal texture drift
 
 // Camera cache for drawing only the visible area
 cam = view_camera[0];
+hitPlayer = false;

@@ -1,5 +1,5 @@
 // movement
-walk_spd = 0.6;          // horizontal speed
+hsp = 0
 dir      = choose(-1,1); // start left or right
 image_xscale = dir;
 
@@ -10,3 +10,4 @@ vsp_max = 12;            // terminal fall speed
 
 //kb
 kb_mult = 3.0
+frameCount = 0

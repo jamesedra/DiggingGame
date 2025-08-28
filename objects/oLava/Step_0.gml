@@ -13,6 +13,9 @@ if (rising)
 with (oPlayer) {
     if (bbox_bottom > other.surface_y) 
 	{
+		audio_play_sound(Hit_1, 0, false)
+		hitPlayer = true
 		open_try_again();
+		
     }
 }
