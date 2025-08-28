@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"SH_GemGlisten",
+  "name":"SH_GemGlisten",
+  "parent":{
+    "name":"DiggingGame",
+    "path":"DiggingGame.yyp",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

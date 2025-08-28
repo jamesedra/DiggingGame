@@ -264,38 +264,79 @@ function world_zones_spawn_for_chunk(_ccol, _crow) {
                     var wcol = _ccol * W.chunk_w + lx;
                     var wrow = _crow * W.chunk_h + ly;
 
-                    // --- NEW: must have SOLID tile directly below (fast data check)
+                    // tile below (for floor spawns) and tile above (for ceiling spawns)
                     var t_below = world_get_tile(wcol, wrow + 1);
-                    if (is_undefined(t_below) || t_below == W.TILE_AIR || t_below == W.TILE_WATER) {
-                        continue; // not ground
-                    }
+                    var t_above = world_get_tile(wcol, wrow - 1);
 
+                    // helper: solid = not AIR and not WATER and defined
+                    var solid_below = !is_undefined(t_below) && t_below != W.TILE_AIR && t_below != W.TILE_WATER;
+                    var solid_above = !is_undefined(t_above) && t_above != W.TILE_AIR && t_above != W.TILE_WATER;
+
+                    // screen/world coordinates (center of this cell)
                     var px = wcol * W.tileSize + (W.tileSize * 0.5);
                     var py = wrow * W.tileSize + (W.tileSize * 0.5);
 
-                    // --- OPTIONAL: also require a real block instance under it
-                    if (W.zone_require_instance_ground) {
-                        var below_inst = noone;
-
-                        // prefer a parent object if you have one
-                        if (object_exists(oBlock)) {
-                            below_inst = instance_position(px, py + W.tileSize, oBlock);
-                        }
-                        // fallback: check specific solids
-                        if (below_inst == noone && object_exists(oDirt)) {
-                            below_inst = instance_position(px, py + W.tileSize, oDirt);
-                        }
-                        if (below_inst == noone && object_exists(oRock)) {
-                            below_inst = instance_position(px, py + W.tileSize, oRock);
-                        }
-
-                        if (below_inst == noone) continue; // no visual solid yet
+                    // Decide whether to do a ceiling spawn (if there's a solid above),
+                    // otherwise do the original floor spawn (requires solid below).
+                    var spawn_on_ceiling = solid_above;
+                    if (!spawn_on_ceiling && !solid_below) {
+                        // not ground, not ceiling -> skip
+                        continue;
                     }
 
-                    // Replace with your real spawnables
-                    var obj_to_make = choose(oChest_Wood, oDirt);
+                    // If you require a visual instance to be present as "ground",
+                    // check the appropriate position (above for ceiling, below for floor)
+                    if (W.zone_require_instance_ground) {
+                        if (spawn_on_ceiling) {
+                            var above_inst = noone;
+                            // prefer parent object if present
+                            if (object_exists(oBlock)) {
+                                // check center of the *tile above*
+                                above_inst = instance_position(px, py - W.tileSize, oBlock);
+                            }
+                            if (above_inst == noone && object_exists(oDirt)) {
+                                above_inst = instance_position(px, py - W.tileSize, oDirt);
+                            }
+                            if (above_inst == noone && object_exists(oRock)) {
+                                above_inst = instance_position(px, py - W.tileSize, oRock);
+                            }
+                            if (above_inst == noone) {
+                                continue; // no visual ceiling found, skip
+                            }
+                        } else {
+                            var below_inst = noone;
+                            if (object_exists(oBlock)) {
+                                below_inst = instance_position(px, py + W.tileSize, oBlock);
+                            }
+                            if (below_inst == noone && object_exists(oDirt)) {
+                                below_inst = instance_position(px, py + W.tileSize, oDirt);
+                            }
+                            if (below_inst == noone && object_exists(oRock)) {
+                                below_inst = instance_position(px, py + W.tileSize, oRock);
+                            }
+                            if (below_inst == noone) {
+                                continue; // no visual ground found, skip
+                            }
+                        }
+                    }
+
+                    // Choose spawnable depending on ceiling vs floor
+                    var inst_x = px;
+                    var inst_y = py;
+                    var obj_to_make = noone;
+
+                    if (spawn_on_ceiling) {
+                        // ceiling spawn
+                        inst_y = (wrow) * W.tileSize + (W.tileSize * 0.5);
+						obj_to_make = oStalagmite;
+                    } else {
+                        // floor spawn (original behavior)
+                        // inst_y stays as center of this tile
+                        obj_to_make = choose(oChest_Wood, oDirt);
+                    }
+
                     if (!is_undefined(obj_to_make) && obj_to_make != noone) {
-                        var inst = instance_create_layer(px, py, W.vis_layer, obj_to_make);
+                        var inst = instance_create_layer(inst_x, inst_y, W.vis_layer, obj_to_make);
                         if (!is_undefined(inst)) placed += 1;
                     }
                 }

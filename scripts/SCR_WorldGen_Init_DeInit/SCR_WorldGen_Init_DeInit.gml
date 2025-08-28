@@ -32,8 +32,8 @@ function world_init(_cols, _rows, _tile_size, _seed, _chunk_w, _chunk_h) {
     W.surface_freq      = 0.008;
     W.surface_octaves   = 4;
 
-    W.gdepth_mean = 16;
-    W.gdepth_var  = 8;
+    W.gdepth_mean = 10;
+    W.gdepth_var  = 2;
     W.gdepth_freq = 0.01;
 
     // arrays
