@@ -24,7 +24,7 @@ function world_generate_chunk(_ccol, _crow) {
 			// choose either stone or gem
             else {
 				var r = random(100);
-				var gem_chance = 2.5; // tweak base on ratio
+				var gem_chance = 2.0; // tweak base on ratio
 				if (r > gem_chance) ds_grid_set(g, lx, ly, W.TILE_STONE);
 				else ds_grid_set(g, lx, ly, select_gem(col, row));
 			}                       
