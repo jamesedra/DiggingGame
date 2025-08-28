@@ -188,6 +188,10 @@ else
 if (mine_target != noone && mine_elapsed_us >= mine_target.mine_time_us) 
 {
 	audio_play_sound(mine_target.breakSound, 0, false, 1.0)
+	if (mine_target.secondaryBreakSound != noone)
+	{
+		audio_play_sound(mine_target.secondaryBreakSound, 0, false, 1.0)
+	}
 	
 	//reward player if applicable
 	//if (object_is_ancestor(mine_target.object_index, oChest))
