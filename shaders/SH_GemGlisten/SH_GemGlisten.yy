@@ -3,8 +3,8 @@
   "%Name":"SH_GemGlisten",
   "name":"SH_GemGlisten",
   "parent":{
-    "name":"DiggingGame",
-    "path":"DiggingGame.yyp",
+    "name":"Shaders",
+    "path":"folders/Shaders.yy",
   },
   "resourceType":"GMShader",
   "resourceVersion":"2.0",

@@ -61,6 +61,7 @@ function world_init(_cols, _rows, _tile_size, _seed, _chunk_w, _chunk_h) {
 	W.zone_spawn_goal  = ds_map_create(); // id -> target number of spawns for this zone
 	W.zone_spawn_count = ds_map_create(); // id -> how many we’ve already placed
 	W.zone_require_instance_ground = false;
+	W.min_spawn_depth = 180;
 
     // chunk storage map — use variable_struct_exists to avoid reading a missing field
 	if (variable_struct_exists(W, "chunk_map") && ds_exists(W.chunk_map, ds_type_map)) {

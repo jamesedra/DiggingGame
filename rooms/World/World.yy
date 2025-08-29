@@ -11,6 +11,14 @@
     {"name":"playerInstance","path":"rooms/World/World.yy",},
     {"name":"inst_64B594C3","path":"rooms/World/World.yy",},
     {"name":"inst_2337090C","path":"rooms/World/World.yy",},
+    {"name":"inst_2DB8340C","path":"rooms/World/World.yy",},
+    {"name":"inst_40113CFB","path":"rooms/World/World.yy",},
+    {"name":"inst_4640A652","path":"rooms/World/World.yy",},
+    {"name":"inst_33A3716B","path":"rooms/World/World.yy",},
+    {"name":"inst_450FFE31","path":"rooms/World/World.yy",},
+    {"name":"inst_13DCBF1B","path":"rooms/World/World.yy",},
+    {"name":"inst_746A7166","path":"rooms/World/World.yy",},
+    {"name":"inst_6B75F51D","path":"rooms/World/World.yy",},
     {"name":"inst_763AB974","path":"rooms/World/World.yy",},
     {"name":"inst_522CFBE","path":"rooms/World/World.yy",},
     {"name":"inst_2A37712D","path":"rooms/World/World.yy",},
@@ -21,7 +29,9 @@
   ],
   "isDnd":false,
   "layers":[
-    {"$GMRInstanceLayer":"","%Name":"Splash","depth":0,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[],"layers":[],"name":"Splash","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
+    {"$GMRInstanceLayer":"","%Name":"Splash","depth":0,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
+        {"$GMRInstance":"v2","%Name":"inst_6B75F51D","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_6B75F51D","objectId":{"name":"oDrill","path":"objects/oDrill/oDrill.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":1184.0,"y":224.0,},
+      ],"layers":[],"name":"Splash","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRInstanceLayer":"","%Name":"FX_Gibs","depth":100,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[],"layers":[],"name":"FX_Gibs","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRInstanceLayer":"","%Name":"Player","depth":200,"effectEnabled":true,"effectType":null,"gridX":16,"gridY":16,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"$GMRInstance":"v2","%Name":"playerInstance","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"playerInstance","objectId":{"name":"oPlayer","path":"objects/oPlayer/oPlayer.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":992.0,"y":32.0,},

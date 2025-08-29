@@ -263,7 +263,7 @@ function world_zones_spawn_for_chunk(_ccol, _crow) {
 
                     var wcol = _ccol * W.chunk_w + lx;
                     var wrow = _crow * W.chunk_h + ly;
-
+					
                     // tile below (for floor spawns) and tile above (for ceiling spawns)
                     var t_below = world_get_tile(wcol, wrow + 1);
                     var t_above = world_get_tile(wcol, wrow - 1);
@@ -275,6 +275,8 @@ function world_zones_spawn_for_chunk(_ccol, _crow) {
                     // screen/world coordinates (center of this cell)
                     var px = wcol * W.tileSize + (W.tileSize * 0.5);
                     var py = wrow * W.tileSize + (W.tileSize * 0.5);
+					
+					if (py < W.min_spawn_depth) continue; // spawn only after certain depth
 
                     // Decide whether to do a ceiling spawn (if there's a solid above),
                     // otherwise do the original floor spawn (requires solid below).
@@ -332,7 +334,7 @@ function world_zones_spawn_for_chunk(_ccol, _crow) {
                     } else {
                         // floor spawn (original behavior)
                         // inst_y stays as center of this tile
-                        obj_to_make = choose(oChest_Wood, oDirt);
+                        obj_to_make = choose(oChest_Wood, oDirt, select_drill(px, py));
                     }
 
                     if (!is_undefined(obj_to_make) && obj_to_make != noone) {
