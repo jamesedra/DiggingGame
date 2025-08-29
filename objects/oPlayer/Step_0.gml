@@ -18,7 +18,7 @@ if (hp <= 0)
 
 if (keyboard_check_pressed(ord("R")))
 {
-	open_pause_menu();
+	open_win_modal();
 }
 
 if (invuln > 0) invuln--;
@@ -151,8 +151,6 @@ if (swing_active) {
     var x1 = x_front;
     var x2 = x_front + (attack_dir > 0 ? attack_hit_w : -attack_hit_w);
 	
-	
-
 	
     // Find enemies in the hitbox and destroy them
     var list = ds_list_create();
@@ -293,11 +291,6 @@ else
 // break when charged long enough
 if (mine_target != noone && mine_elapsed_us >= mine_target.mine_time_us) 
 {
-	audio_play_sound(mine_target.breakSound, 0, false, 1.0)
-	if (mine_target.secondaryBreakSound != noone)
-	{
-		audio_play_sound(mine_target.secondaryBreakSound, 0, false, 1.0)
-	}
 	
 	//reward player if applicable
 	//if (object_is_ancestor(mine_target.object_index, oChest))
@@ -313,7 +306,6 @@ if (mine_target != noone && mine_elapsed_us >= mine_target.mine_time_us)
 	
     with (mine_target)
 	{
-	    spawn_block_gibs(8); // 4×4 = 16 pieces (try 6–8 for chunkier explosions)
 		if (variable_global_exists("World") && !is_undefined(global.World)) {
 		    // Prefer stored grid coords set at spawn; fall back to deriving from position
 		    var c = variable_instance_exists(id, "gcol") ? gcol : world_px_to_col(x);

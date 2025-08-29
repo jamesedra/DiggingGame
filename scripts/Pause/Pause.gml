@@ -11,3 +11,12 @@ function open_pause_menu(_on_resume, _on_restart) {
     if (!is_undefined(_on_resume))  m.on_resume  = _on_resume;
     if (!is_undefined(_on_restart)) m.on_restart = _on_restart;
 }
+
+/// @function open_win_modal([on_confirm])
+/// @param {function|undefined} on_confirm  optional callback when confirming
+function open_win_modal(_on_confirm) {
+    if (instance_exists(oWinModel)) return; // already open
+    var lay = layer_get_id("World");
+    var m = instance_create_layer(0, 0, lay, oWinModel);
+    if (!is_undefined(_on_confirm)) m.on_confirm = _on_confirm;
+}
