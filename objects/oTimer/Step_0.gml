@@ -2,9 +2,9 @@ dt_ms = delta_time / 1000;          // microseconds -> ms
 dt    = delta_time / 1000000;       // seconds
 
 
-if (count_up && !global.input_locked) {
+if (count_up && !global.paused) {
     timer_ms += dt_ms;
-} else if (count_down && !global.input_locked) {
+} else if (count_down && !global.paused) {
     cd_remaining_ms = max(0, cd_remaining_ms - dt_ms);
     if (cd_remaining_ms <= 0) {
         cd_remaining_ms = 0;

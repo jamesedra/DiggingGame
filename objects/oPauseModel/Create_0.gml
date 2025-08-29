@@ -1,5 +1,5 @@
 // oPauseModal.Create
-global.input_locked = true; // freeze controls
+global.paused = true; // freeze everything
 
 title    = "PAUSED";
 btnA_txt = "Continue";

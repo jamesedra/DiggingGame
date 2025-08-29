@@ -36,7 +36,7 @@ start_y = y;
 
 //points
 points = 0
-global.input_locked = false;
+global.paused = false;
 
 //health GUI
 // --- HEART HUD (3 max, no halves) ---

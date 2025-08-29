@@ -1,5 +1,5 @@
 //xVelocity = 0
-if (global.input_locked) exit; 
+if (global.paused) exit; 
 //check die
 
 if (hp <= 0)
