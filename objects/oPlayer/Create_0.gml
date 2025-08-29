@@ -65,3 +65,27 @@ depthicon_scale_mult = 1.0; // controls the ICON size only
 
 depth_icon_sprite = sPlayer_Idle; // e.g., sDepthIcon
 
+//attacking
+// --- Attack (right-click) ---
+is_attacking         = false;
+attack_timer         = 0;
+attack_time_max      = 20;   // frames the attack lasts
+attack_cooldown      = 0;
+attack_cooldown_max  = 10;   // frames between attacks
+attack_dir           = 1;    // +1 right, -1 left
+attack_image_speed   = 1.0;  // playback speed for sPlayer_Attack (tune)
+
+// --- Attack hitbox tuning ---
+attack_hit_w       = 10;  // width of the box in front of player
+attack_hit_h       = 38;  // height of the box (around player's mid)
+attack_hit_forward = 18;  // how far in front of the player the box starts
+
+// --- Debug: attack hitbox ---
+debug_attack_hitbox = 0;
+attack_dbg_show  = 0;
+attack_dbg_x1    = 0;
+attack_dbg_y1    = 0;
+attack_dbg_x2    = 0;
+attack_dbg_y2    = 0;
+attack_dbg_color = c_aqua; // set to c_lime when we hit something
+
