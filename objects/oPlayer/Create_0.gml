@@ -5,7 +5,7 @@ window_set_fullscreen(true)
 //stat
 hp = 3
 invuln = 0
-
+show_debug_overlay(true);
 //movement
 xVelocity = 0.0
 yVelocity = 0.0

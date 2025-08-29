@@ -28,6 +28,33 @@ draw_set_alpha(1);
 draw_set_color(make_color_rgb(35,38,46));
 draw_rectangle(bar_x, bar_y, bar_x + bar_w, bar_y + bar_h, false);
 
+// --- LAVA FILL (bottom-up) ---
+// Get the current lava surface in world Y (fallback: off-screen bottom if none)
+var lava_yw = room_height + 999999;
+if (instance_exists(oLava)) {
+    var _lava = instance_find(oLava, 0);
+    if (_lava != noone) lava_yw = _lava.surface_y;
+}
+
+// Normalize lava to 0..1 (0=top, 1=bottom), then map to bar space
+var lava_t     = clamp(lava_yw / max(1, room_height), 0, 1);
+var lava_gui_y = bar_y + lava_t * bar_h;
+
+// Fill from lava surface to the bottom of the bar (orange)
+draw_set_alpha(0.85);
+draw_set_color(make_color_rgb(255, 120, 40));
+draw_rectangle(bar_x, lava_gui_y, bar_x + bar_w, bar_y + bar_h, false);
+
+// bright “cap” line at the lava surface
+draw_set_alpha(1);
+draw_set_color(make_color_rgb(255, 180, 60));
+draw_line(bar_x, lava_gui_y, bar_x + bar_w, lava_gui_y);
+
+// (Restore whatever alpha/color you want for next draws)
+draw_set_alpha(1);
+draw_set_color(c_white);
+
+
 // --- fill from TOP down to marker (optional visual) ---
 draw_set_color(make_color_rgb(90,120,180)); // “progress” fill color
 draw_rectangle(bar_x, bar_y, bar_x + bar_w, mark_y, false);

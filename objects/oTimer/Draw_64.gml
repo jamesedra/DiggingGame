@@ -16,7 +16,7 @@ if (!running) {
     var breathe = 0.5 + 0.5 * sin(out_phase);
 
     var s = out_base
-          + out_pop_amp     * sqr(pulse_t)
+          + out_pop_amp     /** sqr(pulse_t)*/
           + out_breathe_amp * breathe;
 
     // === Stable centering: measure unscaled width and snap to pixels ===

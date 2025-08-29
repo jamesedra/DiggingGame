@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"SH_LavaHeat",
+  "name":"SH_LavaHeat",
+  "parent":{
+    "name":"DiggingGame",
+    "path":"DiggingGame.yyp",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

@@ -1,6 +1,6 @@
 // --- oLava.Create ---
 // Top edge (surface) of the lava, world Y. Start below the room:
-surface_y = room_height + 100;
+surface_y =  300;
 
 // Motion (pixels/second)
 rising = false
