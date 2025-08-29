@@ -8,7 +8,7 @@ var vh = camera_get_view_height(cam);
 var top    = max(surface_y, vy);
 var bottom = vy + vh;
 
-// 1) Fill
+
 // 1) Fill
 if (spr_fill != noone) {
     var sw = sprite_get_width(spr_fill);

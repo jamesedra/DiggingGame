@@ -1,4 +1,4 @@
-if (global.input_locked == true) exit;
+if (global.paused == true) exit;
 
 frameCount++
 

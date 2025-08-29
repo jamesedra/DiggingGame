@@ -5,7 +5,7 @@ window_set_fullscreen(true)
 //stat
 hp = 3
 invuln = 0
-
+show_debug_overlay(true);
 //movement
 xVelocity = 0.0
 yVelocity = 0.0
@@ -36,7 +36,7 @@ start_y = y;
 
 //points
 points = 0
-global.input_locked = false;
+global.paused = false;
 
 //health GUI
 // --- HEART HUD (3 max, no halves) ---
@@ -54,3 +54,14 @@ hud_scale_factor = 4.0;  // extra scale multiplier if you want bigger/smaller
 is_carried     = false;   // true while being carried
 carried_by     = noone;   // instance id of the carrier
 _saved_yAccel  = undefined; // used to restore gravity-like accel
+
+// DEPTH BAR CONFIG (GUI coordinates; will be scaled)
+depthbar_x_gui   = 32;   // left padding from GUI edge
+depthbar_y_gui   = 140;  // top padding
+depthbar_h_gui   = 620;  // bar height at 1.0 scale
+depthbar_w_gui   = 36;   // bar width at 1.0 scale
+depthbar_pad_gui = 6;    // panel padding
+depthicon_scale_mult = 1.0; // controls the ICON size only
+
+depth_icon_sprite = sPlayer_Idle; // e.g., sDepthIcon
+

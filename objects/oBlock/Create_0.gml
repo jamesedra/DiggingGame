@@ -13,4 +13,17 @@ if (irandom_range(0,1) == 1)
 	if (mirrorRandom) image_xscale = -1
 }
 
-
+//edge guide
+//0: full
+//1: T
+//2: R
+//3: B
+//4: L
+//5: TR
+//6: RB
+//7: LB
+//8: TL
+//9: LTR
+//10: TRB
+//11: LBR
+//12: TLB

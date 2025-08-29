@@ -1,5 +1,5 @@
 // freeze controls
-global.input_locked = true;
+global.paused = true;
 
 // assets
 spr_panel  = sMenu_Death;
