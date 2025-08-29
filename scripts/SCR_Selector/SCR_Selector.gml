@@ -22,3 +22,28 @@ function select_gem(_x, _y) {
         else return W.TILE_GEMBLUE;
     }
 }
+
+function select_drill(_x, _y) {
+    var W = global.World;
+    // Use world rows (number of tile rows in the world)
+    var h = W.rows;
+    var t = _y / h;
+	
+    var r = random(100);
+	
+    if (t < 1/3) {
+        if (r < 90) return oDrill_Yellow;
+        else if (r < 99) return oDrill_Red;
+        else return oDrill_Blue;
+    }
+    else if (t < 2/3) {
+        if (r < 10) return oDrill_Yellow;
+        else if (r < 95) return oDrill_Red;
+        else return oDrill_Blue;
+    }
+    else {
+        if (r < 1) return oDrill_Yellow;
+        else if (r < 10) return oDrill_Red;
+        else return oDrill_Blue;
+    }
+}

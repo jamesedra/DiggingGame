@@ -1,3 +1,12 @@
+// drill carry
+if (is_carried) {
+    // keep velocities zero while carried so they don't accumulate
+    xVelocity = 0;
+    yVelocity = 0;
+    // optionally we could keep facing logic, but skip the rest:
+    exit;
+}
+
 //xVelocity = 0
 if (global.input_locked) exit; 
 //check die
@@ -235,4 +244,3 @@ else
 {
 	image_xscale = 1
 }
-

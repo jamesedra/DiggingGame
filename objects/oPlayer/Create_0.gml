@@ -49,3 +49,8 @@ hud_margin_top   = 24;   // px from top
 hud_margin_right = 24;   // px from right
 hud_spacing_px   = 6;    // px between hearts
 hud_scale_factor = 4.0;  // extra scale multiplier if you want bigger/smaller
+
+// drill carry related vars
+is_carried     = false;   // true while being carried
+carried_by     = noone;   // instance id of the carrier
+_saved_yAccel  = undefined; // used to restore gravity-like accel
