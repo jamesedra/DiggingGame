@@ -18,11 +18,15 @@ if (hp <= 0)
 
 if (keyboard_check_pressed(ord("R")))
 {
-	open_pause_menu();
+	open_win_modal();
 }
 
 if (invuln > 0) invuln--;
 image_alpha = (invuln > 0 && (invuln & 2)) ? 0.5 : 1;
+
+//tak cooldown
+if (attack_cooldown > 0) attack_cooldown--;
+
 
 // gravity
 yVelocity += yAccel;
@@ -107,6 +111,93 @@ var on_ground = place_meeting(x, y + 1, oBlock);
 if (bbox_left < 0)            { x -= bbox_left;           xVelocity = 0; } // pull inside
 if (bbox_right > room_width)  { x -= (bbox_right - room_width); xVelocity = 0; }
 
+
+// --- RIGHT-CLICK ATTACK ---
+// --- RIGHT-CLICK ATTACK (hold to chain) ---
+var right_held = mouse_check_button(mb_right);
+
+// start an attack if we're not attacking, RMB is held, and cooldown is done
+if (!is_attacking && right_held && attack_cooldown <= 0) {
+    is_attacking    = true;
+    attack_timer    = 0;
+    attack_cooldown = attack_cooldown_max;
+
+    // Face toward mouse on swing start
+    attack_dir    = (mouse_x >= x) ? 1 : -1;
+    image_xscale  = attack_dir;
+
+    // Play attack anim
+    sprite_index  = sPlayer_Attack;
+    image_index   = 0;
+    image_speed   = attack_image_speed;
+}
+
+// progress/finish current swing
+if (is_attacking) {
+    attack_timer++;
+	
+	
+	// --- Active frames for the swing ---
+// With 4 frames @ 12fps and a ~20 step swing, frames 1..2 are a good "hit" window.
+var swing_active = (sprite_index == sPlayer_Attack) && (image_index >= 1) && (image_index < 3);
+
+if (swing_active) {
+    // Center the hitbox vertically on the player; push it forward based on facing
+    var mid_y = (bbox_top + bbox_bottom) * 0.5;
+    var y1 = mid_y - attack_hit_h * 0.5;
+    var y2 = mid_y + attack_hit_h * 0.5;
+
+    var x_front  = x + (attack_dir > 0 ? attack_hit_forward : -attack_hit_forward);
+    var x1 = x_front;
+    var x2 = x_front + (attack_dir > 0 ? attack_hit_w : -attack_hit_w);
+	
+	
+    // Find enemies in the hitbox and destroy them
+    var list = ds_list_create();
+    var cnt  = collision_rectangle_list(x1, y1, x2, y2, oEnemy, false, true, list, false);
+    if (cnt > 0) {
+        // iterate and destroy
+        for (var i = 0; i < cnt; ++i) {
+            var enemy = list[| i];
+            with (enemy) {
+				var enemyValue = value;
+		        other.points += enemyValue;
+
+		        var pop = instance_create_layer(x, y, "Splash", oPointsPop);
+		        pop.amount = enemyValue;
+                instance_destroy();
+            }
+        }
+    }
+	// store debug rect (normalize so x1<x2, y1<y2)
+	attack_dbg_x1 = min(x1, x2);
+	attack_dbg_y1 = min(y1, y2);
+	attack_dbg_x2 = max(x1, x2);
+	attack_dbg_y2 = max(y1, y2);
+	attack_dbg_color = (cnt > 0) ? c_lime : c_aqua; // green when a hit landed
+	attack_dbg_show  = 2; // show for a couple frames so it's visible
+	
+    ds_list_destroy(list);
+}
+
+	
+    var finished = (attack_timer >= attack_time_max) || (image_index >= image_number - 0.01);
+
+    if (finished) {
+        is_attacking = false;
+        image_speed  = 1;
+
+        // If still holding RMB: chain another swing when cooldown is done
+        // (We let the normal start condition above re-trigger as soon as attack_cooldown hits 0)
+        if (!right_held) {
+            // not chaining - fall back to movement anim
+            if (xVelocity == 0) sprite_index = sPlayer_Idle;
+            else                sprite_index = sPlayer_Walk_Right;
+        }
+    }
+}
+
+
 //MINE------------------------------------
 // Find the one block under the mouse (topmost in depth)
 var playerPos = new Vector2(x, y)
@@ -168,7 +259,7 @@ last_hover = h;
 var left_held = mouse_check_button(mb_left);
 var can_mine  = (h != noone) && allow;  // re-use your hover + distance check
 
-if (left_held && can_mine)
+if (left_held && can_mine && !is_attacking)
 {
 	sprite_index = sPlayer_Mine
 
@@ -189,25 +280,17 @@ else
     // released, moved off, or out of range -> reset
     mine_target = noone;
     mine_elapsed_us = 0;
-	
-	if (xVelocity == 0.0)
+
+    if (!is_attacking) 
 	{
-		sprite_index = sPlayer_Idle
-	}
-	else
-	{
-		sprite_index = sPlayer_Walk_Right
-	}
+        if (xVelocity == 0.0) sprite_index = sPlayer_Idle;
+        else                  sprite_index = sPlayer_Walk_Right;
+    }
 }
 
 // break when charged long enough
 if (mine_target != noone && mine_elapsed_us >= mine_target.mine_time_us) 
 {
-	audio_play_sound(mine_target.breakSound, 0, false, 1.0)
-	if (mine_target.secondaryBreakSound != noone)
-	{
-		audio_play_sound(mine_target.secondaryBreakSound, 0, false, 1.0)
-	}
 	
 	//reward player if applicable
 	//if (object_is_ancestor(mine_target.object_index, oChest))
@@ -223,7 +306,6 @@ if (mine_target != noone && mine_elapsed_us >= mine_target.mine_time_us)
 	
     with (mine_target)
 	{
-	    spawn_block_gibs(8); // 4×4 = 16 pieces (try 6–8 for chunkier explosions)
 		if (variable_global_exists("World") && !is_undefined(global.World)) {
 		    // Prefer stored grid coords set at spawn; fall back to deriving from position
 		    var c = variable_instance_exists(id, "gcol") ? gcol : world_px_to_col(x);

@@ -11,3 +11,6 @@ vsp_max = 12;            // terminal fall speed
 //kb
 kb_mult = 3.0
 frameCount = 0
+
+// gibs
+gib_pieces = 6; 
