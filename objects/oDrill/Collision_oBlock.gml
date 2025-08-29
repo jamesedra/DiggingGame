@@ -2,7 +2,7 @@ if (state == "active" && carried_player != noone && other != noone) {
     var target = other;
 
     // Ensure player's current target is valid and is the block we collided with
-    if (target != noone && instance_exists(target) && target == other) {
+    if (target != noone && instance_exists(target)) {
         // Ensure the block actually has a value field before reading it
         if (variable_instance_exists(target, "value") && target.value > 0) {
             var val = target.value;

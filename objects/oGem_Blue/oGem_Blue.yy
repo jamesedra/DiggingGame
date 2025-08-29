@@ -17,8 +17,8 @@
     "path":"folders/Objects.yy",
   },
   "parentObjectId":{
-    "name":"oBlock",
-    "path":"objects/oBlock/oBlock.yy",
+    "name":"oRock",
+    "path":"objects/oRock/oRock.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
