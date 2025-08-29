@@ -157,17 +157,29 @@ if (swing_active) {
     var cnt  = collision_rectangle_list(x1, y1, x2, y2, oEnemy, false, true, list, false);
     if (cnt > 0) {
         // iterate and destroy
-        for (var i = 0; i < cnt; ++i) {
-            var enemy = list[| i];
-            with (enemy) {
-				var enemyValue = value;
-		        other.points += enemyValue;
+       for (var i = 0; i < cnt; ++i) {
+	    var enemy = list[| i];
+	    with (enemy) {
+	        // take damage only if not in iframes/stun
+	        if (hurt_timer <= 0) {
+	            hp = max(0, hp - 1);
 
-		        var pop = instance_create_layer(x, y, "Splash", oPointsPop);
-		        pop.amount = enemyValue;
-                instance_destroy();
-            }
-        }
+	            // knockback away from the player and pop upward a bit
+	            var away = sign(x - other.x); // +1 if enemy is right of player
+	            kbx = away * kb_force_x;
+	            vsp = -kb_force_y;
+
+	            // enter stun/iframes & flash red
+	            hurt_timer = hit_stun_max;
+	            image_blend = c_red;
+
+	            // optional: play enemy-hit SFX here
+	            audio_play_sound(Block_Break_3, 0, false);
+				spawn_block_gibs_explosive(8, 0.25); // try 1.0 (normal) to ~3.0 (wild)
+	        }
+	    }
+}
+
     }
 	// store debug rect (normalize so x1<x2, y1<y2)
 	attack_dbg_x1 = min(x1, x2);
