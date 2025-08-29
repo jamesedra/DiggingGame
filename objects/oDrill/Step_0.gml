@@ -3,39 +3,56 @@ if (state == "idle") {
     var ply = instance_nearest(x, y, oPlayer);
     if (ply != noone && point_distance(x, y, ply.x, ply.y) < 64) {
         if (keyboard_check_pressed(ord("E"))) {
-            // begin carrying
-            state = "active";
-            sprite_index = spr_active;
-            carried_player = ply;
-            carry_time = 0;
-			carried_player.visible = false;
+            // Try to claim the player via script (atomic)
+            if (SCR_Player_TryClaim(ply, id)) {
+                // claim succeeded — do carry setup
+                state = "active";
+                sprite_index = spr_active;
+                carried_player = ply;
+                carry_time = 0;
 
-            // flag player so their Step early-exits
-            carried_player.is_carried = true;
-            carried_player.carried_by = id;
+                // hide / zero / save vars on the player as before
+                carried_player.visible = false;
 
-            // save and disable their "gravity-like" accel (yAccel) so they don't fall
-            if (variable_instance_exists(carried_player, "yAccel")) {
-                carried_player._saved_yAccel = carried_player.yAccel;
-                carried_player.yAccel = 0;
+                // save and disable their "gravity-like" accel (yAccel) so they don't fall
+                if (variable_instance_exists(carried_player, "yAccel")) {
+                    carried_player._saved_yAccel = carried_player.yAccel;
+                    carried_player.yAccel = 0;
+                } else {
+                    carried_player._saved_yAccel = undefined;
+                }
+
+                // zero their velocities while attached
+                if (variable_instance_exists(carried_player, "xVelocity")) carried_player.xVelocity = 0;
+                if (variable_instance_exists(carried_player, "yVelocity")) carried_player.yVelocity = 0;
+
+                // (optional) debug:
+                // show_debug_message("Drill " + string(id) + " claimed player " + string(carried_player));
             } else {
-                carried_player._saved_yAccel = undefined;
+                // somebody else already claimed the player this frame
+                // optional: play a deny sound or do nothing
             }
-
-            // zero their velocities while attached
-            if (variable_instance_exists(carried_player, "xVelocity")) carried_player.xVelocity = 0;
-            if (variable_instance_exists(carried_player, "yVelocity")) carried_player.yVelocity = 0;
         }
     }
 }
 
 // Carrying logic: move up and keep player attached
 if (state == "active" && carried_player != noone) {
+    // sanity: if the player no longer exists, cleanup
     if (!instance_exists(carried_player)) {
-        // player disappeared — clean up
         carried_player = noone;
         state = "done";
-    } else {
+    }
+    // if player is now owned by another drill, relinquish claim and cleanup
+    else if (!variable_instance_exists(carried_player, "carried_by") || carried_player.carried_by != id) {
+        // player is carried by someone else (lost race or was re-claimed) -> cleanup
+        carried_player = noone;
+        state = "done";
+        sprite_index = spr_idle;
+        // optional: instance_destroy(); // if you want drill gone
+    }
+    else {
+        // safe: we actually own the player, proceed with movement
         // move the drill up
         y += carry_speed;
 
