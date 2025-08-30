@@ -27,7 +27,7 @@ function world_init(_cols, _rows, _tile_size, _seed, _chunk_w, _chunk_h) {
 	W.TILE_GEMYELLOW = 7;
 
     // terrain params
-    W.surface_base_row  = 4;
+    W.surface_base_row  = 0;
     W.surface_amplitude = 16;
     W.surface_freq      = 0.008;
     W.surface_octaves   = 4;
@@ -92,6 +92,7 @@ function world_init(_cols, _rows, _tile_size, _seed, _chunk_w, _chunk_h) {
 
     // compute per-column surface / ground base
     world_generate_columns();
+	world_data_clear_outside_radius(view_camera[0], 99999);
 }
 
 
@@ -133,20 +134,50 @@ function world_shutdown() {
 }
 
 // compute per-column surface & ground rows
+//function world_generate_columns() {
+//    var W = global.World;
+//    var base_row = clamp(W.surface_base_row, 0, W.rows - 64);
+
+//    for (var col_i = 0; col_i < W.cols; col_i++) {
+//        var nVal = world_valueNoise1D(col_i, W.surface_freq, W.surface_octaves, W.seed);
+//        var s_row = base_row + floor((nVal - 0.5) * W.surface_amplitude);
+//        s_row = clamp(s_row, 0, W.rows - 64);
+//        W.surface_heights[col_i] = s_row;
+
+//        var dn   = world_valueNoise1D(col_i + 9999, W.gdepth_freq, 2, W.seed + 7777);
+//        var gdep = W.gdepth_mean + floor((dn - 0.5) * 2 * W.gdepth_var);
+//        gdep = max(4, gdep);
+//        var g_base = clamp(s_row + gdep, s_row + 2, W.rows - 6);
+//        W.ground_base[col_i] = g_base;
+//    }
+//}
+
+// columns with flat
 function world_generate_columns() {
     var W = global.World;
-    var base_row = clamp(W.surface_base_row, 0, W.rows - 64);
+    // clamp the base surface row to a safe range
+    var base_row = clamp(W.surface_base_row, 0, W.rows);
+    
+    // If you ever want a tiny deterministic jitter, set jitter > 0.
+    // var jitter = 0; // 0 = perfectly flat. >0 adds small deterministic bumps.
+    
+    for (var col = 0; col < W.cols; col++) {
+        // --- Surface: flat ---
+        // Use exact integer row for the visible top
+        W.surface_heights[col] = base_row; // perfectly flat
+        
+        // If you wanted a tiny deterministic jitter instead:
+        // var j = (jitter == 0) ? 0 : round((world_hash01(col,0,W.seed) - 0.5) * 2.0 * jitter);
+        // W.surface_heights[col] = clamp(base_row + j, 0, W.rows - 64);
 
-    for (var col_i = 0; col_i < W.cols; col_i++) {
-        var nVal = world_valueNoise1D(col_i, W.surface_freq, W.surface_octaves, W.seed);
-        var s_row = base_row + floor((nVal - 0.5) * W.surface_amplitude);
-        s_row = clamp(s_row, 0, W.rows - 64);
-        W.surface_heights[col_i] = s_row;
-
-        var dn   = world_valueNoise1D(col_i + 9999, W.gdepth_freq, 2, W.seed + 7777);
-        var gdep = W.gdepth_mean + floor((dn - 0.5) * 2 * W.gdepth_var);
-        gdep = max(4, gdep);
-        var g_base = clamp(s_row + gdep, s_row + 2, W.rows - 6);
-        W.ground_base[col_i] = g_base;
+        // --- Ground base / deeper terrain: keep noisy ---
+        // Use a different noise offset/seed to make ground independent
+        var dn = world_valueNoise1D(col + 9999, W.gdepth_freq, 2, W.seed + 7777);
+        // gdep is how many tiles below surface the ground base sits (can be negative if params odd)
+        var gdep = W.gdepth_mean + round((dn - 0.5) * 2 * W.gdepth_var);
+        // ensure ground base is at least a couple tiles below surface and inside world bounds
+        var raw_gbase = W.surface_heights[col] + gdep;
+        var g_base = clamp(raw_gbase, W.surface_heights[col] + 2, W.rows - 6);
+        W.ground_base[col] = g_base;
     }
 }

@@ -56,7 +56,7 @@ function select_explosion() {
 
 function select_floor_obj(_x, _y) {	
 	var r = random(100);
-	if (r < 50) return oChest_Wood;
+	if (r < 50) return select_chest(_x, _y);
 	else if (r < 80) return oCrystal;
 	else return select_drill(_x, _y);
 }
@@ -72,4 +72,29 @@ function select_enemy() {
 	if (r < 50) return oSlime;
 	else if (r < 80) return oBat;
 	else return oMimic;
+}
+
+function select_chest(_x, _y) {
+    var W = global.World;
+    // Use world rows (number of tile rows in the world)
+    var h = W.rows;
+    var t = _y / h;
+	
+    var r = random(100);
+	
+    if (t < 1/3) {
+        if (r < 90) return oChest_Wood;
+        else if (r < 99) return oChest_Gold;
+        else return oChest_Skull;
+    }
+    else if (t < 2/3) {
+        if (r < 10) return oChest_Wood;
+        else if (r < 95) return oChest_Gold;
+        else return oChest_Skull;
+    }
+    else {
+        if (r < 1) return oChest_Wood;
+        else if (r < 10) return oChest_Gold;
+        else return oChest_Skull;
+    }
 }
