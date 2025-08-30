@@ -50,20 +50,31 @@ for (var i = 0; i < 3; i++) {
 
     bx1[i] = x1; by1[i] = y1; bx2[i] = x2; by2[i] = y2;
 
-    // Track whether the mouse is currently hovering any button
     if (mx >= x1 && mx <= x2 && my >= y1 && my <= y2) any_hover = true;
 }
 
-// If the mouse is over a button, prefer mouse mode (no keyboard-selected highlight)
+// Prefer mouse hover visuals over keyboard highlight
 if (any_hover) kb_nav = false;
 
 // ---------- CONTROLS OVERLAY INPUT ----------
 if (show_controls) {
-    // Back button: same base as main button, scaled uniformly by back_btn_scale
+    // Aspect-correct rect for sControls centered in the panel
+    var csw = max(1, sControls == noone ? 1 : sprite_get_width(sControls));
+    var csh = max(1, sControls == noone ? 1 : sprite_get_height(sControls));
+
+    var fit = min(_panel_w / csw, _panel_h / csh);
+    var sc  = fit * controls_scale;
+
+    _ctrl_w = round(csw * sc);
+    _ctrl_h = round(csh * sc);
+    _ctrl_x = round(_panel_x + (_panel_w - _ctrl_w) * 0.5);
+    _ctrl_y = round(_panel_y + (_panel_h - _ctrl_h) * 0.5);
+
+    // Back button (uniform scale), anchored to bottom-center of the controls sheet
     var bw = round(_calc_bw * back_btn_scale);
     var bh = round(_calc_bh * back_btn_scale);
-    var bx = round(cx - bw * 0.5);
-    var by = round(_panel_y + _panel_h - bh - _calc_gap);
+    var bx = round(_ctrl_x + _ctrl_w * 0.5 - bw * 0.5);
+    var by = round(_ctrl_y + _ctrl_h - bh - _calc_gap);
 
     back_x1 = bx; back_y1 = by; back_x2 = bx + bw; back_y2 = by + bh;
 

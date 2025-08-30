@@ -18,15 +18,15 @@ title_scale = 1.2;
 spr_panel  = sMenu_Win; 
 spr_button = sButton_Death;
 
-// NEW: Optional GUI background sprite (fullscreen in GUI space)
-spr_background = sCave3; // set to a sprite asset to enable a background image
+// Optional GUI background sprite (fullscreen in GUI space)
+spr_background = sCave3;
 
 // ---- Controls ----
 btn_scale                  = 8.0;   // button size (keeps aspect)
 btn_gap_base               = 5;     // edge-to-edge gap between buttons (design px)
 stack_center_offset_y_base = 80;    // shift the 3-button stack up/down (+down)
 
-// NEW: Panel size controls (keeps aspect)
+// Panel size controls (keeps aspect)
 panel_width_base = 1000;    // panel width at scale 1 (design px)
 panel_scale      = 1.0;     // multiplier on that width
 
@@ -37,28 +37,31 @@ btn_shadow_color = make_color_rgb(0,0,0);
 btn_shadow_px    = 2;
 label_scale      = 1.0;
 
-// NEW: Back button scale (uniform; keeps sprite aspect)
+// Back button scale (uniform; keeps sprite aspect)
 back_btn_scale   = 0.7;
+
+// Controls sheet scale (uniform). 1.0 = fit inside panel; <1 smaller; >1 can exceed panel.
+controls_scale   = 1.0;
 
 // Always 3 buttons
 buttons = [
     { label: "Play",      cb: function(){ room_goto(World); } },
-
-    // Controls overlay (bound to instance so it can set show_controls)
     { label: "Controls",  cb: method(self, function(){ self.show_controls = true; }) },
-
     { label: "Quit",      cb: function(){ game_end(); } }
 ];
 
 // ---------- STATE ----------
 sel = 0;
 
-// NEW: track whether selection should be shown (keyboard nav)
+// track whether selection should be shown (keyboard nav)
 kb_nav = false;
 
-// NEW: controls overlay state & back-button rect
+// controls overlay state & back-button rect
 show_controls = false;
 back_x1 = 0; back_y1 = 0; back_x2 = 0; back_y2 = 0;
+
+// cached controls sprite rect (aspect-correct)
+_ctrl_x = 0; _ctrl_y = 0; _ctrl_w = 0; _ctrl_h = 0;
 
 // Pre-alloc rects & cached layout
 bx1 = [0,0,0];
