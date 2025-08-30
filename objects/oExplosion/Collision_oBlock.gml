@@ -22,7 +22,7 @@ if (!variable_instance_exists(other,"collected") || !other.collected) {
     }
 
     with (other) {
-        spawn_block_gibs(8);
+        // spawn_block_gibs(8);
         if (variable_global_exists("World") && !is_undefined(global.World)) {
             var c = variable_instance_exists(id,"gcol") ? gcol : world_px_to_col(x);
             var r = variable_instance_exists(id,"grow") ? grow : world_py_to_row(y);
