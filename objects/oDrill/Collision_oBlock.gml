@@ -43,3 +43,10 @@ if (state == "active" && carried_player != noone && other != noone) {
         // (only do that if intended; keep logic explicit)
     }
 }
+
+// for creation
+if (state == "idle") {
+	with(other) {
+		instance_destroy();
+	}
+}

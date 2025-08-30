@@ -38,6 +38,7 @@
     {"$GMObjectProperty":"v1","%Name":"secondaryBreakSound","filters":[],"listItems":[],"multiselect":false,"name":"secondaryBreakSound","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"","varType":5,},
     {"$GMObjectProperty":"v1","%Name":"outlineIndex","filters":[],"listItems":[],"multiselect":false,"name":"outlineIndex","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"-1","varType":0,},
     {"$GMObjectProperty":"v1","%Name":"outlineSprite","filters":[],"listItems":[],"multiselect":false,"name":"outlineSprite","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"noone","varType":5,},
+    {"$GMObjectProperty":"v1","%Name":"collected","filters":[],"listItems":[],"multiselect":false,"name":"collected","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"False","varType":3,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

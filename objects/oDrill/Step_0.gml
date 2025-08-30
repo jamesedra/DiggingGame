@@ -105,7 +105,7 @@ if (state == "active" && carried_player != noone) {
                 }
 
                 // done with the carried ref
-                carried_player = noone;
+                // carried_player = noone; // may need to store the player instead
             }
 
             // finalize drill (destroy or set to idle)
