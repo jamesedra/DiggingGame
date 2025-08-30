@@ -2,7 +2,7 @@
 global.paused = true;
 
 // assets
-spr_panel  = sMenu_Win;
+spr_panel  = sMenu_Death;
 spr_button = sButton_Death;
 
 // base scalars (tweak these)

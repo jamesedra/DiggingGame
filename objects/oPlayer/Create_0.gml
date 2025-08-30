@@ -22,6 +22,9 @@ jump_hold_time_max = 8;    // frames you can hold for extra height
 jump_cut_speed     = 1.0;   // cap upward speed when released early (short hop)
 isJumping = false;
 jump_hold_timer = 0;
+// --- Double jump ---
+max_jumps       = 2;   // total jumps per airtime (1 = normal, 2 = double jump)
+jumps_remaining = max_jumps;
 
 
 //controller
@@ -92,3 +95,4 @@ attack_dbg_color = c_aqua; // set to c_lime when we hit something
 //STATS
 max_depth = 0
 monsters_killed = 0
+blocks_mined = 0

@@ -31,19 +31,41 @@ if (attack_cooldown > 0) attack_cooldown--;
 // gravity
 yVelocity += yAccel;
 
-// --- Jump start based on last frame ground state ---
+// --- Jump start / double jump ---
 var was_on_ground = place_meeting(x, y + 1, oBlock);
+
 if (was_on_ground) {
+    // fully refresh while grounded
+    jumps_remaining = max_jumps;
+
     isJumping = false;
     jump_hold_timer = 0;
-    if (keyboard_check_pressed(vk_space)) {
+
+    // ground jump
+    if (keyboard_check_pressed(vk_space) && jumps_remaining > 0) {
         isJumping = true;
         jump_hold_timer = 0;
         yVelocity = -jump_initial_speed;
+        jumps_remaining--; // consumed the ground jump
+    }
+}
+else
+{
+    // mid-air jump (only if you still have one)
+    if (keyboard_check_pressed(vk_space) && jumps_remaining > 0) {
+        isJumping = true;
+        jump_hold_timer = 0;
+        yVelocity = -jump_initial_speed;
+        jumps_remaining--; // consumed the air jump
+		
+		
+        // spawn poof under the player
+        var lay = layer; // same layer as the player
+        instance_create_layer(x, bbox_bottom - 3, lay, oPoof);
     }
 }
 
-// --- Variable jump height ---
+// --- Variable jump height (unchanged) ---
 if (isJumping) {
     if (keyboard_check(vk_space) && jump_hold_timer < jump_hold_time_max) {
         yVelocity -= jumpAccel;
@@ -53,8 +75,10 @@ if (isJumping) {
         if (yVelocity < -jump_cut_speed) yVelocity = -jump_cut_speed;
         isJumping = false;
     }
-    if (yVelocity >= 0) isJumping = false; // started falling
+    if (yVelocity >= 0) isJumping = false;
 }
+
+
 
 // --- HORIZONTAL INPUT (A/D) ---
 var left  = keyboard_check(ord("A"));
@@ -108,11 +132,21 @@ if (vsp != 0) {
 // Ground check AFTER movement (for next frame)
 var on_ground = place_meeting(x, y + 1, oBlock);
 
+// If we walked off a ledge without using a ground jump, forfeit that jump
+if (!on_ground && was_on_ground && jumps_remaining == max_jumps) {
+    jumps_remaining = max_jumps - 1; // leaves exactly one mid-air jump
+}
+
+// (optional) refresh on landing for clarity (next frame would do it anyway)
+if (on_ground) {
+    jumps_remaining = max_jumps;
+}
+
+
 if (bbox_left < 0)            { x -= bbox_left;           xVelocity = 0; } // pull inside
 if (bbox_right > room_width)  { x -= (bbox_right - room_width); xVelocity = 0; }
 
 
-// --- RIGHT-CLICK ATTACK ---
 // --- RIGHT-CLICK ATTACK (hold to chain) ---
 var right_held = mouse_check_button(mb_right);
 
@@ -327,6 +361,7 @@ if (mine_target != noone && mine_elapsed_us >= mine_target.mine_time_us)
 		    world_on_tile_instance_mark_air(c, r);
 		}
 	    instance_destroy();
+		other.blocks_mined += 1
 	}
 
     mine_target = noone;

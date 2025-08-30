@@ -14,7 +14,7 @@ button_text_scale_base = 0.4;
 spacing_px = 24;
 anim = 0;
 
-title    = "You Win!";
+title    = "Surfaced!";
 btn_text = "Again?";
 
 // Y offsets in design pixels (1920x1080 baseline)

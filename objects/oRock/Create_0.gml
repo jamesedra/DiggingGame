@@ -5,7 +5,7 @@ event_inherited();
 var roll = irandom(199); // 0..199 inclusive
 
 if (roll < 196) {
-    sprite_index = sRock;
+	//normal sprite
 }
 else if (roll < 197) {
     sprite_index = sRock_Bone;  value = 60;

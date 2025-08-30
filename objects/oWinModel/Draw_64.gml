@@ -71,11 +71,10 @@ draw_text_transformed(b_x + b_w * 0.5, b_y + b_h * 0.5 + label_off_y, btn_text, 
 // ===== STATS BOX =====
 if (stats_show) {
     // gather values
-    var kills_s = variable_global_exists("stat_kills")        ? global.stat_kills        : 0;
-    var mined_s = variable_global_exists("stat_blocks_mined") ? global.stat_blocks_mined : 0;
-    var depth_s = variable_global_exists("stat_max_depth")    ? global.stat_max_depth    : 0;
-    var score_s = (variable_instance_exists(id, "playerInstance") && instance_exists(playerInstance))
-                  ? playerInstance.points : 0;
+    var kills_s = playerInstance.monsters_killed
+    var mined_s = playerInstance.blocks_mined;
+    var depth_s = playerInstance.max_depth
+    var score_s = playerInstance.points
 
     // split: top lines vs bottom score
     var lines_top = [
