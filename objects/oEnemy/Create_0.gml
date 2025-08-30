@@ -14,3 +14,12 @@ frameCount = 0
 
 // gibs
 gib_pieces = 6; 
+
+// HEALTH / HURT STATE
+hit_stun_max  = 12;   // frames of stun/iframes after a hit
+hurt_timer    = 0;    // counts down when hurt
+
+// KNOCKBACK
+kb_force_y    = 4;    // vertical pop when hit
+kbx           = 0;    // current horizontal knockback velocity
+

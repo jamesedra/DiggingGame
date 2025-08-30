@@ -50,7 +50,7 @@ draw_set_valign(fa_top);
 
 //draw depth
 var depthText = "Depth: " + string(y);
-draw_text_transformed(10,10,depthText, 0.25,0.25,0)
+draw_text_transformed(10,30,depthText, 0.25,0.25,0)
 
 // --- HEART BAR: top-right, fill L→R (depletes from left) ---
 hp = clamp(hp, 0, 3);
