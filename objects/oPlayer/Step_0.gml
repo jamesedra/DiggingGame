@@ -11,6 +11,12 @@ if (is_carried) {
 if (global.paused) exit; 
 //check die
 
+if (y > cave_threshold_y) crossed_cave_threshold = true
+if (y < surface_threshold_y && crossed_cave_threshold)
+{
+	open_win_modal()
+}
+
 if (hp <= 0)
 {
 	open_try_again()
@@ -18,7 +24,7 @@ if (hp <= 0)
 
 if (keyboard_check_pressed(ord("R")))
 {
-	open_win_modal();
+	open_pause_menu();
 }
 
 if (invuln > 0) invuln--;

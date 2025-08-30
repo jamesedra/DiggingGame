@@ -12,7 +12,7 @@ btn_h   = 56;
 
 anim = 0;           // 0..1 pop-in animation
 title_scale = 0.8;  // text only
-btn_scale   = 0.6;  // text only
+btn_scale   = 0.5;  // text only
 
 gap_y   = 14;       // gap between the two buttons
 margin  = 24;       // bottom margin inside panel

@@ -56,6 +56,7 @@
     {"id":{"name":"oGib","path":"objects/oGib/oGib.yy",},},
     {"id":{"name":"oGrass","path":"objects/oGrass/oGrass.yy",},},
     {"id":{"name":"oLava","path":"objects/oLava/oLava.yy",},},
+    {"id":{"name":"oMainMenu","path":"objects/oMainMenu/oMainMenu.yy",},},
     {"id":{"name":"oMimic","path":"objects/oMimic/oMimic.yy",},},
     {"id":{"name":"oPauseModel","path":"objects/oPauseModel/oPauseModel.yy",},},
     {"id":{"name":"oPlayer","path":"objects/oPlayer/oPlayer.yy",},},
@@ -69,6 +70,7 @@
     {"id":{"name":"oTryAgainModel","path":"objects/oTryAgainModel/oTryAgainModel.yy",},},
     {"id":{"name":"oWinModel","path":"objects/oWinModel/oWinModel.yy",},},
     {"id":{"name":"oWorldGen","path":"objects/oWorldGen/oWorldGen.yy",},},
+    {"id":{"name":"MainMenu","path":"rooms/MainMenu/MainMenu.yy",},},
     {"id":{"name":"World","path":"rooms/World/World.yy",},},
     {"id":{"name":"DataStructs","path":"scripts/DataStructs/DataStructs.yy",},},
     {"id":{"name":"NineSlice","path":"scripts/NineSlice/NineSlice.yy",},},
@@ -155,6 +157,7 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
+    {"roomId":{"name":"MainMenu","path":"rooms/MainMenu/MainMenu.yy",},},
     {"roomId":{"name":"World","path":"rooms/World/World.yy",},},
   ],
   "templateType":"game",
