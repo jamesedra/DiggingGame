@@ -28,8 +28,11 @@ if (keyboard_check_pressed(ord("R")))
 	open_pause_menu();
 }
 
-if (invuln > 0) invuln--;
 image_alpha = (invuln > 0 && (invuln & 2)) ? 0.5 : 1;
+if (invuln >= 100) image_blend = c_red
+else image_blend = c_white
+if (invuln > 0) invuln--;
+
 
 //tak cooldown
 if (attack_cooldown > 0) attack_cooldown--;
