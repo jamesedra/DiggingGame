@@ -4,7 +4,13 @@
   "eventList":[],
   "managed":true,
   "name":"oDrill_Red",
-  "overriddenProperties":[],
+  "overriddenProperties":[
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oDrill","path":"objects/oDrill/oDrill.yy",},"propertyId":{"name":"explosion_radius","path":"objects/oDrill/oDrill.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"36",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oDrill","path":"objects/oDrill/oDrill.yy",},"propertyId":{"name":"explosion_count","path":"objects/oDrill/oDrill.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"12",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oDrill","path":"objects/oDrill/oDrill.yy",},"propertyId":{"name":"release_push_speed","path":"objects/oDrill/oDrill.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"4",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oDrill","path":"objects/oDrill/oDrill.yy",},"propertyId":{"name":"release_up_speed","path":"objects/oDrill/oDrill.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"-4",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oDrill","path":"objects/oDrill/oDrill.yy",},"propertyId":{"name":"release_nudge","path":"objects/oDrill/oDrill.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"-6",},
+  ],
   "parent":{
     "name":"Objects",
     "path":"folders/Objects.yy",

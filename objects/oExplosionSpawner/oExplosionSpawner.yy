@@ -1,18 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"oExplosion_Small",
-  "eventList":[],
+  "%Name":"oExplosionSpawner",
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
-  "name":"oExplosion_Small",
+  "name":"oExplosionSpawner",
   "overriddenProperties":[],
   "parent":{
     "name":"Objects",
     "path":"folders/Objects.yy",
   },
-  "parentObjectId":{
-    "name":"oExplosion",
-    "path":"objects/oExplosion/oExplosion.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -30,10 +29,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"sExplosion_Small",
-    "path":"sprites/sExplosion_Small/sExplosion_Small.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

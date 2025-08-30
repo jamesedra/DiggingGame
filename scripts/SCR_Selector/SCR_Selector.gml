@@ -47,3 +47,9 @@ function select_drill(_x, _y) {
         else return oDrill_Blue;
     }
 }
+
+function select_explosion() {
+	var r =  random(100);
+	if (r < 70) return oExplosion;
+	return oExplosion_Small;
+}
