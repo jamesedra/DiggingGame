@@ -263,83 +263,110 @@ function world_zones_spawn_for_chunk(_ccol, _crow) {
 
                     var wcol = _ccol * W.chunk_w + lx;
                     var wrow = _crow * W.chunk_h + ly;
-					
-                    // tile below (for floor spawns) and tile above (for ceiling spawns)
-                    var t_below = world_get_tile(wcol, wrow + 1);
-                    var t_above = world_get_tile(wcol, wrow - 1);
 
-                    // helper: solid = not AIR and not WATER and defined
+                    // neighbor tiles
+                    var t_below = world_get_tile(wcol,     wrow + 1);
+                    var t_above = world_get_tile(wcol,     wrow - 1);
+                    var t_left  = world_get_tile(wcol - 1, wrow);
+                    var t_right = world_get_tile(wcol + 1, wrow);
+
+                    // solid checks
                     var solid_below = !is_undefined(t_below) && t_below != W.TILE_AIR && t_below != W.TILE_WATER;
                     var solid_above = !is_undefined(t_above) && t_above != W.TILE_AIR && t_above != W.TILE_WATER;
+                    var solid_left  = !is_undefined(t_left)  && t_left  != W.TILE_AIR && t_left  != W.TILE_WATER;
+                    var solid_right = !is_undefined(t_right) && t_right != W.TILE_AIR && t_right != W.TILE_WATER;
 
-                    // screen/world coordinates (center of this cell)
+                    // world-space center of this tile
                     var px = wcol * W.tileSize + (W.tileSize * 0.5);
                     var py = wrow * W.tileSize + (W.tileSize * 0.5);
-					
-					if (py < W.min_spawn_depth) continue; // spawn only after certain depth
 
-                    // Decide whether to do a ceiling spawn (if there's a solid above),
-                    // otherwise do the original floor spawn (requires solid below).
-                    var spawn_on_ceiling = solid_above;
-                    if (!spawn_on_ceiling && !solid_below) {
-                        // not ground, not ceiling -> skip
-                        continue;
-                    }
+                    if (py < W.min_spawn_depth) continue; // spawn only after certain depth
 
-                    // If you require a visual instance to be present as "ground",
-                    // check the appropriate position (above for ceiling, below for floor)
-                    if (W.zone_require_instance_ground) {
-                        if (spawn_on_ceiling) {
-                            var above_inst = noone;
-                            // prefer parent object if present
-                            if (object_exists(oBlock)) {
-                                // check center of the *tile above*
-                                above_inst = instance_position(px, py - W.tileSize, oBlock);
-                            }
-                            if (above_inst == noone && object_exists(oDirt)) {
-                                above_inst = instance_position(px, py - W.tileSize, oDirt);
-                            }
-                            if (above_inst == noone && object_exists(oRock)) {
-                                above_inst = instance_position(px, py - W.tileSize, oRock);
-                            }
-                            if (above_inst == noone) {
-                                continue; // no visual ceiling found, skip
-                            }
-                        } else {
-                            var below_inst = noone;
-                            if (object_exists(oBlock)) {
-                                below_inst = instance_position(px, py + W.tileSize, oBlock);
-                            }
-                            if (below_inst == noone && object_exists(oDirt)) {
-                                below_inst = instance_position(px, py + W.tileSize, oDirt);
-                            }
-                            if (below_inst == noone && object_exists(oRock)) {
-                                below_inst = instance_position(px, py + W.tileSize, oRock);
-                            }
-                            if (below_inst == noone) {
-                                continue; // no visual ground found, skip
-                            }
+                    // must touch at least one side (floor/ceiling/walls)
+                    if (!solid_above && !solid_below && !solid_left && !solid_right) continue;
+
+                    // ------------ RANDOM SIDE PICK (no ternaries) ------------
+                    // Collect candidate sides: 0=left, 1=right, 2=up, 3=down
+                    var sides = array_create(4);
+                    var n = 0;
+                    if (solid_left)  { sides[n] = 0; n += 1; }
+                    if (solid_right) { sides[n] = 1; n += 1; }
+                    if (solid_above) { sides[n] = 2; n += 1; }
+                    if (solid_below) { sides[n] = 3; n += 1; }
+
+                    // If you require actual visual instances on that side, filter candidates now
+                    if (W.zone_require_instance_ground && n > 0) {
+                        var f = array_create(4);
+                        var m = 0;
+                        for (var i = 0; i < n; i++) {
+                            var s = sides[i];
+                            var tx = px;
+                            var ty = py;
+                            if (s == 0)      tx -= W.tileSize;  // left
+                            else if (s == 1) tx += W.tileSize;  // right
+                            else if (s == 2) ty -= W.tileSize;  // up
+                            else if (s == 3) ty += W.tileSize;  // down
+
+                            var ok = false;
+                            if (object_exists(oBlock) && instance_position(tx, ty, oBlock) != noone) ok = true;
+                            if (!ok && object_exists(oDirt) && instance_position(tx, ty, oDirt) != noone) ok = true;
+                            if (!ok && object_exists(oRock) && instance_position(tx, ty, oRock) != noone) ok = true;
+
+                            if (ok) { f[m] = s; m += 1; }
                         }
+                        sides = f;
+                        n = m;
                     }
 
-                    // Choose spawnable depending on ceiling vs floor
+                    // Decide an anchor (-1 = none)
+                    var anchor = -1;
+                    if (n > 0) {
+                        anchor = sides[ irandom(n - 1) ];
+                    }
+                    // ---------------------------------------------------------
+
+                    // Choose spawnable depending on ceiling vs floor (your policy)
                     var inst_x = px;
                     var inst_y = py;
                     var obj_to_make = noone;
 
-                    if (spawn_on_ceiling) {
+                    if (solid_above) {
                         // ceiling spawn
                         inst_y = (wrow) * W.tileSize + (W.tileSize * 0.5);
-						obj_to_make = oStalagmite;
+                        obj_to_make = select_ceiling_obj();
                     } else {
-                        // floor spawn (original behavior)
-                        // inst_y stays as center of this tile
-                        obj_to_make = choose(oChest_Wood, oDirt, select_drill(px, py));
+                        // floor spawn
+                        obj_to_make = select_floor_obj(px, py);
                     }
 
                     if (!is_undefined(obj_to_make) && obj_to_make != noone) {
                         var inst = instance_create_layer(inst_x, inst_y, W.vis_layer, obj_to_make);
-                        if (!is_undefined(inst)) placed += 1;
+
+                        if (inst != noone) {
+                            // If this is a crystal, orient & nudge to the chosen side
+                            if (obj_to_make == oCrystal && anchor != -1) {
+                                // safe defaults, then override if set on W
+                                var off = W.tileSize * 0.25;
+                                if (variable_struct_exists(W, "crystal_attach_offset")) {
+                                    off = variable_struct_get(W, "crystal_attach_offset");
+                                }
+
+                                var base = 0; // angle that makes sprite "face RIGHT"
+                                if (variable_struct_exists(W, "crystal_face_right_angle")) {
+                                    base = variable_struct_get(W, "crystal_face_right_angle");
+                                }
+
+                                if      (anchor == 0) { inst.image_angle = -90; } // left wall
+                                else if (anchor == 1) { inst.image_angle = 90; } // right wall
+                                else if (anchor == 2) { inst.image_angle = 180; } // ceiling (up)
+                                else                  { inst.image_angle = 0; } // floor (down)
+
+                                // normalize
+                                inst.image_angle = ((inst.image_angle mod 360) + 360) mod 360;
+                            }
+
+                            placed += 1;
+                        }
                     }
                 }
 
@@ -361,5 +388,4 @@ function world_zones_spawn_for_chunk(_ccol, _crow) {
 
     ds_map_destroy(seen);
 }
-
 

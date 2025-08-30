@@ -57,6 +57,7 @@ function world_init(_cols, _rows, _tile_size, _seed, _chunk_w, _chunk_h) {
 	W.zone_min_cells		= 10;                // threshold to consider “active” (tune)
 	W.zone_cells_per_spawn	= 10;
 	W.zone_spawns_per_chunk_cap = 10;
+	W.crystal_face_right_angle = 0;
 	// Track spawns per zone
 	W.zone_spawn_goal  = ds_map_create(); // id -> target number of spawns for this zone
 	W.zone_spawn_count = ds_map_create(); // id -> how many we’ve already placed
@@ -133,12 +134,12 @@ function world_shutdown() {
 // compute per-column surface & ground rows
 function world_generate_columns() {
     var W = global.World;
-    var base_row = clamp(W.surface_base_row, 8, W.rows - 64);
+    var base_row = clamp(W.surface_base_row, 0, W.rows - 64);
 
     for (var col_i = 0; col_i < W.cols; col_i++) {
         var nVal = world_valueNoise1D(col_i, W.surface_freq, W.surface_octaves, W.seed);
         var s_row = base_row + floor((nVal - 0.5) * W.surface_amplitude);
-        s_row = clamp(s_row, 8, W.rows - 64);
+        s_row = clamp(s_row, 0, W.rows - 64);
         W.surface_heights[col_i] = s_row;
 
         var dn   = world_valueNoise1D(col_i + 9999, W.gdepth_freq, 2, W.seed + 7777);
