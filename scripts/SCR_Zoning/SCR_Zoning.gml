@@ -269,77 +269,87 @@ function world_zones_spawn_for_chunk(_ccol, _crow) {
                     var t_above = world_get_tile(wcol,     wrow - 1);
                     var t_left  = world_get_tile(wcol - 1, wrow);
                     var t_right = world_get_tile(wcol + 1, wrow);
+					var t_center = world_get_tile(wcol, wrow);
 
                     // solid checks
                     var solid_below = !is_undefined(t_below) && t_below != W.TILE_AIR && t_below != W.TILE_WATER;
                     var solid_above = !is_undefined(t_above) && t_above != W.TILE_AIR && t_above != W.TILE_WATER;
                     var solid_left  = !is_undefined(t_left)  && t_left  != W.TILE_AIR && t_left  != W.TILE_WATER;
                     var solid_right = !is_undefined(t_right) && t_right != W.TILE_AIR && t_right != W.TILE_WATER;
+					var solid_center = !is_undefined(t_center) && t_center != W.TILE_AIR && t_center != W.TILE_WATER;
 
                     // world-space center of this tile
                     var px = wcol * W.tileSize + (W.tileSize * 0.5);
                     var py = wrow * W.tileSize + (W.tileSize * 0.5);
 
                     if (py < W.min_spawn_depth) continue; // spawn only after certain depth
-
-                    // must touch at least one side (floor/ceiling/walls)
-                    if (!solid_above && !solid_below && !solid_left && !solid_right) continue;
-
-                    // ------------ RANDOM SIDE PICK (no ternaries) ------------
-                    // Collect candidate sides: 0=left, 1=right, 2=up, 3=down
-                    var sides = array_create(4);
-                    var n = 0;
-                    if (solid_left)  { sides[n] = 0; n += 1; }
-                    if (solid_right) { sides[n] = 1; n += 1; }
-                    if (solid_above) { sides[n] = 2; n += 1; }
-                    if (solid_below) { sides[n] = 3; n += 1; }
-
-                    // If you require actual visual instances on that side, filter candidates now
-                    if (W.zone_require_instance_ground && n > 0) {
-                        var f = array_create(4);
-                        var m = 0;
-                        for (var i = 0; i < n; i++) {
-                            var s = sides[i];
-                            var tx = px;
-                            var ty = py;
-                            if (s == 0)      tx -= W.tileSize;  // left
-                            else if (s == 1) tx += W.tileSize;  // right
-                            else if (s == 2) ty -= W.tileSize;  // up
-                            else if (s == 3) ty += W.tileSize;  // down
-
-                            var ok = false;
-                            if (object_exists(oBlock) && instance_position(tx, ty, oBlock) != noone) ok = true;
-                            if (!ok && object_exists(oDirt) && instance_position(tx, ty, oDirt) != noone) ok = true;
-                            if (!ok && object_exists(oRock) && instance_position(tx, ty, oRock) != noone) ok = true;
-
-                            if (ok) { f[m] = s; m += 1; }
-                        }
-                        sides = f;
-                        n = m;
-                    }
-
-                    // Decide an anchor (-1 = none)
-                    var anchor = -1;
-                    if (n > 0) {
-                        anchor = sides[ irandom(n - 1) ];
-                    }
-                    // ---------------------------------------------------------
-
-                    // Choose spawnable depending on ceiling vs floor (your policy)
+					
+					// Choose spawnable
                     var inst_x = px;
                     var inst_y = py;
                     var obj_to_make = noone;
+					// Decide an anchor (-1 = none)
+	                var anchor = -1;
 
-                    if (solid_above) {
-                        // ceiling spawn
-                        inst_y = (wrow) * W.tileSize + (W.tileSize * 0.5);
-                        obj_to_make = select_ceiling_obj();
-                    } else if (solid_below) {
-                        // floor spawn
-                        obj_to_make = select_floor_obj(px, py);
-                    } else if (solid_left || solid_right) {
-						obj_to_make = oCrystal;
+                    // if tile doesn't touch at least one side (floor/ceiling/walls), chance spawn enemy
+                    if (!solid_above && !solid_below && !solid_left && !solid_right && !solid_center) {
+						var r = random(100);
+						if (r < W.enemy_spawner_chance) obj_to_make = oEnemySpawner;
+					} else {
+					    // ------------ RANDOM SIDE PICK (no ternaries) ------------
+	                    // Collect candidate sides: 0=left, 1=right, 2=up, 3=down
+	                    var sides = array_create(4);
+	                    var n = 0;
+	                    if (solid_left)  { sides[n] = 0; n += 1; }
+	                    if (solid_right) { sides[n] = 1; n += 1; }
+	                    if (solid_above) { sides[n] = 2; n += 1; }
+	                    if (solid_below) { sides[n] = 3; n += 1; }
+
+	                    // If you require actual visual instances on that side, filter candidates now
+	                    if (W.zone_require_instance_ground && n > 0) {
+	                        var f = array_create(4);
+	                        var m = 0;
+	                        for (var i = 0; i < n; i++) {
+	                            var s = sides[i];
+	                            var tx = px;
+	                            var ty = py;
+	                            if (s == 0)      tx -= W.tileSize;  // left
+	                            else if (s == 1) tx += W.tileSize;  // right
+	                            else if (s == 2) ty -= W.tileSize;  // up
+	                            else if (s == 3) ty += W.tileSize;  // down
+
+	                            var ok = false;
+	                            if (object_exists(oBlock) && instance_position(tx, ty, oBlock) != noone) ok = true;
+	                            if (!ok && object_exists(oDirt) && instance_position(tx, ty, oDirt) != noone) ok = true;
+	                            if (!ok && object_exists(oRock) && instance_position(tx, ty, oRock) != noone) ok = true;
+
+	                            if (ok) { f[m] = s; m += 1; }
+	                        }
+	                        sides = f;
+	                        n = m;
+	                    }
+
+	                    if (n > 0) {
+	                        anchor = sides[ irandom(n - 1) ];
+	                    }
+	                    // ---------------------------------------------------------
+					
+						if (anchor != -1) {
+						    // Pick the object by the surface we’re attaching to
+						    if (anchor == 2) {
+						        // ceiling
+						        obj_to_make = select_ceiling_obj();
+						    } else if (anchor == 3) {
+						        // floor
+						        obj_to_make = select_floor_obj(px, py);
+						    } else {
+						        // left/right wall
+						        obj_to_make = oCrystal;
+						    }
+						}
 					}
+
+
 
                     if (!is_undefined(obj_to_make) && obj_to_make != noone) {
                         var inst = instance_create_layer(inst_x, inst_y, W.vis_layer, obj_to_make);

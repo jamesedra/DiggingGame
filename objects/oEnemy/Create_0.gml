@@ -23,3 +23,10 @@ hurt_timer    = 0;    // counts down when hurt
 kb_force_y    = 4;    // vertical pop when hit
 kbx           = 0;    // current horizontal knockback velocity
 
+// because I can't find why it spawns on non zones
+
+if (object_exists(oBlock) && place_meeting(x, y, oBlock)) {
+    instance_destroy();
+    exit;
+}
+alarm[0] = 1;
