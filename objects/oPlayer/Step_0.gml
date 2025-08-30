@@ -176,6 +176,8 @@ if (swing_active) {
 	            // optional: play enemy-hit SFX here
 	            audio_play_sound(Block_Break_3, 0, false);
 				spawn_block_gibs_explosive(8, 0.25); // try 1.0 (normal) to ~3.0 (wild)
+				
+				if (hp <= 0) other.monsters_killed++;
 	        }
 	    }
 }
@@ -340,3 +342,6 @@ else
 {
 	image_xscale = 1
 }
+
+//update stats
+max_depth = max(max_depth, y)

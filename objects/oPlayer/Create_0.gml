@@ -56,10 +56,10 @@ carried_by     = noone;   // instance id of the carrier
 _saved_yAccel  = undefined; // used to restore gravity-like accel
 
 // DEPTH BAR CONFIG (GUI coordinates; will be scaled)
-depthbar_x_gui   = 32;   // left padding from GUI edge
-depthbar_y_gui   = 140;  // top padding
-depthbar_h_gui   = 620;  // bar height at 1.0 scale
-depthbar_w_gui   = 36;   // bar width at 1.0 scale
+depthbar_x_gui   = 48;   // left padding from GUI edge
+depthbar_y_gui   = 300;  // top padding
+depthbar_h_gui   = 620 * 2;  // bar height at 1.0 scale
+depthbar_w_gui   = 36 * 2;   // bar width at 1.0 scale
 depthbar_pad_gui = 6;    // panel padding
 depthicon_scale_mult = 1.0; // controls the ICON size only
 
@@ -89,3 +89,6 @@ attack_dbg_x2    = 0;
 attack_dbg_y2    = 0;
 attack_dbg_color = c_aqua; // set to c_lime when we hit something
 
+//STATS
+max_depth = 0
+monsters_killed = 0

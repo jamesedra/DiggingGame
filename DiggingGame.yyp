@@ -30,6 +30,7 @@
   },
   "name":"DiggingGame",
   "resources":[
+    {"id":{"name":"Arcade24","path":"fonts/Arcade24/Arcade24.yy",},},
     {"id":{"name":"Arcade72","path":"fonts/Arcade72/Arcade72.yy",},},
     {"id":{"name":"oBackgroundController","path":"objects/oBackgroundController/oBackgroundController.yy",},},
     {"id":{"name":"oBat","path":"objects/oBat/oBat.yy",},},
@@ -131,6 +132,7 @@
     {"id":{"name":"sLavaBody","path":"sprites/sLavaBody/sLavaBody.yy",},},
     {"id":{"name":"sLavaSurface","path":"sprites/sLavaSurface/sLavaSurface.yy",},},
     {"id":{"name":"sMenu_Death","path":"sprites/sMenu_Death/sMenu_Death.yy",},},
+    {"id":{"name":"sMenu_Win","path":"sprites/sMenu_Win/sMenu_Win.yy",},},
     {"id":{"name":"sPlayer_Attack","path":"sprites/sPlayer_Attack/sPlayer_Attack.yy",},},
     {"id":{"name":"sPlayer_Idle","path":"sprites/sPlayer_Idle/sPlayer_Idle.yy",},},
     {"id":{"name":"sPlayer_Mine","path":"sprites/sPlayer_Mine/sPlayer_Mine.yy",},},
