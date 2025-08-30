@@ -1,4 +1,3 @@
-
 // drill carry
 if (is_carried) {
     // keep velocities zero while carried so they don't accumulate
@@ -20,14 +19,15 @@ if (y + 9.6 < surface_threshold_y && crossed_cave_threshold)
 
 if (hp <= 0)
 {
+	audio_play_sound(Lose_1, 0, false, 3.5 )
+	instance_destroy()
 	open_try_again()
+	exit;
 }
 
-if (keyboard_check_pressed(ord("R")))
-{
-	open_pause_menu();
+if (keyboard_check_pressed(vk_escape)) {
+    open_pause_menu();
 }
-
 image_alpha = (invuln > 0 && (invuln & 2)) ? 0.5 : 1;
 if (invuln >= 100) image_blend = c_red
 else image_blend = c_white
@@ -59,6 +59,7 @@ if (was_on_ground) {
         jump_hold_timer = 0;
         yVelocity = -jump_initial_speed;
         jumps_remaining--; // consumed the ground jump
+		audio_play_sound(Jump_1, 0, false)
     }
 }
 else
@@ -69,6 +70,7 @@ else
         jump_hold_timer = 0;
         yVelocity = -jump_initial_speed;
         jumps_remaining--; // consumed the air jump
+		audio_play_sound(Jump_1, 0, false)
 		
 		
         // spawn poof under the player
@@ -141,6 +143,25 @@ if (vsp != 0) {
     }
 }
 
+// === NEW: INSTANT PUSH-OUT SAFEGUARD IF INSIDE A BLOCK ===
+if (place_meeting(x, y, oBlock)) {
+    var max_push = 128;
+    var best = max_push + 1;
+    var dx = 0, dy = 0, d;
+
+    d = 0; while (d <= max_push && place_meeting(x + d, y, oBlock)) d++; if (d < best) { best = d; dx =  d; dy =  0; }
+    d = 0; while (d <= max_push && place_meeting(x - d, y, oBlock)) d++; if (d < best) { best = d; dx = -d; dy =  0; }
+    d = 0; while (d <= max_push && place_meeting(x, y + d, oBlock)) d++; if (d < best) { best = d; dx =  0; dy =  d; }
+    d = 0; while (d <= max_push && place_meeting(x, y - d, oBlock)) d++; if (d < best) { best = d; dx =  0; dy = -d; }
+
+    x += dx;
+    y += dy;
+
+    if (dx != 0) xVelocity = 0;
+    if (dy != 0) yVelocity = 0;
+}
+// === END NEW ===
+
 // Ground check AFTER movement (for next frame)
 var on_ground = place_meeting(x, y + 1, oBlock);
 
@@ -170,6 +191,9 @@ if (on_ground && abs(xVelocity) > 0.1) {
         d.vsp  = -0.20;                               // tiny upward drift
         d.size = random_range(1.2, 2.0);              // subtle size
         d.col  = make_color_rgb(190, 180, 160);       // soft dust tone
+
+        // --- NEW: Footstep SFX ---
+        audio_play_sound(Walk_1, 0, false, clamp(0.6 + 0.4 * (abs(xVelocity)/xVelocityMax), 0, 1));
 
         step_dust_cd = step_dust_cd_max;
     }

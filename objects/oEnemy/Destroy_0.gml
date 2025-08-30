@@ -5,6 +5,6 @@ if (slain_by_player) {
 	// Optional extra crumbs:
 	spawn_biscuit_burst(x, y, 20);
 
-	audio_play_sound(Fruit_Collect_1, 0, false)
+	audio_play_sound(Fruit_Collect_2, 0, false)
 	audio_play_sound(Block_Break_3, 0, false)
 }
