@@ -53,3 +53,17 @@ function select_explosion() {
 	if (r < 70) return oExplosion;
 	return oExplosion_Small;
 }
+
+function select_floor_obj(_x, _y) {	
+	var r = random(100);
+	if (r < 50) return oChest_Wood;
+	else if (r < 80) return oDirt;
+	else if (r < 90) return oCrystal;
+	else return select_drill(_x, _y);
+}
+
+function select_ceiling_obj() {
+	var r = random(100);
+	if (r < 80) return oStalagmite;
+	return oCrystal;
+}
