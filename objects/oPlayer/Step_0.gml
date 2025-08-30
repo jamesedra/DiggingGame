@@ -202,6 +202,9 @@ if (swing_active) {
 	    with (enemy) {
 	        // take damage only if not in iframes/stun
 	        if (hurt_timer <= 0) {
+				spawned_by.permanently_slain = true;
+				slain_by_player = true;
+				permanently_slain = true;
 	            hp = max(0, hp - 1);
 
 	            // knockback away from the player and pop upward a bit
