@@ -37,12 +37,15 @@ btn_shadow_color = make_color_rgb(0,0,0);
 btn_shadow_px    = 2;
 label_scale      = 1.0;
 
+// NEW: Back button scale (uniform; keeps sprite aspect)
+back_btn_scale   = 0.7;
+
 // Always 3 buttons
 buttons = [
     { label: "Play",      cb: function(){ room_goto(World); } },
 
-    // CHANGED: open controls overlay instead of room change
-    { label: "Controls",  cb: function(){ show_controls = true; } },
+    // Controls overlay (bound to instance so it can set show_controls)
+    { label: "Controls",  cb: method(self, function(){ self.show_controls = true; }) },
 
     { label: "Quit",      cb: function(){ game_end(); } }
 ];
@@ -54,7 +57,7 @@ sel = 0;
 kb_nav = false;
 
 // NEW: controls overlay state & back-button rect
-show_controls = true;
+show_controls = false;
 back_x1 = 0; back_y1 = 0; back_x2 = 0; back_y2 = 0;
 
 // Pre-alloc rects & cached layout

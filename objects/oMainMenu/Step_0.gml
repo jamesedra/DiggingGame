@@ -50,9 +50,6 @@ for (var i = 0; i < 3; i++) {
 
     bx1[i] = x1; by1[i] = y1; bx2[i] = x2; by2[i] = y2;
 
-    // BUGFIX: don't move `sel` based on mouse hover.
-    // if (mx >= x1 && mx <= x2 && my >= y1 && my <= y2) sel = i;  <-- removed
-
     // Track whether the mouse is currently hovering any button
     if (mx >= x1 && mx <= x2 && my >= y1 && my <= y2) any_hover = true;
 }
@@ -62,9 +59,9 @@ if (any_hover) kb_nav = false;
 
 // ---------- CONTROLS OVERLAY INPUT ----------
 if (show_controls) {
-    // Position the Back button centered along the bottom inside the panel
-    var bw = _calc_bw;
-    var bh = _calc_bh;
+    // Back button: same base as main button, scaled uniformly by back_btn_scale
+    var bw = round(_calc_bw * back_btn_scale);
+    var bh = round(_calc_bh * back_btn_scale);
     var bx = round(cx - bw * 0.5);
     var by = round(_panel_y + _panel_h - bh - _calc_gap);
 
@@ -77,7 +74,7 @@ if (show_controls) {
         }
     }
 
-    // (Optional quality-of-life) ESC closes the overlay
+    // ESC closes the overlay
     if (keyboard_check_pressed(vk_escape)) show_controls = false;
 
     // Skip normal menu activation while overlay is up
@@ -93,9 +90,8 @@ if (enter || mouse_check_button_pressed(mb_left)) {
         }
     }
     var fn = buttons[idx].cb;
-if (!is_undefined(fn)) {
-    if (!is_method(fn)) fn = method(self, fn); // bind to this instance
-    fn();
-}
-
+    if (!is_undefined(fn)) {
+        if (!is_method(fn)) fn = method(self, fn);
+        fn();
+    }
 }
