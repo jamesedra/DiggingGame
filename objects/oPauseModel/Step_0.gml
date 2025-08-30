@@ -37,10 +37,13 @@ var rest_y2 = rest_y1 + bh;
 // clicks
 if (mouse_check_button_pressed(mb_left)) {
     if (mx >= cont_x1 && mx <= cont_x2 && my >= cont_y1 && my <= cont_y2) {
+		audio_play_sound(Confirm_1, 0, false)
         instance_destroy(); // closes & unpauses in Destroy
+		
         exit;
     }
     if (mx >= rest_x1 && mx <= rest_x2 && my >= rest_y1 && my <= rest_y2) {
+		audio_play_sound(Confirm_1, 0, false)
         room_restart();
         exit;
     }

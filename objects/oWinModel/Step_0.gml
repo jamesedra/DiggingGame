@@ -34,6 +34,7 @@ var my = device_mouse_y_to_gui(0);
 // mouse click
 if (mouse_check_button_pressed(mb_left)) {
     if (mx >= bx1 && mx <= bx2 && my >= by1 && my <= by2) {
+		audio_play_sound(Confirm_1, 0, false)
         room_restart()
         instance_destroy();
         exit;
@@ -41,6 +42,7 @@ if (mouse_check_button_pressed(mb_left)) {
 }
 // Enter key
 if (keyboard_check_pressed(vk_enter)) {
+	audio_play_sound(Confirm_1, 0, false)
     if (is_method(on_confirm)) on_confirm();
     instance_destroy();
 	room_restart()

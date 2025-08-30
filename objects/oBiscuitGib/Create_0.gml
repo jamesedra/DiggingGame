@@ -3,6 +3,10 @@
 life_s   = choose(0.55, 0.65, 0.75, 0.9); // seconds to live
 t        = 0;                              // 0..1 normalized lifetime
 
+
+sprite_index = choose(sBiscuit0, sBiscuit1, sBiscuit2)
+
+
 // motion
 var spd  = random_range(2.2, 4.0);
 var dir  = irandom(359);

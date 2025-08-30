@@ -82,6 +82,7 @@ if (show_controls) {
     if (mouse_check_button_pressed(mb_left)) {
         if (mx >= back_x1 && mx <= back_x2 && my >= back_y1 && my <= back_y2) {
             show_controls = false;
+			audio_play_sound(Confirm_1, 0, false)
         }
     }
 
@@ -104,5 +105,6 @@ if (enter || mouse_check_button_pressed(mb_left)) {
     if (!is_undefined(fn)) {
         if (!is_method(fn)) fn = method(self, fn);
         fn();
+		 audio_play_sound(Confirm_1, 0, false)
     }
 }

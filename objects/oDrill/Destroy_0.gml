@@ -1,3 +1,5 @@
+audio_play_sound(Explosion_3, 0, false)
+
 var roffs = radial_offsets(explosion_count, explosion_radius, 0, explosion_jitter); // jitter 6 degrees
 var ex = spawn_explosions_from_offsets(x, y, roffs, "Instances");
 

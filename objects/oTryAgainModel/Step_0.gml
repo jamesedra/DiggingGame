@@ -47,11 +47,13 @@ var my = device_mouse_y_to_gui(0);
 if (mouse_check_button_pressed(mb_left)) {
     if (mx >= bx1 && mx <= bx2 && my >= by1 && my <= by2) {
         if (is_method(on_confirm)) on_confirm();
+		audio_play_sound(Confirm_1, 0, false)
         instance_destroy();
         exit;
     }
 }
 if (keyboard_check_pressed(vk_enter)) {
     if (is_method(on_confirm)) on_confirm();
+	audio_play_sound(Confirm_1, 0, false)
     instance_destroy();
 }

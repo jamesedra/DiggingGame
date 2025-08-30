@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sBiscuit0",
-    "path":"sprites/sBiscuit0/sBiscuit0.yy",
+    "name":"sBiscuit1",
+    "path":"sprites/sBiscuit1/sBiscuit1.yy",
   },
   "spriteMaskId":null,
   "visible":true,
