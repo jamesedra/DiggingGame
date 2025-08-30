@@ -17,7 +17,7 @@ var on_camera =
 if (on_camera) {
 	
 	// spawn the visuals no matter what
-	spawn_block_gibs(8);
+	spawn_block_gibs(5);
 
     audio_play_sound(breakSound, 0, false, 1.0);
     if (secondaryBreakSound != noone) {

@@ -1,6 +1,21 @@
 if (global.paused) exit;
 frameCount++;
 
+// INSTANT PUSH-OUT safeguard in case we ever end up inside a block
+if (place_meeting(x, y, oBlock)) {
+    var max_push = 64;
+    var best = max_push + 1;
+    var dx = 0, dy = 0, d = 0;
+
+    d = 0; while (d <= max_push && place_meeting(x + d, y, oBlock)) d++; if (d < best) { best = d; dx =  d; dy =  0; }
+    d = 0; while (d <= max_push && place_meeting(x - d, y, oBlock)) d++; if (d < best) { best = d; dx = -d; dy =  0; }
+    d = 0; while (d <= max_push && place_meeting(x, y + d, oBlock)) d++; if (d < best) { best = d; dx =  0; dy =  d; }
+    d = 0; while (d <= max_push && place_meeting(x, y - d, oBlock)) d++; if (d < best) { best = d; dx =  0; dy = -d; }
+
+    x += dx; 
+    y += dy;
+}
+
 // gravity always applies
 vsp = clamp(vsp + grav, -99, vsp_max);
 

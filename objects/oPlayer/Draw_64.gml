@@ -1,5 +1,5 @@
 if (mine_target != noone && mouse_check_button(mb_left)) {
-    var t = clamp(mine_elapsed_us / mine_target.mine_time_us, 0, 1);
+    var t = clamp(mine_target.mine_progress_us / max(1, mine_target.mine_time_us), 0, 1);
     var w = 48, hbar = 6;
     var sx = device_mouse_x_to_gui(0);
     var sy = device_mouse_y_to_gui(0) - 20;
@@ -10,6 +10,7 @@ if (mine_target != noone && mouse_check_button(mb_left)) {
     draw_set_color(c_yellow);
     draw_rectangle(sx - w/2, sy - hbar/2, sx - w/2 + w*t, sy + hbar/2, false);
 }
+
 
 
 // --- UI scale (relative to a 1920x1080 design) ---
@@ -49,7 +50,7 @@ draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 
 //draw depth
-var depthText = "Depth: " + string(y + 9.5);
+var depthText = "Depth: " + string(y + 9.6);
 draw_text_transformed(10,30,depthText, 0.25,0.25,0)
 
 // --- HEART BAR: top-right, fill L→R (depletes from left) ---
@@ -138,6 +139,31 @@ draw_rectangle(bar_x, lava_gui_y, bar_x + bar_w, bar_y + bar_h, false);
 draw_set_alpha(1);
 draw_set_color(make_color_rgb(255, 180, 60));
 draw_line(bar_x, lava_gui_y, bar_x + bar_w, lava_gui_y);
+
+// --- blinking triangle pointer when lava is rising ---
+if (instance_exists(lavaInstance) && lavaInstance.rising) {
+    var blink_on = ((current_time div 300) mod 2) == 0; // ~3.3 Hz blink
+    if (blink_on) {
+        // scalar you can control globally; default=1 keeps current dimensions
+        var tri_scale = 2;
+        if (variable_global_exists("lava_tri_scale")) tri_scale = global.lava_tri_scale;
+
+        var base_tri_w = max(8, 12 * ui_scale);
+        var base_tri_h = max(6, 10 * ui_scale);
+        var tri_w = base_tri_w * tri_scale;
+        var tri_h = base_tri_h * tri_scale;
+
+        var x_tip = 3.5 + bar_x + bar_w + 3 * ui_scale; // tip touches near the bar, points LEFT
+        var y_mid = lava_gui_y;                   // align with lava surface line
+        var x_base = x_tip + tri_w;
+        var y_top  = y_mid - tri_h * 0.5;
+        var y_bot  = y_mid + tri_h * 0.5;
+
+        draw_set_alpha(1);
+        draw_set_color(make_color_rgb(255, 0, 0));
+        draw_triangle(x_tip, y_mid, x_base, y_top, x_base, y_bot, false);
+    }
+}
 
 // (Restore whatever alpha/color you want for next draws)
 draw_set_alpha(1);

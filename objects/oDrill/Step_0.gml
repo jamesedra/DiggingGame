@@ -10,6 +10,7 @@ if (state == "idle") {
                 state = "active";
                 sprite_index = spr_active;
                 carried_player = ply;
+				ply.jumps_remaining = 1; //allow double jump after exiting
                 carry_time = 0;
 
                 // hide / zero / save vars on the player as before

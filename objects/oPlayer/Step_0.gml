@@ -11,8 +11,8 @@ if (is_carried) {
 if (global.paused) exit; 
 //check die
 
-if (y > cave_threshold_y) crossed_cave_threshold = true
-if (y < surface_threshold_y && crossed_cave_threshold)
+if (y + 9.6 > cave_threshold_y) crossed_cave_threshold = true
+if (y + 9.6 < surface_threshold_y && crossed_cave_threshold)
 {
 	open_win_modal()
 }
@@ -216,9 +216,8 @@ if (swing_active) {
 	            hurt_timer = hit_stun_max;
 	            image_blend = c_red;
 
-	            // optional: play enemy-hit SFX here
 	            audio_play_sound(Block_Break_3, 0, false);
-				spawn_block_gibs_explosive(8, 0.25); // try 1.0 (normal) to ~3.0 (wild)
+				spawn_block_gibs_explosive(4, 0.25); // try 1.0 (normal) to ~3.0 (wild)
 				
 				if (hp <= 0) other.monsters_killed++;
 	        }
@@ -312,70 +311,65 @@ if (h != noone)
 last_hover = h;
 
 
-// --- HOLD TO DESTROY ---
+// --- HOLD TO DESTROY (Terraria-style persistent progress) ---
 var left_held = mouse_check_button(mb_left);
-var can_mine  = (h != noone) && allow;  // re-use your hover + distance check
+var can_mine  = (h != noone) && allow;  // existing hover+distance check
 
-if (left_held && can_mine && !is_attacking)
-{
-	sprite_index = sPlayer_Mine
+if (left_held && can_mine && !is_attacking) {
+    sprite_index = sPlayer_Mine;
 
-    if (mine_target != h)
-	{
-        // started holding on a new block
+    if (mine_target != h) {
+        // new target under the cursor; do NOT reset progress anymore
         mine_target = h;
-        mine_elapsed_us = 0;
     }
-	else
-	{
-        // keep charging while still on the same valid block
-        mine_elapsed_us += delta_time; // delta_time is microseconds
-    }
-}
-else
-{
-    // released, moved off, or out of range -> reset
-    mine_target = noone;
-    mine_elapsed_us = 0;
 
-    if (!is_attacking) 
-	{
+    if (instance_exists(mine_target)) {
+        // accumulate progress ON THE BLOCK
+        // (If you have tool power, multiply delta_time by a speed multiplier here)
+        mine_target.mine_progress_us = clamp(
+            mine_target.mine_progress_us + delta_time,
+            0,
+            mine_target.mine_time_us
+        );
+
+        // optional: mirror to a local var if your GUI expects it
+        mine_elapsed_us = mine_target.mine_progress_us;
+    }
+} else {
+    // released / moved off / out of range / attacking:
+    // do NOT zero the block's progress—Terraria style keeps it.
+    mine_target   = noone;
+    mine_elapsed_us = 0; // purely for GUI convenience; doesn't affect block state
+
+    if (!is_attacking) {
         if (xVelocity == 0.0) sprite_index = sPlayer_Idle;
         else                  sprite_index = sPlayer_Walk_Right;
     }
 }
 
-// break when charged long enough
-if (mine_target != noone && mine_elapsed_us >= mine_target.mine_time_us) 
-{
-	
-	//reward player if applicable
-	//if (object_is_ancestor(mine_target.object_index, oChest))
-	if (mine_target.value > 0)
-	{
-		var val = mine_target.value;
+// break when the BLOCK's stored progress reaches its threshold
+if (mine_target != noone && mine_target.mine_progress_us >= mine_target.mine_time_us) {
+    // reward player if applicable
+    if (mine_target.value > 0) {
+        var val = mine_target.value;
         points += val;
-
-        // create on any instance layer; it draws in Draw GUI so layer doesn't matter
         var pop = instance_create_layer(mine_target.x, mine_target.y, "Splash", oPointsPop);
         pop.amount = val;
-	}
-	
-    with (mine_target)
-	{
-		if (variable_global_exists("World") && !is_undefined(global.World)) {
-		    // Prefer stored grid coords set at spawn; fall back to deriving from position
-		    var c = variable_instance_exists(id, "gcol") ? gcol : world_px_to_col(x);
-		    var r = variable_instance_exists(id, "grow") ? grow : world_py_to_row(y);
-		    world_on_tile_instance_mark_air(c, r);
-		}
-	    instance_destroy();
-		other.blocks_mined += 1
-	}
+    }
+
+    with (mine_target) {
+        if (variable_global_exists("World") && !is_undefined(global.World)) {
+            var c = variable_instance_exists(id, "gcol") ? gcol : world_px_to_col(x);
+            var r = variable_instance_exists(id, "grow") ? grow : world_py_to_row(y);
+            world_on_tile_instance_mark_air(c, r);
+        }
+        instance_destroy();
+        other.blocks_mined += 1;
+    }
 
     mine_target = noone;
-    last_hover = noone; // optional: clears highlight instantly
 }
+
 
 //mirror sprite?
 if (ray.x < 0)

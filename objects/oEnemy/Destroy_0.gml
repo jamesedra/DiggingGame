@@ -8,5 +8,3 @@ if (slain_by_player) {
 	audio_play_sound(Fruit_Collect_1, 0, false)
 	audio_play_sound(Block_Break_3, 0, false)
 }
-
-

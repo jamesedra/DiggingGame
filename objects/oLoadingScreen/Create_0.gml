@@ -9,3 +9,4 @@ image_index  = 0;
 image_speed  = 32 / room_speed;
 
 // (optional) add a normal Draw event with nothing in it to stop auto room-space drawing
+global.paused = true

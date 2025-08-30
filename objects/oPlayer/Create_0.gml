@@ -64,7 +64,7 @@ depthbar_y_gui   = 300;  // top padding
 depthbar_h_gui   = 620 * 2;  // bar height at 1.0 scale
 depthbar_w_gui   = 36 * 2;   // bar width at 1.0 scale
 depthbar_pad_gui = 6;    // panel padding
-depthicon_scale_mult = 1.0; // controls the ICON size only
+depthicon_scale_mult = 1.75; // controls the ICON size only
 
 depth_icon_sprite = sPlayer_Idle; // e.g., sDepthIcon
 
@@ -79,12 +79,12 @@ attack_dir           = 1;    // +1 right, -1 left
 attack_image_speed   = 1.0;  // playback speed for sPlayer_Attack (tune)
 
 // --- Attack hitbox tuning ---
-attack_hit_w       = 10;  // width of the box in front of player
+attack_hit_w       = 24;  // width of the box in front of player
 attack_hit_h       = 38;  // height of the box (around player's mid)
-attack_hit_forward = 18;  // how far in front of the player the box starts
+attack_hit_forward = 8;  // how far in front of the player the box starts
 
 // --- Debug: attack hitbox ---
-debug_attack_hitbox = 0;
+debug_attack_hitbox = false;
 attack_dbg_show  = 0;
 attack_dbg_x1    = 0;
 attack_dbg_y1    = 0;
@@ -98,6 +98,6 @@ monsters_killed = 0
 blocks_mined = 0
 
 //WINNING
-surface_threshold_y = 100
-cave_threshold_y = 200
+surface_threshold_y = 0
+cave_threshold_y = 100
 crossed_cave_threshold = false

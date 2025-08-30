@@ -13,7 +13,7 @@ kb_mult = 3.0
 frameCount = 0
 
 // gibs
-gib_pieces = 6; 
+gib_pieces = 4; 
 
 // HEALTH / HURT STATE
 hit_stun_max  = 12;   // frames of stun/iframes after a hit
@@ -24,9 +24,18 @@ kb_force_y    = 4;    // vertical pop when hit
 kbx           = 0;    // current horizontal knockback velocity
 
 // because I can't find why it spawns on non zones
+// INSTANT PUSH-OUT if spawned overlapping a block
+if (place_meeting(x, y, oBlock)) {
+    var max_push = 64;
+    var best = max_push + 1;
+    var dx = 0, dy = 0, d = 0;
 
-if (object_exists(oBlock) && place_meeting(x, y, oBlock)) {
-    instance_destroy();
-    exit;
+    d = 0; while (d <= max_push && place_meeting(x + d, y, oBlock)) d++; if (d < best) { best = d; dx =  d; dy =  0; }
+    d = 0; while (d <= max_push && place_meeting(x - d, y, oBlock)) d++; if (d < best) { best = d; dx = -d; dy =  0; }
+    d = 0; while (d <= max_push && place_meeting(x, y + d, oBlock)) d++; if (d < best) { best = d; dx =  0; dy =  d; }
+    d = 0; while (d <= max_push && place_meeting(x, y - d, oBlock)) d++; if (d < best) { best = d; dx =  0; dy = -d; }
+
+    x += dx; 
+    y += dy;
 }
 alarm[0] = 1;
