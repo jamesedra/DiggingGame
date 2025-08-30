@@ -37,21 +37,23 @@ if (spr_fill != noone) {
     draw_rectangle(vx, top, vx + vw, bottom, false);
 }
 
-// 2) Surface cap (no oscillation)
+// 2) Surface cap (tiled, time-driven frame, integer anchored)
 if (spr_surface != noone) {
-    var sw2 = sprite_get_width(spr_surface);
-    var sh2 = sprite_get_height(spr_surface);
+    var sw2   = sprite_get_width(spr_surface);
+    var sh2   = sprite_get_height(spr_surface);
+    var nfr   = sprite_get_number(spr_surface);
+    var frame = (nfr > 0) ? (floor(surface_frame) mod nfr) : 0;
 
-    var wave_y = surface_y; // <- no oscillation
+    // snap camera + surface to integers for pixel stability
+    var vx_i = floor(vx);
+    var y_i  = floor(surface_y);
 
-    var start_x2 = floor(vx / sw2) * sw2;
+    // start on a sprite-width boundary relative to the (snapped) camera
+    var start_x2 = (vx_i div sw2) * sw2;
+
     for (var xx2 = start_x2; xx2 < vx + vw + sw2; xx2 += sw2) {
-        draw_sprite(
-            spr_surface,
-            floor(image_index) mod sprite_get_number(spr_surface),
-            floor(xx2),
-            floor(wave_y) - sh2
-        );
+        draw_sprite(spr_surface, frame, xx2, y_i - sh2);
     }
 }
+
 

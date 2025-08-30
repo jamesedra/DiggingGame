@@ -19,5 +19,5 @@ btn_text = "Go!";
 // Y offsets in "design pixels" (1920×1080 baseline)
 
 title_offset_y_base       = -35;  // moves the title text
-button_offset_y_base      = 27;  // moves the whole button up/down
+button_offset_y_base      = 17;  // moves the whole button up/down
 button_text_offset_y_base = 0;  // moves the label on the button

@@ -1,8 +1,9 @@
 // --- oLava.Step ---
 var dt = delta_time / 1_000_000; // seconds
+surface_frame += surface_fps * dt; // advance animation by time, not steps
 
 // A) Constant rise
-if (rising)
+if (rising && !global.paused)
 {
 	rise_speed = min(rise_speed + rise_accel * dt, rise_speed_max);
 	surface_y -= rise_speed * dt; // up is negative Y in GM

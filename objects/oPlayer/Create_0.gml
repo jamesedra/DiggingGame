@@ -96,3 +96,8 @@ attack_dbg_color = c_aqua; // set to c_lime when we hit something
 max_depth = 0
 monsters_killed = 0
 blocks_mined = 0
+
+//WINNING
+surface_threshold_y = 100
+cave_threshold_y = 200
+crossed_cave_threshold = false

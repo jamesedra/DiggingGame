@@ -7,7 +7,7 @@ spr_button = sButton_Death;
 
 // base scalars
 panel_scale_base       = 10.0;
-button_scale_base      = 6.0;
+button_scale_base      = 8.0;
 title_text_scale_base  = 1.4;
 button_text_scale_base = 0.4;
 
@@ -19,7 +19,7 @@ btn_text = "Again?";
 
 // Y offsets in design pixels (1920x1080 baseline)
 title_offset_y_base       = -35;
-button_offset_y_base      = 27;
+button_offset_y_base      = 20;
 button_text_offset_y_base = 0;
 
 // optional callback
@@ -32,7 +32,7 @@ playerInstance.visible = false
 stats_show               = true;
 stats_rect_w_base        = 400;   // stats box width  @ scale 1
 stats_rect_h_base        = 300;   // stats box height @ scale 1
-stats_offset_y_base      = -210;    // pushes stats box down from the title
+stats_offset_y_base      = -230;    // pushes stats box down from the title
 stats_pad_base           = 12;    // inner padding
 stats_row_gap_base       = 35;     // extra vertical gap between lines
 stats_text_scale_base    = 0.42;  // stats text scale
@@ -51,5 +51,3 @@ score_gap_top_base         = 100;                        // min gap between top 
 
 // keep the stats box a minimum gap above the button? (turn off to stop coupling)
 stats_keep_gap_from_button = false; // was implicitly "true" before
-
-lavaInstance.rising = false
