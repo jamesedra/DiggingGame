@@ -47,6 +47,7 @@
     {"id":{"name":"oDrill_Yellow","path":"objects/oDrill_Yellow/oDrill_Yellow.yy",},},
     {"id":{"name":"oDrill","path":"objects/oDrill/oDrill.yy",},},
     {"id":{"name":"oEnemy","path":"objects/oEnemy/oEnemy.yy",},},
+    {"id":{"name":"oEnemySpawner","path":"objects/oEnemySpawner/oEnemySpawner.yy",},},
     {"id":{"name":"oExplosion_Small","path":"objects/oExplosion_Small/oExplosion_Small.yy",},},
     {"id":{"name":"oExplosion","path":"objects/oExplosion/oExplosion.yy",},},
     {"id":{"name":"oExplosionSpawner","path":"objects/oExplosionSpawner/oExplosionSpawner.yy",},},
