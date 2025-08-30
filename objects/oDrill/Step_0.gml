@@ -1,5 +1,6 @@
 // Interaction (start carry) when idle
 if (state == "idle") {
+	e_show = place_meeting(x, y, oPlayer);
     var ply = instance_nearest(x, y, oPlayer);
     if (ply != noone && point_distance(x, y, ply.x, ply.y) < 64) {
         if (keyboard_check_pressed(ord("E"))) {
@@ -38,6 +39,7 @@ if (state == "idle") {
 
 // Carrying logic: move up and keep player attached
 if (state == "active" && carried_player != noone) {
+	e_show = false;
     // sanity: if the player no longer exists, cleanup
     if (!instance_exists(carried_player)) {
         carried_player = noone;
