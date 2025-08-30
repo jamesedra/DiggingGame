@@ -334,10 +334,12 @@ function world_zones_spawn_for_chunk(_ccol, _crow) {
                         // ceiling spawn
                         inst_y = (wrow) * W.tileSize + (W.tileSize * 0.5);
                         obj_to_make = select_ceiling_obj();
-                    } else {
+                    } else if (solid_below) {
                         // floor spawn
                         obj_to_make = select_floor_obj(px, py);
-                    }
+                    } else if (solid_left || solid_right) {
+						obj_to_make = oCrystal;
+					}
 
                     if (!is_undefined(obj_to_make) && obj_to_make != noone) {
                         var inst = instance_create_layer(inst_x, inst_y, W.vis_layer, obj_to_make);
