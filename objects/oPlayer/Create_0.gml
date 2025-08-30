@@ -1,3 +1,4 @@
+
 //init
 window_set_size(1920, 1080)
 window_set_fullscreen(true)
@@ -101,3 +102,9 @@ blocks_mined = 0
 surface_threshold_y = 0
 cave_threshold_y = 100
 crossed_cave_threshold = false
+
+// --- walking dust (visual only) ---
+step_dust_cd = 0;
+step_dust_cd_max = 6; // frames between puffs while walking
+step_dust_offx = 6;   // horizontal offset toward facing foot
+step_dust_offy = 0;   // vertical offset from bbox_bottom

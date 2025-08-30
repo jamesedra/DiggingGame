@@ -1,3 +1,4 @@
+
 if (mine_target != noone && mouse_check_button(mb_left)) {
     var t = clamp(mine_target.mine_progress_us / max(1, mine_target.mine_time_us), 0, 1);
     var w = 48, hbar = 6;

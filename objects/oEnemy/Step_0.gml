@@ -3,7 +3,7 @@ frameCount++;
 
 // INSTANT PUSH-OUT safeguard in case we ever end up inside a block
 if (place_meeting(x, y, oBlock)) {
-    var max_push = 64;
+    var max_push = 128;
     var best = max_push + 1;
     var dx = 0, dy = 0, d = 0;
 

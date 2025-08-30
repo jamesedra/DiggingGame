@@ -34,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sSlime",
-    "path":"sprites/sSlime/sSlime.yy",
+    "name":"sSlime2",
+    "path":"sprites/sSlime2/sSlime2.yy",
   },
   "spriteMaskId":null,
   "visible":true,

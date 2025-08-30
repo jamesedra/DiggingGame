@@ -1,9 +1,9 @@
 life     = 0;
-life_max = 0.20;   // seconds on screen
+life_max = 0.40;   // seconds on screen
 puffs    = 8;      // number of squares
 
 // overall size multiplier for each square (1.0 = current size)
-poof_scale = 0.6;  // try 0.4–0.8 for smaller/chunkier puffs
+poof_scale = 0.8;  // try 0.4–0.8 for smaller/chunkier puffs
 
 
 // pixel look controls

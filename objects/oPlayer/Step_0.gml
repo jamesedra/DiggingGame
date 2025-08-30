@@ -1,3 +1,4 @@
+
 // drill carry
 if (is_carried) {
     // keep velocities zero while carried so they don't accumulate
@@ -33,6 +34,8 @@ image_alpha = (invuln > 0 && (invuln & 2)) ? 0.5 : 1;
 //tak cooldown
 if (attack_cooldown > 0) attack_cooldown--;
 
+// walking dust cooldown
+if (step_dust_cd > 0) step_dust_cd--;
 
 // gravity
 yVelocity += yAccel;
@@ -151,6 +154,23 @@ if (on_ground) {
 
 if (bbox_left < 0)            { x -= bbox_left;           xVelocity = 0; } // pull inside
 if (bbox_right > room_width)  { x -= (bbox_right - room_width); xVelocity = 0; }
+
+// --- SUBTLE WALKING DUST (spawns while moving on ground) ---
+if (on_ground && abs(xVelocity) > 0.1) {
+    if (step_dust_cd <= 0) {
+        var facing = (image_xscale >= 0) ? 1 : -1;
+        var fx = x + facing * step_dust_offx;
+        var fy = bbox_bottom - 1 + step_dust_offy;
+
+        var d = instance_create_layer(fx, fy, "Splash", oDust);
+        d.hsp  = xVelocity * 0.10;                   // small lateral drift
+        d.vsp  = -0.20;                               // tiny upward drift
+        d.size = random_range(1.2, 2.0);              // subtle size
+        d.col  = make_color_rgb(190, 180, 160);       // soft dust tone
+
+        step_dust_cd = step_dust_cd_max;
+    }
+}
 
 
 // --- RIGHT-CLICK ATTACK (hold to chain) ---
