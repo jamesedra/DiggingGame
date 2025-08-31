@@ -21,6 +21,6 @@ if (on_camera) {
 
     audio_play_sound(breakSound, 0, false, 1.0);
     if (secondaryBreakSound != noone) {
-        audio_play_sound(secondaryBreakSound, 0, false, 1.5);
+        audio_play_sound(secondaryBreakSound, 0, false, 1.0);
     }
 }

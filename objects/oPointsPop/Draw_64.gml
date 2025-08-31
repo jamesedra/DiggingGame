@@ -26,6 +26,8 @@ var txt = "+" + string(amount);
 var pct = clamp(0.25 + amount / 5000, 0, 1);
 //var mul = lerp(1.0, 0.25, pct);
 scl *= pct;
+if (is_critical) scl *= 1.25
+scl *= total_scale
 
 // Shadow
 draw_set_alpha(a * 0.6);
@@ -34,7 +36,16 @@ draw_text_transformed(sx + 2, sy + 2 + yoff, txt, scl, scl, 0);
 
 // Main
 draw_set_alpha(a);
-draw_set_color(col_main);
+if (!is_critical)
+{
+	draw_set_color(col_main);
+}
+else
+{
+	draw_set_color(choose(c_red, c_aqua, c_blue, c_green, c_lime, c_orange, c_purple, c_purple, c_yellow, c_white));
+}
+
+
 draw_text_transformed(sx, sy + yoff, txt, scl, scl, 0);
 
 // Restore

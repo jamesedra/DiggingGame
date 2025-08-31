@@ -5,5 +5,7 @@ t        = 0;        // 0..1 animation progress
 rise_gui = 40;       // how many GUI px to rise
 scale0   = 0.8;      
 scale1   = 1.1;      // slight overshoot
+total_scale = 1.0
 col_main   = c_yellow; // main text color
 col_shadow = c_black;
+is_critical = false
