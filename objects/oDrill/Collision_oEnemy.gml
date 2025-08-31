@@ -7,6 +7,8 @@ if (state == "active" && carried_player != noone) {
 
     // read enemy value safely (default 0)
     var enemy_val = variable_instance_exists(other, "value") ? other.value * random_range(0.8,1.2) : 0;
+	var crit = false
+	if (random_range(0,100) > 90) crit = true
 
     // award points to the carried player (or global fallback)
     if (variable_instance_exists(carried_player, "points")) {
@@ -20,7 +22,14 @@ if (state == "active" && carried_player != noone) {
     var ex = other.x;
     var ey = other.y;
     var pop = instance_create_layer(ex, ey, "Splash", oPointsPop);
-    if (pop != noone) pop.amount = enemy_val;
+    if (pop != noone) 
+	{
+		pop.amount = enemy_val;
+		pop.is_critical = crit
+	}
+	
+	
+	
 
     // destroy the enemy (its Destroy event runs normally)
     with (other) {

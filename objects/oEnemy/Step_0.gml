@@ -66,9 +66,13 @@ if (hp <= 0) {
     var p = instance_nearest(x, y, oPlayer);
     if (instance_exists(p)) {
 		var pts = value * random_range(0.8,1.2);   
+		var crit = (random_range(0,100) > 90)
+		if (crit) pts *= 4
+		
         p.points += pts              // uses your existing enemy 'value'
         var pop = instance_create_layer(x, y, "Splash", oPointsPop);
         pop.amount = pts;
+		pop.is_critical = crit
     }
     // optional: spawn gibs here if you have a function for it
     // spawn_enemy_gibs(gib_pieces);
