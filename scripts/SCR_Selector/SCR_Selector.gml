@@ -61,10 +61,10 @@ function select_floor_obj(_x, _y) {
 	else return select_drill(_x, _y);
 }
 
-function select_ceiling_obj() {
+function select_ceiling_obj(_x, _y) {
 	var r = random(100);
 	if (r < 80) return oStalagmite;
-	return oCrystal_Blue;
+	return select_crystal(_x, _y);
 }
 
 function select_enemy() {
@@ -96,5 +96,30 @@ function select_chest(_x, _y) {
         if (r < 1) return oChest_Wood;
         else if (r < 10) return oChest_Gold;
         else return oChest_Skull;
+    }
+}
+
+function select_crystal(_x, _y) {
+    var W = global.World;
+    // Use world rows (number of tile rows in the world)
+    var h = W.rows;
+    var t = _y / h;
+	
+    var r = random(100);
+	
+    if (t < 1/3) {
+        if (r < 90) return oCrystal_Blue;
+        else if (r < 99) return oCrystal_Purple;
+        else return oCrystal_Purple;
+    }
+    else if (t < 2/3) {
+        if (r < 10) return oCrystal_Blue;
+        else if (r < 95) return oCrystal_Purple;
+        else return oCrystal_Purple;
+    }
+    else {
+        if (r < 1) return oCrystal_Blue;
+        else if (r < 10) return oCrystal_Purple;
+        else return oCrystal_Purple;
     }
 }

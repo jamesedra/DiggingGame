@@ -44,7 +44,6 @@
     {"id":{"name":"oChest","path":"objects/oChest/oChest.yy",},},
     {"id":{"name":"oCloud","path":"objects/oCloud/oCloud.yy",},},
     {"id":{"name":"oCloudController","path":"objects/oCloudController/oCloudController.yy",},},
-    {"id":{"name":"oCrystal","path":"objects/oCrystal/oCrystal.yy",},},
     {"id":{"name":"oCrystal_Blue","path":"objects/oCrystal_Blue/oCrystal_Blue.yy",},},
     {"id":{"name":"oCrystal_Purple","path":"objects/oCrystal_Purple/oCrystal_Purple.yy",},},
     {"id":{"name":"oDirt","path":"objects/oDirt/oDirt.yy",},},

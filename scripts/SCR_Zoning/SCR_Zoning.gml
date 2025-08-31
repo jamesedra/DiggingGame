@@ -329,34 +329,61 @@ function world_zones_spawn_for_chunk(_ccol, _crow) {
 	                        n = m;
 	                    }
 
+						// Weighted pick: make left/right 15% less likely than up/down
 	                    if (n > 0) {
-	                        anchor = sides[ irandom(n - 1) ];
-	                    }
+						    // Build a parallel weights array (same length as sides)
+						    var weights = array_create(n);
+						    var total = 0;
+						    for (var i = 0; i < n; i++) {
+						        var s = sides[i];
+						        // left (0) or right (1) get reduced weight
+						        if (s == 0 || s == 1) weights[i] = 0.85;
+						        else weights[i] = 1.0; // up/down
+						        total += weights[i];
+						    }
+
+						    // safety: if total somehow zero, fallback to uniform
+						    if (total <= 0) {
+						        anchor = sides[ irandom(n - 1) ];
+						    } else {
+						        // pick a random point in [0, total)
+						        var pick = random(total);
+						        var cum = 0;
+						        anchor = -1;
+						        for (var i = 0; i < n; i++) {
+						            cum += weights[i];
+						            if (pick < cum) {
+						                anchor = sides[i];
+						                break;
+						            }
+						        }
+						        // fallback (shouldn't happen)
+						        if (anchor == -1) anchor = sides[ n - 1 ];
+						    }
+						}
 	                    // ---------------------------------------------------------
 					
 						if (anchor != -1) {
 						    // Pick the object by the surface we’re attaching to
 						    if (anchor == 2) {
 						        // ceiling
-						        obj_to_make = select_ceiling_obj();
+						        obj_to_make = select_ceiling_obj(px, py);
 						    } else if (anchor == 3) {
 						        // floor
 						        obj_to_make = select_floor_obj(px, py);
 						    } else {
 						        // left/right wall
-						        obj_to_make = oCrystal_Blue;
+						        obj_to_make = select_crystal(px, py);
 						    }
 						}
 					}
-
-
 
                     if (!is_undefined(obj_to_make) && obj_to_make != noone) {
 						var inst_layer = obj_to_make == oEnemySpawner ? "Enemies" : W.vis_layer;
                         var inst = instance_create_layer(inst_x, inst_y, inst_layer, obj_to_make);
                         if (inst != noone) {
                             // If this is a crystal, orient & nudge to the chosen side
-                            if (obj_to_make == oCrystal_Blue && anchor != -1) {
+                            if ((obj_to_make == oCrystal_Blue || obj_to_make == oCrystal_Purple) && anchor != -1) {
                                 // safe defaults, then override if set on W
                                 var off = W.tileSize * 0.25;
                                 if (variable_struct_exists(W, "crystal_attach_offset")) {
