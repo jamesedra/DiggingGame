@@ -4,15 +4,15 @@ function select_gem(_x, _y) {
     var h = W.rows;
     var t = _y / h * 10;          // use the function parameter, not `y`
 	
-	
+	show_debug_message(t)
 	
     var r = random(100);
 	
-    if (t < 1/3) {
+    if (t < 1/3 * 0.66) {
         if (r < 90) return W.TILE_GEMYELLOW;
         return W.TILE_GEMRED;
     }
-    else if (t < 2/3) {
+    else if (t < 2/3 * 0.66) {
         if (r < 5) return W.TILE_GEMYELLOW;
         else if (r < 95) return W.TILE_GEMRED;
         else return W.TILE_GEMBLUE;
