@@ -8,6 +8,8 @@ if (!variable_instance_exists(other,"collected") || !other.collected) {
 
     if (variable_instance_exists(other,"value") && other.value > 0) {
         var val = other.value * random_range(0.8,1.2);
+		var crit = (random_range(0,100) > 90)
+		if (crit) val *= 4
 
         if (instance_exists(owner_player) && variable_instance_exists(owner_player,"points"))
             owner_player.points += val;
@@ -18,7 +20,12 @@ if (!variable_instance_exists(other,"collected") || !other.collected) {
 
         // popup (use depth or your UI layer)
         var pop = instance_create_depth(other.x, other.y, -100, oPointsPop);
-        if (pop != noone) pop.amount = val;
+        if (pop != noone) 
+		{
+			pop.amount = val;
+			pop.is_critical = crit
+		}
+		
     }
 
     with (other) {
