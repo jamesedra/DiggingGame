@@ -8,17 +8,15 @@ function select_gem(_x, _y) {
 	
     if (t < 1/3) {
         if (r < 90) return W.TILE_GEMYELLOW;
-        else if (r < 99) return W.TILE_GEMRED;
-        else return W.TILE_GEMBLUE;
+        return W.TILE_GEMRED;
     }
     else if (t < 2/3) {
-        if (r < 10) return W.TILE_GEMYELLOW;
+        if (r < 5) return W.TILE_GEMYELLOW;
         else if (r < 95) return W.TILE_GEMRED;
         else return W.TILE_GEMBLUE;
     }
     else {
-        if (r < 1) return W.TILE_GEMYELLOW;
-        else if (r < 10) return W.TILE_GEMRED;
+		if (r < 10) return W.TILE_GEMRED;
         else return W.TILE_GEMBLUE;
     }
 }
@@ -33,17 +31,15 @@ function select_drill(_x, _y) {
 	
     if (t < 1/3) {
         if (r < 90) return oDrill_Yellow;
-        else if (r < 99) return oDrill_Red;
-        else return oDrill_Blue;
+        return oDrill_Red;
     }
     else if (t < 2/3) {
-        if (r < 10) return oDrill_Yellow;
+        if (r < 5) return oDrill_Yellow;
         else if (r < 95) return oDrill_Red;
         else return oDrill_Blue;
     }
     else {
-        if (r < 1) return oDrill_Yellow;
-        else if (r < 10) return oDrill_Red;
+        if (r < 10) return oDrill_Red;
         else return oDrill_Blue;
     }
 }
@@ -84,11 +80,10 @@ function select_chest(_x, _y) {
 	
     if (t < 1/3) {
         if (r < 90) return oChest_Wood;
-        else if (r < 99) return oChest_Gold;
-        else return oChest_Skull;
+        return oChest_Gold;
     }
     else if (t < 2/3) {
-        if (r < 10) return oChest_Wood;
+        if (r < 5) return oChest_Wood;
         else if (r < 95) return oChest_Gold;
         else return oChest_Skull;
     }
@@ -109,17 +104,15 @@ function select_crystal(_x, _y) {
 	
     if (t < 1/3) {
         if (r < 90) return oCrystal_Blue;
-        else if (r < 99) return oCrystal_Purple;
-        else return oCrystal_Orange;
+        return oCrystal_Purple;
     }
     else if (t < 2/3) {
-        if (r < 10) return oCrystal_Blue;
+        if (r < 5) return oCrystal_Blue;
         else if (r < 95) return oCrystal_Purple;
         else return oCrystal_Orange;
     }
     else {
-        if (r < 1) return oCrystal_Blue;
-        else if (r < 10) return oCrystal_Purple;
+        if (r < 10) return oCrystal_Purple;
         else return oCrystal_Orange;
     }
 }
