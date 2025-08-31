@@ -5,9 +5,10 @@
   "managed":true,
   "name":"oDrill_Yellow",
   "overriddenProperties":[
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oDrill","path":"objects/oDrill/oDrill.yy",},"propertyId":{"name":"spr_idle","path":"objects/oDrill/oDrill.yy",},"resource":{"name":"sDrill_Red","path":"sprites/sDrill_Red/sDrill_Red.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"sDrill_Yellow",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oDrill","path":"objects/oDrill/oDrill.yy",},"propertyId":{"name":"spr_idle","path":"objects/oDrill/oDrill.yy",},"resource":{"name":"sDrill_Yellow","path":"sprites/sDrill_Yellow/sDrill_Yellow.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"sDrill_Yellow",},
     {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oDrill","path":"objects/oDrill/oDrill.yy",},"propertyId":{"name":"spr_active","path":"objects/oDrill/oDrill.yy",},"resource":{"name":"sDrill_Yellow_Active","path":"sprites/sDrill_Yellow_Active/sDrill_Yellow_Active.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"sDrill_Yellow_Active",},
     {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oDrill","path":"objects/oDrill/oDrill.yy",},"propertyId":{"name":"carry_duration","path":"objects/oDrill/oDrill.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"120",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oDrill","path":"objects/oDrill/oDrill.yy",},"propertyId":{"name":"explosion_radius","path":"objects/oDrill/oDrill.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"26",},
   ],
   "parent":{
     "name":"Objects",
