@@ -108,3 +108,6 @@ step_dust_cd = 0;
 step_dust_cd_max = 6; // frames between puffs while walking
 step_dust_offx = 6;   // horizontal offset toward facing foot
 step_dust_offy = 0;   // vertical offset from bbox_bottom
+
+// for hiding sprites
+_hide_sprite = false; 

@@ -1,12 +1,3 @@
-// drill carry
-if (is_carried) {
-    // keep velocities zero while carried so they don't accumulate
-    xVelocity = 0;
-    yVelocity = 0;
-    // optionally we could keep facing logic, but skip the rest:
-    exit;
-}
-
 //xVelocity = 0
 if (global.paused) exit; 
 //check die
@@ -28,6 +19,16 @@ if (hp <= 0)
 if (keyboard_check_pressed(vk_escape)) {
     open_pause_menu();
 }
+
+// drill carry
+if (is_carried) {
+    // keep velocities zero while carried so they don't accumulate
+    xVelocity = 0;
+    yVelocity = 0;
+    // optionally we could keep facing logic, but skip the rest:
+    exit;
+}
+
 image_alpha = (invuln > 0 && (invuln & 2)) ? 0.5 : 1;
 if (invuln >= 100) image_blend = c_red
 else image_blend = c_white

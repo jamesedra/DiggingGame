@@ -18,3 +18,5 @@ carry_time = 0;
 e_show = false;
 e_offset_y = 14;   // how far above the drill to draw the 'E' (world pixels)
 e_scale   = 0.4;   // smaller than your banner
+
+_saved_image_speed = undefined;

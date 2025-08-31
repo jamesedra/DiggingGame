@@ -1,3 +1,33 @@
+// --- PAUSE GATE (put this at the very top of Step) ---
+if (global.paused) {
+
+    // hide any on-drill prompts while paused
+    e_show = false;
+
+    // freeze sprite animation (save + restore)
+    if (is_undefined(_saved_image_speed)) _saved_image_speed = image_speed;
+    image_speed = 0;
+
+    // if we're carrying the player, keep them glued to us
+    if (state == "active" && instance_exists(carried_player)) {
+        carried_player.x = x;
+        carried_player.y = y + carry_offset_y;
+
+        // keep them hidden & inert while paused
+        carried_player._hide_sprite = true;
+        if (variable_instance_exists(carried_player, "xVelocity")) carried_player.xVelocity = 0;
+        if (variable_instance_exists(carried_player, "yVelocity")) carried_player.yVelocity = 0;
+    }
+
+    exit; // skip the rest of Step while paused
+}
+
+// --- UNPAUSE: restore animation if we froze it ---
+if (!is_undefined(_saved_image_speed)) {
+    image_speed = _saved_image_speed;
+    _saved_image_speed = undefined;
+}
+
 // Interaction (start carry) when idle
 if (state == "idle") {
 	e_show = place_meeting(x, y, oPlayer);
@@ -14,7 +44,8 @@ if (state == "idle") {
                 carry_time = 0;
 
                 // hide / zero / save vars on the player as before
-                carried_player.visible = false;
+                // carried_player.visible = false;
+				carried_player._hide_sprite = true;
 
                 // save and disable their "gravity-like" accel (yAccel) so they don't fall
                 if (variable_instance_exists(carried_player, "yAccel")) {
@@ -77,7 +108,8 @@ if (state == "active" && carried_player != noone) {
                 carried_player.x = x;
                 carried_player.y = y + carry_offset_y + release_nudge;
 				// set player to visible
-				carried_player.visible = true;
+				// carried_player.visible = true;
+				carried_player._hide_sprite = false;
 
                 // clear carry flags
                 carried_player.is_carried = false;

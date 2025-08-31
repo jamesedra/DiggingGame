@@ -1,5 +1,5 @@
 /// Draw
-draw_self(); // keep normal sprite rendering
+if (!_hide_sprite) draw_self(); // keep normal sprite rendering
 
 if (debug_attack_hitbox && attack_dbg_show > 0) {
     // translucent fill
