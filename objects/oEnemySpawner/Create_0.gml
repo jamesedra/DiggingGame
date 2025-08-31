@@ -2,7 +2,7 @@
 event_inherited();
 
 enemy_type        = select_enemy();
-spawn_layer       = "World";   // layer name (replace with your layer id/name)
+spawn_layer       = "Enemies";   // layer name (replace with your layer id/name)
 spawn_offset_x    = 0;
 spawn_offset_y    = 0;
 
