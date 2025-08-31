@@ -110,16 +110,16 @@ function select_crystal(_x, _y) {
     if (t < 1/3) {
         if (r < 90) return oCrystal_Blue;
         else if (r < 99) return oCrystal_Purple;
-        else return oCrystal_Purple;
+        else return oCrystal_Orange;
     }
     else if (t < 2/3) {
         if (r < 10) return oCrystal_Blue;
         else if (r < 95) return oCrystal_Purple;
-        else return oCrystal_Purple;
+        else return oCrystal_Orange;
     }
     else {
         if (r < 1) return oCrystal_Blue;
         else if (r < 10) return oCrystal_Purple;
-        else return oCrystal_Purple;
+        else return oCrystal_Orange;
     }
 }

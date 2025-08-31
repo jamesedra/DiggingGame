@@ -1,11 +1,11 @@
 {
   "$GMObject":"",
-  "%Name":"oCrystal_Purple",
+  "%Name":"oCrystal",
   "eventList":[],
   "managed":true,
-  "name":"oCrystal_Purple",
+  "name":"oCrystal",
   "overriddenProperties":[
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"value","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"600",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"value","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"250",},
     {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"shouldSparkle","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"True",},
   ],
   "parent":{
@@ -13,8 +13,8 @@
     "path":"folders/Objects.yy",
   },
   "parentObjectId":{
-    "name":"oCrystal",
-    "path":"objects/oCrystal/oCrystal.yy",
+    "name":"oBlock",
+    "path":"objects/oBlock/oBlock.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -33,10 +33,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"sCrystal1",
-    "path":"sprites/sCrystal1/sCrystal1.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

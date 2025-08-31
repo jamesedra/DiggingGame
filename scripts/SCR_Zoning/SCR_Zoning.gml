@@ -383,7 +383,7 @@ function world_zones_spawn_for_chunk(_ccol, _crow) {
                         var inst = instance_create_layer(inst_x, inst_y, inst_layer, obj_to_make);
                         if (inst != noone) {
                             // If this is a crystal, orient & nudge to the chosen side
-                            if ((obj_to_make == oCrystal_Blue || obj_to_make == oCrystal_Purple) && anchor != -1) {
+                            if (object_is_ancestor(obj_to_make, oCrystal) && anchor != -1) {
                                 // safe defaults, then override if set on W
                                 var off = W.tileSize * 0.25;
                                 if (variable_struct_exists(W, "crystal_attach_offset")) {
