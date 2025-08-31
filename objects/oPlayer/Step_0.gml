@@ -386,6 +386,9 @@ if (mine_target != noone && mine_target.mine_progress_us >= mine_target.mine_tim
             var r = variable_instance_exists(id, "grow") ? grow : world_py_to_row(y);
             world_on_tile_instance_mark_air(c, r);
         }
+		if(variable_instance_exists(id, "player_break")) {
+			player_break = true;
+		}
         instance_destroy();
         other.blocks_mined += 1;
     }

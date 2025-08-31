@@ -2,7 +2,7 @@
 if (state == "idle") {
 	e_show = place_meeting(x, y, oPlayer);
     var ply = instance_nearest(x, y, oPlayer);
-    if (ply != noone && point_distance(x, y, ply.x, ply.y) < 64) {
+    if (ply != noone && e_show) {
         if (keyboard_check_pressed(ord("E"))) {
             // Try to claim the player via script (atomic)
             if (SCR_Player_TryClaim(ply, id)) {
