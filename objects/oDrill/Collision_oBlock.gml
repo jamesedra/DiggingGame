@@ -5,7 +5,7 @@ if (state == "active" && carried_player != noone && other != noone) {
     if (target != noone && instance_exists(target)) {
         // Ensure the block actually has a value field before reading it
         if (variable_instance_exists(target, "value") && target.value > 0) {
-            var val = target.value;
+            var val = target.value * random_range(0.8,1.2)
 
             // Add points to the carried_player if they track points, otherwise fallback to a global
             if (variable_instance_exists(carried_player, "points")) {

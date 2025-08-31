@@ -6,7 +6,7 @@ if (state == "active" && carried_player != noone) {
     if (!instance_exists(other)) exit; // enemy already gone
 
     // read enemy value safely (default 0)
-    var enemy_val = variable_instance_exists(other, "value") ? other.value : 0;
+    var enemy_val = variable_instance_exists(other, "value") ? other.value * random_range(0.8,1.2) : 0;
 
     // award points to the carried player (or global fallback)
     if (variable_instance_exists(carried_player, "points")) {

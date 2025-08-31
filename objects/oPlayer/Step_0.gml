@@ -398,7 +398,7 @@ if (left_held && can_mine && !is_attacking) {
 if (mine_target != noone && mine_target.mine_progress_us >= mine_target.mine_time_us) {
     // reward player if applicable
     if (mine_target.value > 0) {
-        var val = mine_target.value;
+        var val = mine_target.value * random_range(0.8,1.2);
         points += val;
         var pop = instance_create_layer(mine_target.x, mine_target.y, "Splash", oPointsPop);
         pop.amount = val;

@@ -70,6 +70,7 @@
     {"id":{"name":"oRock","path":"objects/oRock/oRock.yy",},},
     {"id":{"name":"oScreenFX","path":"objects/oScreenFX/oScreenFX.yy",},},
     {"id":{"name":"oSlime","path":"objects/oSlime/oSlime.yy",},},
+    {"id":{"name":"oSparkle","path":"objects/oSparkle/oSparkle.yy",},},
     {"id":{"name":"oStalagmite","path":"objects/oStalagmite/oStalagmite.yy",},},
     {"id":{"name":"oTimer","path":"objects/oTimer/oTimer.yy",},},
     {"id":{"name":"oTryAgainModel","path":"objects/oTryAgainModel/oTryAgainModel.yy",},},
