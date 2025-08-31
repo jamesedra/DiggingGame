@@ -58,7 +58,7 @@ function world_init(_cols, _rows, _tile_size, _seed, _chunk_w, _chunk_h) {
 	W.zone_cells_per_spawn	= 10;
 	W.zone_spawns_per_chunk_cap = 10;
 	W.crystal_face_right_angle = 0;
-	W.enemy_spawner_chance = 60;
+	W.enemy_spawner_chance = 40;
 	// Track spawns per zone
 	W.zone_spawn_goal  = ds_map_create(); // id -> target number of spawns for this zone
 	W.zone_spawn_count = ds_map_create(); // id -> how many we’ve already placed

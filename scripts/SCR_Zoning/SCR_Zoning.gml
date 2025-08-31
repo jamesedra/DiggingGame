@@ -352,8 +352,8 @@ function world_zones_spawn_for_chunk(_ccol, _crow) {
 
 
                     if (!is_undefined(obj_to_make) && obj_to_make != noone) {
-                        var inst = instance_create_layer(inst_x, inst_y, W.vis_layer, obj_to_make);
-
+						var inst_layer = obj_to_make == oEnemySpawner ? "Enemies" : W.vis_layer;
+                        var inst = instance_create_layer(inst_x, inst_y, inst_layer, obj_to_make);
                         if (inst != noone) {
                             // If this is a crystal, orient & nudge to the chosen side
                             if (obj_to_make == oCrystal && anchor != -1) {

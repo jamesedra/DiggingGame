@@ -57,7 +57,7 @@ function select_explosion() {
 function select_floor_obj(_x, _y) {	
 	var r = random(100);
 	if (r < 50) return select_chest(_x, _y);
-	else if (r < 80) return oCrystal;
+	else if (r < 70) return oCrystal;
 	else return select_drill(_x, _y);
 }
 
