@@ -5,8 +5,12 @@ if (state == "active" && carried_player != noone && other != noone) {
     if (target != noone && instance_exists(target)) {
         // Ensure the block actually has a value field before reading it
         if (variable_instance_exists(target, "value") && target.value > 0) {
+			var crit = random_range(0,100) > 90
             var val = target.value * random_range(0.8,1.2)
-
+			if (crit)
+			{
+				val *= 4
+			}
             // Add points to the carried_player if they track points, otherwise fallback to a global
             if (variable_instance_exists(carried_player, "points")) {
                 carried_player.points += val;
@@ -17,7 +21,14 @@ if (state == "active" && carried_player != noone && other != noone) {
 			
             // Create popup and assign amount to the local 'pop'
             var pop = instance_create_layer(target.x, target.y, "Splash", oPointsPop);
-            if (pop != noone) pop.amount = val;
+            if (pop != noone) 
+			{
+				pop.amount = val;
+				pop.is_critical = crit
+			}
+			
+			
+			
         }
 
         // Destroy the block safely (use 'with' to use same logic as player's mining)
