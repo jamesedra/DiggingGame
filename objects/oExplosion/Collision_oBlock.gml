@@ -7,7 +7,7 @@ if (!variable_instance_exists(other,"collected") || !other.collected) {
     other.collected = true;
 
     if (variable_instance_exists(other,"value") && other.value > 0) {
-        var val = other.value;
+        var val = other.value * random_range(0.8,1.2);
 
         if (instance_exists(owner_player) && variable_instance_exists(owner_player,"points"))
             owner_player.points += val;

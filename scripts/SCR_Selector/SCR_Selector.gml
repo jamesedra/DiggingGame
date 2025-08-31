@@ -57,14 +57,14 @@ function select_explosion() {
 function select_floor_obj(_x, _y) {	
 	var r = random(100);
 	if (r < 50) return select_chest(_x, _y);
-	else if (r < 70) return oCrystal;
+	else if (r < 70) return oCrystal_Blue;
 	else return select_drill(_x, _y);
 }
 
 function select_ceiling_obj() {
 	var r = random(100);
 	if (r < 80) return oStalagmite;
-	return oCrystal;
+	return oCrystal_Blue;
 }
 
 function select_enemy() {

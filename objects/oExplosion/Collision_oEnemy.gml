@@ -9,17 +9,18 @@ if (owner_player != noone) {
 
     // award points to the carried player (or global fallback)
     if (variable_instance_exists(owner_player, "points")) {
-        owner_player.points += enemy_val;
+		var val = enemy_val * random_range(0.8,1.2)
+        owner_player.points += val;
+		
+		// create points popup at enemy location (capture coords first)
+	    var ex = other.x;
+	    var ey = other.y;
+	    var pop = instance_create_layer(ex, ey, "Splash", oPointsPop);
+	    if (pop != noone) pop.amount = val;
     } else {
         if (!variable_global_exists("points")) global.points = 0;
         global.points += enemy_val;
     }
-
-    // create points popup at enemy location (capture coords first)
-    var ex = other.x;
-    var ey = other.y;
-    var pop = instance_create_layer(ex, ey, "Splash", oPointsPop);
-    if (pop != noone) pop.amount = enemy_val;
 
     // destroy the enemy (its Destroy event runs normally)
     with (other) {

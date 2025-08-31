@@ -65,9 +65,10 @@ if (use_kb) {
 if (hp <= 0) {
     var p = instance_nearest(x, y, oPlayer);
     if (instance_exists(p)) {
-        p.points += value;                 // uses your existing enemy 'value'
+		var pts = value * random_range(0.8,1.2);   
+        p.points += pts              // uses your existing enemy 'value'
         var pop = instance_create_layer(x, y, "Splash", oPointsPop);
-        pop.amount = value;
+        pop.amount = pts;
     }
     // optional: spawn gibs here if you have a function for it
     // spawn_enemy_gibs(gib_pieces);

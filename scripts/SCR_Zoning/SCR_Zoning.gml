@@ -344,7 +344,7 @@ function world_zones_spawn_for_chunk(_ccol, _crow) {
 						        obj_to_make = select_floor_obj(px, py);
 						    } else {
 						        // left/right wall
-						        obj_to_make = oCrystal;
+						        obj_to_make = oCrystal_Blue;
 						    }
 						}
 					}
@@ -356,7 +356,7 @@ function world_zones_spawn_for_chunk(_ccol, _crow) {
                         var inst = instance_create_layer(inst_x, inst_y, inst_layer, obj_to_make);
                         if (inst != noone) {
                             // If this is a crystal, orient & nudge to the chosen side
-                            if (obj_to_make == oCrystal && anchor != -1) {
+                            if (obj_to_make == oCrystal_Blue && anchor != -1) {
                                 // safe defaults, then override if set on W
                                 var off = W.tileSize * 0.25;
                                 if (variable_struct_exists(W, "crystal_attach_offset")) {
