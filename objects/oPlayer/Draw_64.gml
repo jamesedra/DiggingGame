@@ -1,3 +1,4 @@
+// File: Player_DrawGUI.gml
 
 if (mine_target != noone && mouse_check_button(mb_left)) {
     var t = clamp(mine_target.mine_progress_us / max(1, mine_target.mine_time_us), 0, 1);
@@ -11,7 +12,6 @@ if (mine_target != noone && mouse_check_button(mb_left)) {
     draw_set_color(c_yellow);
     draw_rectangle(sx - w/2, sy - hbar/2, sx - w/2 + w*t, sy + hbar/2, false);
 }
-
 
 
 // --- UI scale (relative to a 1920x1080 design) ---
@@ -55,7 +55,7 @@ var depthText = "Depth: " + string(y + 9.6);
 draw_text_transformed(10,30,depthText, 0.25,0.25,0)
 
 // --- HEART BAR: top-right, fill L→R (depletes from left) ---
-hp = clamp(hp, 0, 3);
+hp = clamp(hp, 0, 5);
 
 var gui_w    = display_get_gui_width();
 var gui_h    = display_get_gui_height();
@@ -65,7 +65,7 @@ var heart_w = sprite_get_width(spr_heart_full)  * hb_scale;
 var heart_h = sprite_get_height(spr_heart_full) * hb_scale;
 var gap     = hud_spacing_px * hb_scale;
 
-var count = 3;
+var count = 5;
 var stride = heart_w + gap;
 
 // Right anchor (bar hugs the right edge)

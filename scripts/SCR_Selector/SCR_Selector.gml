@@ -4,6 +4,8 @@ function select_gem(_x, _y) {
     var h = W.rows;
     var t = _y / h * 10;          // use the function parameter, not `y`
 	
+	
+	
     var r = random(100);
 	
     if (t < 1/3) {
@@ -99,6 +101,11 @@ function select_crystal(_x, _y) {
     // Use world rows (number of tile rows in the world)
     var h = W.rows;
     var t = _y / h;
+	
+	//show_debug_message("_y: " + string(_y))
+	//show_debug_message("h: " + string(h))
+	//show_debug_message("t: " + string(t))
+	//show_debug_message("")
 	
     var r = random(100);
 	

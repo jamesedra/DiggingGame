@@ -5,7 +5,7 @@ window_set_size(1920, 1080)
 window_set_fullscreen(true)
 
 //stat
-hp = 3
+hp = 5
 invuln = 0
 //show_debug_overlay(true);
 //movement
@@ -47,7 +47,7 @@ global.paused = false;
 
 //health GUI
 // --- HEART HUD (3 max, no halves) ---
-hp = clamp(hp, 0, 3);
+hp = clamp(hp, 0, 5);
 
 spr_heart_full  = sHeart_Full;   
 spr_heart_empty = sHeart_Empty; 

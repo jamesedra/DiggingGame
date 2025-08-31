@@ -2,7 +2,7 @@
 randomize();
 
 var world_cols = 2048;
-var world_rows = 4096;
+var world_rows = 5096;
 var tile_sz    = 16;
 var seed_val   = random(10000000);
 var chw        = 32;
