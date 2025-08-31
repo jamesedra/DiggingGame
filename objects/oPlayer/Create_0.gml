@@ -1,3 +1,4 @@
+// File: Player_Create.gml
 
 //init
 window_set_size(1920, 1080)
@@ -27,6 +28,8 @@ jump_hold_timer = 0;
 max_jumps       = 2;   // total jumps per airtime (1 = normal, 2 = double jump)
 jumps_remaining = max_jumps;
 
+// NEW: limit to a single mid-air jump per airtime (fix for “2 double jumps” on ledge drop)
+air_jumps_used = 0;
 
 //controller
 last_hover = noone;
@@ -99,8 +102,8 @@ monsters_killed = 0
 blocks_mined = 0
 
 //WINNING
-surface_threshold_y = 0
-cave_threshold_y = 100
+surface_threshold_y = 1
+cave_threshold_y = 175
 crossed_cave_threshold = false
 
 // --- walking dust (visual only) ---

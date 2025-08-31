@@ -51,3 +51,5 @@ score_gap_top_base         = 100;                        // min gap between top 
 
 // keep the stats box a minimum gap above the button? (turn off to stop coupling)
 stats_keep_gap_from_button = false; // was implicitly "true" before
+
+audio_play_sound(Success_1, 0, false)

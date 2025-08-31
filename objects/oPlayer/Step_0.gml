@@ -1,3 +1,5 @@
+// File: Player_Step.gml
+
 //xVelocity = 0
 if (global.paused) exit; 
 //check die
@@ -49,12 +51,29 @@ if (footstep_cd > 0) footstep_cd--;
 // gravity
 yVelocity += yAccel;
 
+// === COYOTE TIME (grace jump after stepping off) ===
+// Initialize once without needing Create event.
+if (!variable_instance_exists(id, "coyote_frames")) {
+    coyote_frames = round(0.12 * room_speed); // ~120 ms grace
+    coyote_timer  = 0;
+}
+// ================================================
+
 // --- Jump start / double jump ---
 var was_on_ground = place_meeting(x, y + 1, oBlock);
 
+// ensure fix var exists if Create didn't run
+if (!variable_instance_exists(id, "air_jumps_used")) air_jumps_used = 0;
+
 if (was_on_ground) {
+    // refresh coyote while grounded
+    coyote_timer = coyote_frames;
+
     // fully refresh while grounded
     jumps_remaining = max_jumps;
+
+    // FIX: while grounded, you have not spent any air jump this airtime
+    air_jumps_used = 0;
 
     isJumping = false;
     jump_hold_timer = 0;
@@ -70,13 +89,27 @@ if (was_on_ground) {
 }
 else
 {
-    // mid-air jump (only if you still have one)
-    if (keyboard_check_pressed(vk_space) && jumps_remaining > 0) {
+    // tick down coyote window while airborne
+    if (coyote_timer > 0) coyote_timer--;
+
+    // If pressed jump during coyote, treat as ground jump (doesn't consume your mid-air jump)
+    if (keyboard_check_pressed(vk_space) && coyote_timer > 0 && jumps_remaining > 0) {
+        isJumping = true;
+        jump_hold_timer = 0;
+        yVelocity = -jump_initial_speed;
+        jumps_remaining--;     // consume the ground jump
+        coyote_timer = 0;      // used up the grace
+        // NOTE: do NOT count this as an air jump
+		audio_play_sound(Jump_1, 0, false)
+    }
+    // Otherwise: true mid-air jump (only if you still have one) — FIX: allow only one per airtime
+    else if (keyboard_check_pressed(vk_space) && jumps_remaining > 0 && air_jumps_used < 1) {
         isJumping = true;
         jump_hold_timer = 0;
         yVelocity = -jump_initial_speed;
         jumps_remaining--; // consumed the air jump
-		audio_play_sound(Jump_1, 0, false)
+        air_jumps_used += 1;   // FIX: spend the single allowed mid-air jump
+		audio_play_sound(Jump_2, 0, false)
 		
 		
         // spawn poof under the player
@@ -172,7 +205,8 @@ if (place_meeting(x, y, oBlock)) {
 var on_ground = place_meeting(x, y + 1, oBlock);
 
 // If we walked off a ledge without using a ground jump, forfeit that jump
-if (!on_ground && was_on_ground && jumps_remaining == max_jumps) {
+// AFTER the coyote window expires (so early jumps still count as ground)
+if (!on_ground && was_on_ground && jumps_remaining == max_jumps && coyote_timer <= 0) {
     jumps_remaining = max_jumps - 1; // leaves exactly one mid-air jump
 }
 
