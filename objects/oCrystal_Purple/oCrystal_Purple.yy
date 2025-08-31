@@ -34,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sCrystal",
-    "path":"sprites/sCrystal/sCrystal.yy",
+    "name":"sCrystal1",
+    "path":"sprites/sCrystal1/sCrystal1.yy",
   },
   "spriteMaskId":null,
   "visible":true,
