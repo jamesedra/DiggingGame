@@ -7,7 +7,7 @@
   "managed":true,
   "name":"oDirt",
   "overriddenProperties":[
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"mine_time_us","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"100000",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"mine_time_us","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"150000",},
     {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"value","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"5",},
     {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"rotateRandom","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"True",},
     {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"outlineSprite","path":"objects/oBlock/oBlock.yy",},"resource":{"name":"sRock_Edges","path":"sprites/sRock_Edges/sRock_Edges.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"sRock_Edges",},

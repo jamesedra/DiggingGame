@@ -41,6 +41,11 @@ if (attack_cooldown > 0) attack_cooldown--;
 // walking dust cooldown
 if (step_dust_cd > 0) step_dust_cd--;
 
+// --- NEW: Footstep SFX cooldown controls (tweakable) ---
+if (!variable_instance_exists(id, "footstep_cd"))      footstep_cd = 0;
+if (!variable_instance_exists(id, "footstep_cd_max"))  footstep_cd_max = 12; 
+if (footstep_cd > 0) footstep_cd--;
+
 // gravity
 yVelocity += yAccel;
 
@@ -193,8 +198,18 @@ if (on_ground && abs(xVelocity) > 0.1) {
         d.size = random_range(1.2, 2.0);              // subtle size
         d.col  = make_color_rgb(190, 180, 160);       // soft dust tone
 
-        // --- NEW: Footstep SFX ---
-        audio_play_sound(Walk_1, 0, false, clamp(0.6 + 0.4 * (abs(xVelocity)/xVelocityMax), 0, 1));
+        // --- NEW: Footstep SFX (independent cooldown + slight pitch/volume variation) ---
+        if (footstep_cd <= 0) {
+            var __base_vol  = 1.3 * clamp(0.6 + 0.4 * (abs(xVelocity)/xVelocityMax), 0, 1);
+            var __step_vol  = clamp(__base_vol * random_range(0.90, 1.10), 0, 1);
+            var __step_pitch = random_range(0.9, 1.1);
+
+            var __snd = audio_play_sound(Walk_1, 0, false, __step_vol);
+            audio_sound_pitch(__snd, __step_pitch);
+            audio_sound_gain(__snd, __step_vol, 0);
+
+            footstep_cd = footstep_cd_max;
+        }
 
         step_dust_cd = step_dust_cd_max;
     }
