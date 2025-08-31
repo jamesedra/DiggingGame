@@ -27,7 +27,8 @@ if (state == "idle") {
                 // zero their velocities while attached
                 if (variable_instance_exists(carried_player, "xVelocity")) carried_player.xVelocity = 0;
                 if (variable_instance_exists(carried_player, "yVelocity")) carried_player.yVelocity = 0;
-
+				
+				audio_play_sound(Boost_1, 0, false, 3.5)
                 // (optional) debug:
                 // show_debug_message("Drill " + string(id) + " claimed player " + string(carried_player));
             } else {

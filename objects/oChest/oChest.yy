@@ -8,7 +8,7 @@
   "managed":true,
   "name":"oChest",
   "overriddenProperties":[
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"secondaryBreakSound","path":"objects/oBlock/oBlock.yy",},"resource":{"name":"Fruit_Collect_1","path":"sounds/Fruit_Collect_1/Fruit_Collect_1.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"Fruit_Collect_1",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"secondaryBreakSound","path":"objects/oBlock/oBlock.yy",},"resource":{"name":"Fruit_Collect_2","path":"sounds/Fruit_Collect_2/Fruit_Collect_2.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"Fruit_Collect_2",},
   ],
   "parent":{
     "name":"Objects",
