@@ -17,10 +17,3 @@ if (spawn_timer <= 0) {
     cl.bob_amp = cl.cloud_scale > 1.1 ? random_range(0.2, 0.9) : 0;
     cl.bob_speed = random_range(2, 10);
 }
-
-if (instance_number(oCloud) == 0) show_debug_message("No clouds exist!");
-else {
-    with (oCloud) {
-        show_debug_message("Cloud @ " + string(x) + ", " + string(y) + " sprite:" + string(sprite_index));
-    }
-}

@@ -13,8 +13,8 @@
     "path":"folders/Objects.yy",
   },
   "parentObjectId":{
-    "name":"oBlock",
-    "path":"objects/oBlock/oBlock.yy",
+    "name":"oCrystal",
+    "path":"objects/oCrystal/oCrystal.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

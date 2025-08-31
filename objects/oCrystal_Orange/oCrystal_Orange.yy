@@ -1,11 +1,11 @@
 {
   "$GMObject":"",
-  "%Name":"oCrystal_Purple",
+  "%Name":"oCrystal_Orange",
   "eventList":[],
   "managed":true,
-  "name":"oCrystal_Purple",
+  "name":"oCrystal_Orange",
   "overriddenProperties":[
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"value","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"600",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"value","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"1100",},
     {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"oBlock","path":"objects/oBlock/oBlock.yy",},"propertyId":{"name":"shouldSparkle","path":"objects/oBlock/oBlock.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"True",},
   ],
   "parent":{
@@ -34,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sCrystal1",
-    "path":"sprites/sCrystal1/sCrystal1.yy",
+    "name":"sCrystal2",
+    "path":"sprites/sCrystal2/sCrystal2.yy",
   },
   "spriteMaskId":null,
   "visible":true,
